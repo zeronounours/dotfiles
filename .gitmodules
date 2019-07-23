@@ -1,0 +1,3 @@
+[submodule "vendors/dotbot"]
+	path = vendors/dotbot
+	url = https://github.com/anishathalye/dotbot

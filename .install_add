@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+
+function usage() {
+  echo "Usage: $SCRIPT add [-h|--help] [-a|--add | -s|--set | -r|--remove]"
+  echo "                    [profiles...] [configs...]"
+  # if $1 is non empty, print long usage
+  if [ -z "$1" ]; then return; fi
+  echo "Add profiles or configs to the current host. At least one should be"
+  echo "provided."
+  echo ""
+  echo "Options:"
+  echo "    -a, --add         Add the profiles and configs to the current set"
+  echo "                      This is the default behavior"
+  echo "    -s, --set         Set the profiles and configs as the new current set,"
+  echo "                      instead of adding them to the current set"
+  echo "    -r, --remove      Remove the profiles and configs of the current set,"
+  echo "                      instead of adding them"
+  echo "    -h, --help        Display this message"
+  echo ""
+  echo "Note: Removing a profile or a config won't uninstall it. This is not"
+  echo "      currently supported by the script."
+}
+
+function run() {
+  # parse arguments
+  local action="a"
+  local -a configs
+  while [ -n "$1" ]; do
+    case "$1" in
+      -h | --help)
+        usage long
+        return;;
+      -a | --add)
+        action="a"
+        shift;;
+      -s | --set)
+        action="s"
+        shift;;
+      -r | --remove)
+        action="r"
+        shift;;
+      --* )
+        echo "$SCRIPT: invalid option: ${1:2}" >&2
+        usage
+        return 1;;
+      -* )
+        echo "$SCRIPT: invalid option: ${1:1}" >&2
+        usage
+        return 1;;
+      * )
+        configs+=("$1")
+        shift;;
+    esac
+  done
+
+  # ensure configs are given
+  if [[ ${#configs[@]} == 0 ]]; then
+    usage long
+    return 1
+  fi
+
+  # update current host
+  local -a to_load
+  case "$action" in
+    s|a)
+      if [[ "$action" == "s" ]]; then clear_current_host; fi
+      for config in "${configs[@]}"; do
+        if profile_exists "$config"; then
+          add_current_host "$config"
+          IFS=$'\n' to_load+=($(resolve_profile "$config"))
+        elif config_exists "$config"; then
+          add_current_host "$config"
+          to_load+=("$config")
+        else
+          echo "[${_ERR_RED}!${_ERR_RST}] Unknown profile or config '$config'" >&2
+          return 1
+        fi
+      done;;
+    r)
+      for config in "${configs[@]}"; do
+        remove_current_host "$config"
+      done;;
+  esac
+  # save new current host
+  save_current_host
+
+  # load new configs
+  # loaded is used to load config only once, while keeping the order
+  local -A loaded=()
+  for config in "${to_load[@]}"; do
+    if [[ ${loaded[$config]} == 1 ]]; then continue; fi
+
+    echo "[${_OUT_BLU}*${_OUT_RST}] Loading config $config"
+    if ! install_config "$config"; then
+      echo "[${_ERR_RED}!${_ERR_RST}] Error while loading config $config" >&2
+      echo "[${_ERR_RED}!${_ERR_RST}] Please fix the config file and run '$SCRIPT update'" >&2
+      return 1
+    fi
+    loaded[$config]=1
+  done
+
+}
+

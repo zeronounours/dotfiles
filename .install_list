@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+
+function usage() {
+  echo "Usage: $SCRIPT list [-h|--help] [-a|--all] [-c|--current]"
+  echo "                    [-H|--hosts] [-P|--profiles] [-C|--configs]"
+  # if $1 is non empty, print long usage
+  if [ -z "$1" ]; then return; fi
+  echo "List available hosts, profiles, configs and host configuration"
+  echo ""
+  echo "Options:"
+  echo "    -a, --all         List every piece of information. Same as -c -H -P -C"
+  echo "                      This is the default behavior"
+  echo "    -c, --current     List the current host configuration"
+  echo "    -H, --hosts       List the available hosts"
+  echo "    -P, --profiles    List the available profiles"
+  echo "    -C, --configs     List the available configs"
+  echo "    -h, --help        Display this message"
+}
+
+function run() {
+  # parse arguments
+  local current=0 hosts=0 profiles=0 configs=0
+  while [ -n "$1" ]; do
+    case "$1" in
+      -h | --help)
+        usage long
+        return;;
+      -a | --all)
+        current=1 hosts=1 profiles=1 configs=1
+        shift;;
+      -c | --current)
+        current=1
+        shift;;
+      -H | --hosts)
+        hosts=1
+        shift;;
+      -P | --profiles)
+        profiles=1
+        shift;;
+      -C | --configs)
+        configs=1
+        shift;;
+      --* )
+        echo "$SCRIPT: invalid option: ${1:2}" >&2
+        usage
+        return 1;;
+      -* )
+        echo "$SCRIPT: invalid option: ${1:1}" >&2
+        usage
+        return 1;;
+      * )
+        echo "$SCRIPT: invalid argument: ${1}" >&2
+        usage
+        return 1;;
+    esac
+  done
+
+  # defaults to all
+  if [[ $current == 0 && $hosts == 0 && $profiles == 0 && $configs == 0 ]]; then
+        current=1 hosts=1 profiles=1 configs=1
+  fi
+
+  local sep=""
+  if [[ $current == 1 ]]; then
+    echo "${sep}Current configuration:"
+    get_current_host | sed -nr "s/^([^#].*)$/  - \1/p"
+    sep=$'\n'
+  fi
+
+  if [[ $hosts == 1 ]]; then
+    echo "${sep}Available hosts:"
+    list_host_files | sed -nr "s/^([^#].*)$/  - \1/p"
+    sep=$'\n'
+  fi
+
+  if [[ $profiles == 1 ]]; then
+    echo "${sep}Available profiles:"
+    list_profile_files | sed -nr "s/^([^#].*)$/  - \1/p"
+    sep=$'\n'
+  fi
+
+  if [[ $configs == 1 ]]; then
+    echo "${sep}Available configs:"
+    list_config_files | sed -nr "s/^([^#].*)$/  - \1/p"
+    sep=$'\n'
+  fi
+}
+

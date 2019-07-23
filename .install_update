@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+function usage() {
+  echo "Usage: $SCRIPT update [-h|--help]"
+  # if $1 is non empty, print long usage
+  if [ -z "$1" ]; then return; fi
+  echo "Reload all profiles and configs of the current host"
+  echo ""
+  echo "Options:"
+  echo "    -h, --help        Display this message"
+}
+
+function run() {
+  # parse arguments
+  while [ -n "$1" ]; do
+    case "$1" in
+      -h | --help)
+        usage long
+        return;;
+      --* )
+        echo "$SCRIPT: invalid option: ${1:2}" >&2
+        usage
+        return 1;;
+      -* )
+        echo "$SCRIPT: invalid option: ${1:1}" >&2
+        usage
+        return 1;;
+      * )
+        echo "$SCRIPT: invalid argument: ${1}" >&2
+        usage
+        return 1;;
+    esac
+  done
+
+  # update current host
+  local -a to_load
+  while IFS= read -r config; do
+    if profile_exists "$config"; then
+      IFS=$'\n' to_load+=($(resolve_profile "$config"))
+    elif config_exists "$config"; then
+      to_load+=("$config")
+    else
+      echo "[${_ERR_RED}!${_ERR_RST}] Unknown profile or config '$config'" >&2
+      return 1
+    fi
+  done <<<"$(get_current_host)"
+
+  # load all configs
+  # loaded is used to load config only once, while keeping the order
+  local -A loaded=()
+  for config in "${to_load[@]}"; do
+    if [[ ${loaded[$config]} == 1 ]]; then continue; fi
+
+    echo "[${_OUT_BLU}*${_OUT_RST}] Loading config $config"
+    if ! install_config "$config"; then
+      echo "[${_ERR_RED}!${_ERR_RST}] Error while loading config $config" >&2
+      echo "[${_ERR_RED}!${_ERR_RST}] Please fix the config file and run '$SCRIPT update'" >&2
+      return 1
+    fi
+    loaded[$config]=1
+  done
+
+}
+

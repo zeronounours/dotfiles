@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+set -e
+SCRIPT="$(basename "$0")"
+
+DIRNAME="$(dirname "${BASH_SOURCE[0]}")"
+source "$DIRNAME/.install"
+
+function usage() {
+  echo "Usage: $SCRIPT [-h|--help] <command> [<args>]"
+  # if $1 is non empty, print long usage
+  if [ -z "$1" ]; then return; fi
+  echo ""
+  echo "Commands:"
+  echo "    list      list profiles or configurations"
+  echo "    add       Add or remove profiles or configurations to the current host"
+  echo "    update    Reload profiles and configurations of the current host"
+  echo "    host      Manage host configurations"
+  echo "    help      Get help on commands"
+  echo ""
+  echo "Options:"
+  echo "    -h, --help        Display this message"
+}
+
+function main() {
+  # Ensure the workspace is initialized
+  initialize_workspace
+
+  # parse arguments
+  local cmd=""
+  while [ -n "$1" ]; do
+    case "$1" in
+      -h | --help)
+        usage long
+        return;;
+      list | add | update | host | help)
+        cmd="$1"
+        shift
+        break;;
+      --* )
+        echo "$SCRIPT: invalid option: ${1:2}" >&2
+        usage
+        return 1;;
+      -* )
+        echo "$SCRIPT: invalid option: ${1:1}" >&2
+        usage
+        return 1;;
+      * )
+        echo "$SCRIPT: invalid command: ${1}" >&2
+        usage
+        return 1;;
+    esac
+  done
+  if [[ "x$cmd" == "x" ]]; then
+    usage long
+    return 1
+  fi
+
+  # load the subcommand and run it
+  source "$DIRNAME/.install_$cmd"
+  run "$@"
+}
+
+main "$@"
+

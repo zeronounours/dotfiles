@@ -1,0 +1,115 @@
+#!/usr/bin/env bash
+
+function usage() {
+  echo "Usage: $SCRIPT host [-h|--help] [-s|--save] [-a|--append] {-l|--list|<host>}"
+  # if $1 is non empty, print long usage
+  if [ -z "$1" ]; then return; fi
+  echo "Restore saved hosts, save new hosts or list hosts"
+  echo ""
+  echo "Options:"
+  echo "    -s, --save        Save the current host to the given host name"
+  echo "    -a, --append      Append the host configuration to the current host"
+  echo "                      instead of replacing it"
+  echo "    -l, --list        Print the list of available hosts and exit"
+  echo "    -h, --help        Display this message"
+}
+
+function run() {
+  # parse arguments
+  local save=0
+  local append=0
+  local host=""
+  while [ -n "$1" ]; do
+    case "$1" in
+      -h | --help)
+        usage long
+        return;;
+      -s | --save)
+        save=1
+        shift;;
+      -a | --append)
+        append=1
+        shift;;
+      -l | --list)
+        list_host_files
+        return;;
+      --* )
+        echo "$SCRIPT: invalid option: ${1:2}" >&2
+        usage
+        return 1;;
+      -* )
+        echo "$SCRIPT: invalid option: ${1:1}" >&2
+        usage
+        return 1;;
+      * )
+        if [[ "x$host" == "x" ]]; then
+          host="$1"
+        else
+          echo "$SCRIPT: invalid argument: ${1}" >&2
+          usage
+          return 1
+        fi
+        shift;;
+    esac
+  done
+
+  # ensure host is givent
+  if [[ "x$host" == "x" ]]; then
+    usage long
+    return 1
+  fi
+
+  if [[ $save == 1 ]]; then
+    save_host "$host"
+  else
+    run_restore_host "$host" "$append"
+  fi
+}
+
+function run_restore_host() {
+  local host="$1"
+  local append="$2"
+
+  # ensure host exist
+  if ! host_exists "$host"; then
+    echo "[${_ERR_RED}!${_ERR_RST}] Unknown host '$host'" >&2
+    return 1
+  fi
+
+  # restore the host in current host
+  if [[ $append == 1 ]]; then
+    load_current_host
+  else
+    clear_current_host
+  fi
+  load_host "$host"
+  save_current_host
+
+  # update current host
+  local -a to_load
+  while IFS= read -r config; do
+    if profile_exists "$config"; then
+      IFS=$'\n' to_load+=($(resolve_profile "$config"))
+    elif config_exists "$config"; then
+      to_load+=("$config")
+    else
+      echo "[${_ERR_RED}!${_ERR_RST}] Unknown profile or config '$config'" >&2
+      return 1
+    fi
+  done <<<"$(get_current_host)"
+
+  # load all configs
+  # loaded is used to load config only once, while keeping the order
+  local -A loaded=()
+  for config in "${to_load[@]}"; do
+    if [[ ${loaded[$config]} == 1 ]]; then continue; fi
+
+    echo "[${_OUT_BLU}*${_OUT_RST}] Loading config $config"
+    if ! install_config "$config"; then
+      echo "[${_ERR_RED}!${_ERR_RST}] Error while loading config $config" >&2
+      echo "[${_ERR_RED}!${_ERR_RST}] Please fix the config file and run '$SCRIPT update'" >&2
+      return 1
+    fi
+    loaded[$config]=1
+  done
+}

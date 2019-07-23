@@ -1,0 +1,272 @@
+#!/usr/bin/env bash
+
+
+BASE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BASE_HOSTS="$BASE/meta/hosts"
+BASE_PROFILES="$BASE/meta/profiles"
+BASE_CONFIGS="$BASE/meta/configs"
+
+###
+# Color management
+###
+_RST=$'\x1b'"[0m"; _BLD=$'\x1b'"[1m"; _BCK=$'\x1b'"[30m"
+_RED=$'\x1b'"[31m"; _GRN=$'\x1b'"[32m"; _BRW=$'\x1b'"[33m"
+_BLU=$'\x1b'"[34m"; _MTA=$'\x1b'"[35m"; _CYN=$'\x1b'"[36m"
+
+if [ -t 1 ]; then
+  # stdout is a terminal
+  _OUT_RST="$_RST"; _OUT_BLD="$_BLD"; _OUT_BCK="$_BCK"
+  _OUT_RED="$_RED"; _OUT_GRN="$_GRN"; _OUT_BRW="$_BRW"
+  _OUT_BLU="$_BLU"; _OUT_MTA="$_MTA"; _OUT_CYN="$_CYN"
+else
+  # stdout is not a terminal
+  _OUT_RST=""; _OUT_BLD=""; _OUT_BCK=""
+  _OUT_RED=""; _OUT_GRN=""; _OUT_BRW=""
+  _OUT_BLU=""; _OUT_MTA=""; _OUT_CYN=""
+fi
+
+if [ -t 2 ]; then
+  # stderr is a terminal
+  _ERR_RST="$_RST"; _ERR_BLD="$_BLD"; _ERR_BCK="$_BCK"
+  _ERR_RED="$_RED"; _ERR_GRN="$_GRN"; _ERR_BRW="$_BRW"
+  _ERR_BLU="$_BLU"; _ERR_MTA="$_MTA"; _ERR_CYN="$_CYN"
+else
+  # stderr is not a terminal
+  _ERR_RST=""; _ERR_BLD=""; _ERR_BCK=""
+  _ERR_RED=""; _ERR_GRN=""; _ERR_BRW=""
+  _ERR_BLU=""; _ERR_MTA=""; _ERR_CYN=""
+fi
+
+###
+# Base functions
+###
+
+function initialize_workspace() {
+  # the current host file is used to keep track of initialized workspaces
+  local file="$(get_current_host_file)"
+  if ! [[ -f "$file" ]]; then
+    # load submodules
+    (
+      cd "$BASE"
+      git submodule update --init --recursive --remote
+    )
+    # create meta directories
+    mkdir -p "$BASE_HOSTS" "$BASE_PROFILES" "$BASE_CONFIGS"
+    # create an empty current host file
+    save_current_host
+  fi
+}
+
+###
+# HOST MANAGEMENT
+###
+function get_host_file() {
+  echo "$BASE_HOSTS/$1"
+}
+
+function list_host_files() {
+  ls "$BASE_HOSTS"
+}
+
+function host_exists() {
+  local host="$1"
+  local file="$(get_host_file "$host")"
+  if ! [[ -f "$file" && -r "$file" ]]; then
+    return 1
+  fi
+}
+
+function load_host() {
+  local host="$1"
+  local file="$(get_host_file "$host")"
+
+  if ! host_exists "$host"; then
+    echo "[${_ERR_RED}!${_ERR_RST}] Unknown host '$host'" >&2
+    return 1
+  fi
+
+  load_host_file "$file"
+  __current_host_init=1
+}
+
+function save_host() {
+  local host="$1"
+  local file="$(get_host_file "$host")"
+
+  if host_exists "$hosts"; then
+      echo "[${_OUT_BRW}i${_OUT_RST}] File of host '$host' will be overridden"
+  fi
+
+  # update file with current file
+  get_current_host > "$file"
+
+  # commit
+  ( cd "$BASE"
+    git add "$file"
+    git commit \
+      --message "Automated commit: Update of host '$host' on $(date "+%Y-%m-%d %H:%M:%S")" \
+      -- "$file"
+  )
+
+  echo "[${_OUT_BLU}*${_OUT_RST}] Host '$host' saved and committed"
+}
+
+
+###
+# CURRENT HOST MANAGEMENT$BASE
+###
+function get_current_host_file() {
+  echo "$BASE/.current"
+}
+
+declare __current_host=""
+declare __current_host_init=0
+
+
+function load_host_file() {
+  local file="$1"
+  if [[ -f "$file" && -r "$file" ]]; then
+    while IFS= read -r line; do
+      # skip comments
+      if [[ "$line" == "#"* ]]; then continue; fi
+
+        # resolve profiles & config
+        if profile_exists "$line" || config_exists "$line"; then
+          if ! grep -x -q "$line" <<<"$__current_host"; then
+            __current_host+="$line"$'\n'
+          fi
+        else
+          echo "[${_ERR_RED}!${_ERR_RST}] Invalid profile or config in host: $line" >&2
+          return 1
+        fi
+      done <"$file"
+    elif [[ -e "$file" ]]; then
+      echo "[${_ERR_RED}!${_ERR_RST}] $file exists but is not readable" >&2
+      return 1
+    fi
+}
+
+function load_current_host() {
+  if [[ $__current_host_init == 0 ]]; then
+    local file="$(get_current_host_file)"
+    load_host_file "$file"
+    __current_host_init=1
+  fi
+}
+
+function get_current_host() {
+  load_current_host
+  echo -n "$__current_host"
+}
+
+function clear_current_host() {
+  __current_host=""
+  __current_host_init=1
+}
+
+function add_current_host() {
+  load_current_host
+  local config="$1"
+  # only add if not already in it
+  if ! grep -x -q "$config" <<<"$__current_host"; then
+    __current_host+="$config"$'\n'
+  fi
+}
+
+function remove_current_host() {
+  load_current_host
+  local config="$1"
+  # we need to manually append with newline because shell substitution will
+  # strip it
+  __current_host="$(grep -x -v "$config" <<<"$__current_host")"$'\n'
+}
+
+function save_current_host() {
+  local file="$(get_current_host_file)"
+  if [[ -e "$file" && (! -f "$file" || ! -w "$file") ]]; then
+    echo "[${_ERR_RED}!${_ERR_RST}] Cannot save current configuration to $file" >&2
+    return 1
+  fi
+  echo "# This is a managed file. It should not be updated manually" >"$file"
+  echo -n "$__current_host" >>"$file"
+}
+
+
+###
+# PROFILE MANAGEMENT
+###
+function get_profile_file() {
+  echo "$BASE_PROFILES/$1"
+}
+
+function list_profile_files() {
+  ls "$BASE_PROFILES"
+}
+
+function profile_exists() {
+  local profile="$1"
+  local file="$(get_profile_file "$profile")"
+  if ! [[ -f "$file" && -r "$file" ]]; then
+    return 1
+  fi
+}
+
+function resolve_profile() {
+  local profile="$1"
+  local -a configs
+
+  while IFS= read -r line; do
+    # skip comments
+    if [[ "$line" == "#"* ]]; then continue; fi
+
+    # resolve config
+    if config_exists "$line"; then
+      configs+=("$line")
+    else
+      echo "[${_ERR_RED}!${_ERR_RST}] Invalid config in profile '$profile': $line" >&2
+      return 1
+    fi
+  done < "$(get_profile_file "$profile")"
+  (IFS=$'\n'; echo "${configs[*]}")
+}
+
+###
+# CONFIG MANAGEMENT
+###
+function get_config_file() {
+  echo "$BASE_CONFIGS/$1.yaml"
+}
+
+function list_config_files() {
+  ls "$BASE_CONFIGS/" | sed -nr 's/\.yaml$//p'
+}
+
+function config_exists() {
+  local config="$1"
+  local file="$(get_config_file "$config")"
+  if ! [[ -f "$file" && -r "$file" ]]; then
+    return 1
+  fi
+}
+
+function install_config() {
+  local config="$1"
+  local base_file="$BASE/meta/base.yaml"
+  local source_file="$(get_config_file "$config")"
+
+  local config_file="$(mktemp)"
+
+  [[ -f "$base_file" && -r "$base_file" ]] && echo "$(<"$base_file")" >> "$config_file"
+  echo "$(<"$source_file")" >> "$config_file"
+
+  "$BASE/vendors/dotbot/bin/dotbot" \
+    --base-directory "$BASE/dotfiles" \
+    --config-file "$config_file" \
+    --plugin-dir "$BASE/plugins"
+  local exitcode=$?
+
+  rm -f "$config_file"
+
+  return $exitcode
+}
+
