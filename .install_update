@@ -7,16 +7,23 @@ function usage() {
   echo "Reload all profiles and configs of the current host"
   echo ""
   echo "Options:"
-  echo "    -h, --help        Display this message"
+  echo "    -Q, --super-quiet   Suppress almost all output"
+  echo "    -q, --quiet         Suppress most output"
+  echo "    -v, --verbose       Enable verbose output"
+  echo "    -h, --help          Display this message"
 }
 
 function run() {
   # parse arguments
+  local verbose=""
   while [ -n "$1" ]; do
     case "$1" in
       -h | --help)
         usage long
         return;;
+      -q | --quiet | -Q | --super-quiet | -v | --verbose)
+        verbose="$1"
+        shift;;
       --* )
         echo "$SCRIPT: invalid option: ${1:2}" >&2
         usage
@@ -52,7 +59,7 @@ function run() {
     if [[ ${loaded[$config]} == 1 ]]; then continue; fi
 
     echo "[${_OUT_BLU}*${_OUT_RST}] Loading config $config"
-    if ! install_config "$config"; then
+    if ! install_config "$config" $verbose; then
       echo "[${_ERR_RED}!${_ERR_RST}] Error while loading config $config" >&2
       echo "[${_ERR_RED}!${_ERR_RST}] Please fix the config file and run '$SCRIPT update'" >&2
       return 1

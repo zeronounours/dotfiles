@@ -7,17 +7,21 @@ function usage() {
   echo "Restore saved hosts, save new hosts or list hosts"
   echo ""
   echo "Options:"
-  echo "    -s, --save        Save the current host to the given host name"
-  echo "    -a, --append      Append the host configuration to the current host"
-  echo "                      instead of replacing it"
-  echo "    -l, --list        Print the list of available hosts and exit"
-  echo "    -h, --help        Display this message"
+  echo "    -s, --save          Save the current host to the given host name"
+  echo "    -a, --append        Append the host configuration to the current host"
+  echo "                        instead of replacing it"
+  echo "    -l, --list          Print the list of available hosts and exit"
+  echo "    -Q, --super-quiet   Suppress almost all output"
+  echo "    -q, --quiet         Suppress most output"
+  echo "    -v, --verbose       Enable verbose output"
+  echo "    -h, --help          Display this message"
 }
 
 function run() {
   # parse arguments
   local save=0
   local append=0
+  local verbose=""
   local host=""
   while [ -n "$1" ]; do
     case "$1" in
@@ -33,6 +37,9 @@ function run() {
       -l | --list)
         list_host_files
         return;;
+      -q | --quiet | -Q | --super-quiet | -v | --verbose)
+        verbose="$1"
+        shift;;
       --* )
         echo "$SCRIPT: invalid option: ${1:2}" >&2
         usage
@@ -105,7 +112,7 @@ function run_restore_host() {
     if [[ ${loaded[$config]} == 1 ]]; then continue; fi
 
     echo "[${_OUT_BLU}*${_OUT_RST}] Loading config $config"
-    if ! install_config "$config"; then
+    if ! install_config "$config" $verbose; then
       echo "[${_ERR_RED}!${_ERR_RST}] Error while loading config $config" >&2
       echo "[${_ERR_RED}!${_ERR_RST}] Please fix the config file and run '$SCRIPT update'" >&2
       return 1

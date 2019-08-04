@@ -9,13 +9,16 @@ function usage() {
   echo "provided."
   echo ""
   echo "Options:"
-  echo "    -a, --add         Add the profiles and configs to the current set"
-  echo "                      This is the default behavior"
-  echo "    -s, --set         Set the profiles and configs as the new current set,"
-  echo "                      instead of adding them to the current set"
-  echo "    -r, --remove      Remove the profiles and configs of the current set,"
-  echo "                      instead of adding them"
-  echo "    -h, --help        Display this message"
+  echo "    -a, --add           Add the profiles and configs to the current set"
+  echo "                        This is the default behavior"
+  echo "    -s, --set           Set the profiles and configs as the new current set,"
+  echo "                        instead of adding them to the current set"
+  echo "    -r, --remove        Remove the profiles and configs of the current set,"
+  echo "                        instead of adding them"
+  echo "    -Q, --super-quiet   Suppress almost all output"
+  echo "    -q, --quiet         Suppress most output"
+  echo "    -v, --verbose       Enable verbose output"
+  echo "    -h, --help          Display this message"
   echo ""
   echo "Note: Removing a profile or a config won't uninstall it. This is not"
   echo "      currently supported by the script."
@@ -24,6 +27,7 @@ function usage() {
 function run() {
   # parse arguments
   local action="a"
+  local verbose=""
   local -a configs
   while [ -n "$1" ]; do
     case "$1" in
@@ -38,6 +42,9 @@ function run() {
         shift;;
       -r | --remove)
         action="r"
+        shift;;
+      -q | --quiet | -Q | --super-quiet | -v | --verbose)
+        verbose="$1"
         shift;;
       --* )
         echo "$SCRIPT: invalid option: ${1:2}" >&2
@@ -91,7 +98,7 @@ function run() {
     if [[ ${loaded[$config]} == 1 ]]; then continue; fi
 
     echo "[${_OUT_BLU}*${_OUT_RST}] Loading config $config"
-    if ! install_config "$config"; then
+    if ! install_config "$config" $verbose; then
       echo "[${_ERR_RED}!${_ERR_RST}] Error while loading config $config" >&2
       echo "[${_ERR_RED}!${_ERR_RST}] Please fix the config file and run '$SCRIPT update'" >&2
       return 1

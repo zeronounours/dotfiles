@@ -251,21 +251,39 @@ function config_exists() {
 
 function install_config() {
   local config="$1"
+  shift
   local base_file="$BASE/meta/base.yaml"
+  local end_file="$BASE/meta/end.yaml"
   local source_file="$(get_config_file "$config")"
 
-  local config_file="$(mktemp)"
+  # remove previously generated configs
+  for f in /tmp/dotfiles.cfg.??????.yaml; do
+    if [[ -f "$f" ]]; then
+      rm -f "$f"
+    fi
+  done
+  local config_file="$(mktemp -p "/tmp" "dotfiles.cfg.XXXXXX.yaml")"
 
-  [[ -f "$base_file" && -r "$base_file" ]] && echo "$(<"$base_file")" >> "$config_file"
+  # create the temporary config file
+  if [[ -f "$base_file" && -r "$base_file" ]]; then
+    echo "$(<"$base_file")" >> "$config_file"
+  fi
   echo "$(<"$source_file")" >> "$config_file"
+  if [[ -f "$end_file" && -r "$end_file" ]]; then
+    echo "$(<"$end_file")" >> "$config_file"
+  fi
 
   "$BASE/vendors/dotbot/bin/dotbot" \
     --base-directory "$BASE/dotfiles" \
     --config-file "$config_file" \
-    --plugin-dir "$BASE/plugins"
+    --plugin-dir "$BASE/plugins" \
+    "$@"
   local exitcode=$?
 
-  rm -f "$config_file"
+  # remove file if all went well
+  if [[ $exitcode == 0 ]]; then
+    rm -f "$config_file"
+  fi
 
   return $exitcode
 }
