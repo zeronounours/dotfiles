@@ -4,7 +4,7 @@ set -e
 SCRIPT="$(basename "$0")"
 
 DIRNAME="$(dirname "${BASH_SOURCE[0]}")"
-source "$DIRNAME/.install"
+source "$DIRNAME/.manage"
 
 function usage() {
   echo "Usage: $SCRIPT [-h|--help] <command> [<args>]"
@@ -57,7 +57,7 @@ function main() {
   fi
 
   # load the subcommand and run it
-  source "$DIRNAME/.install_$cmd"
+  source "$DIRNAME/.manage_$cmd"
   run "$@"
 }
 

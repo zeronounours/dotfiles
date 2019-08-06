@@ -45,7 +45,7 @@ function run() {
   fi
 
   # load the subcommand and show usage
-  source "$DIRNAME/.install_$cmd"
+  source "$DIRNAME/.manage_$cmd"
   usage long
 }
 
