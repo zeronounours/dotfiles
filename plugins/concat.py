@@ -2,7 +2,6 @@ import os
 import glob
 import shutil
 from dotbot.plugin import Plugin
-from dotbot.plugins.link import Link
 
 
 class Concat(Plugin):
@@ -32,10 +31,6 @@ class Concat(Plugin):
     named after the destination, with a ".d" appended.
     """
     _directive = "concat"
-
-    def __init__(self, context):
-        super().__init__(context)
-
 
     def can_handle(self, directive):
         return directive == self._directive
