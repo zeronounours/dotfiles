@@ -1,0 +1,14 @@
+###############################################
+####           Windows behaviors           ####
+###############################################
+#
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+# Quassel client should be run as floating window
+for_window [class="quassel(client)?"] floating enable
+
+# Firefox as tabbed
+for_window [class = "Firefox"] layout tabbed
+

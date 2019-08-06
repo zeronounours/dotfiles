@@ -7,3 +7,7 @@
       create: true
 
 - clean: ['~']
+
+- env:
+    dyndir: .dynamic    # directories used to store dynamically generated files
+

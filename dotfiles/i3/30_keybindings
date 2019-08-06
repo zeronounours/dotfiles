@@ -1,0 +1,168 @@
+###############################################
+####             Key bindings              ####
+###############################################
+#
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+# start a terminal ($mod+Return)
+bindcode $mod+36 exec i3-sensible-terminal
+
+# kill focused window ($mod+Shift+a)
+bindcode $mod+Shift+24 kill
+
+# start dmenu (a program launcher) ($mod+d)
+#bindsym $mod+d exec dmenu_run
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
+
+# change focus ($mod+{j,k,l,m} for left, down, up ant right)
+bindcode $mod+44 focus left
+bindcode $mod+45 focus down
+bindcode $mod+46 focus up
+bindcode $mod+47 focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window ($mod+{j,k,l,m})
+bindcode $mod+Shift+44 move left
+bindcode $mod+Shift+45 move down
+bindcode $mod+Shift+46 move up
+bindcode $mod+Shift+47 move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation ($mod+h)
+bindcode $mod+43 split h
+
+# split in vertical orientation ($mod+v)
+bindcode $mod+55 split v
+
+# enter fullscreen mode for the focused container ($mod+f)
+bindcode $mod+41 fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split) ($mod+{s,z,e})
+bindcode $mod+39 layout stacking
+bindcode $mod+25 layout tabbed
+bindcode $mod+26 layout toggle split
+
+# toggle tiling / floating ($mod+Shift+Space)
+bindcode $mod+Shift+65 floating toggle
+
+# change focus between tiling / floating windows ($mod+Space)
+bindcode $mod+65 focus mode_toggle
+
+# focus the parent container ($mod+q)
+bindcode $mod+38 focus parent
+
+# focus the child container ($mod+Shift+q)
+bindcode $mod+Shift+38 focus child
+
+# switch to workspace ($mod+Nums)
+bindcode $mod+10 workspace $WS1
+bindcode $mod+11 workspace $WS2
+bindcode $mod+12 workspace $WS3
+bindcode $mod+13 workspace $WS4
+bindcode $mod+14 workspace $WS5
+bindcode $mod+15 workspace $WS6
+bindcode $mod+16 workspace $WS7
+bindcode $mod+17 workspace $WS8
+bindcode $mod+18 workspace $WS9
+bindcode $mod+19 workspace $WS10
+
+# move focused container to workspace ($mod+Shift+Nums)
+bindcode $mod+Shift+10 move container to workspace $WS1
+bindcode $mod+Shift+11 move container to workspace $WS2
+bindcode $mod+Shift+12 move container to workspace $WS3
+bindcode $mod+Shift+13 move container to workspace $WS4
+bindcode $mod+Shift+14 move container to workspace $WS5
+bindcode $mod+Shift+15 move container to workspace $WS6
+bindcode $mod+Shift+16 move container to workspace $WS7
+bindcode $mod+Shift+17 move container to workspace $WS8
+bindcode $mod+Shift+18 move container to workspace $WS9
+bindcode $mod+Shift+19 move container to workspace $WS10
+
+# reload the configuration file ($mod+Shift+c)
+bindcode $mod+Shift+54 reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3) ($mod+Shift+r)
+bindcode $mod+Shift+27 restart
+# exit i3 (logs you out of your X session) ($mod+Shift+e)
+bindcode $mod+Shift+26 exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        # (j,k,l,m)
+        bindcode 44 resize shrink width 10 px or 10 ppt
+        bindcode 45 resize grow height 10 px or 10 ppt
+        bindcode 46 resize shrink height 10 px or 10 ppt
+        bindcode 47 resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindcode 36 mode "default"
+        bindcode 9 mode "default"
+}
+
+# ($mod+r)
+bindcode $mod+27 mode "resize"
+
+bindsym $mod+Control+l exec "ssh-add -D; i3lock -f"
+
+## Manual management of external displays
+# Set the shortcuts and what they do
+set $mode_display Ext Screen (v) VGA On, (x) VGA Off
+mode "$mode_display" {
+  # v
+  bindcode 55 exec --no-startup-id xrandr --output VGA-1 --auto --right-of LVDS-1, mode "default"
+  # x
+  bindcode 53 exec --no-startup-id xrandr --output VGA-1 --auto --off, mode "default"
+
+  # back to normal: Enter or Escape
+  bindcode 36 mode "default"
+  bindcode 9 mode "default"
+}
+# shortcut to access display selection
+bindcode $mod+53 mode "$mode_display"
+
+## Manual management of external displays
+# Set the shortcuts and what they do
+set $move_display Move to screen (j) left, (m) right, (k) down, (l) up
+mode "$move_display" {
+  # j
+  bindcode 44 move workspace to output left, mode "default"
+  # k
+  bindcode 45 move workspace to output down, mode "default"
+  # l
+  bindcode 46 move workspace to output up, mode "default"
+  # m
+  bindcode 47 move workspace to output right, mode "default"
+
+  # back to normal: Enter or Escape
+  bindcode 36 mode "default"
+  bindcode 9 mode "default"
+}
+# shortcut to access display selection (shift + o)
+bindcode $mod+Shift+32 mode "$move_display"
+

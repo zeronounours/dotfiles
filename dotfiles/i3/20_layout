@@ -1,0 +1,26 @@
+###############################################
+####                Layout                 ####
+###############################################
+#
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+# default workspace layout
+workspace_layout tabbed
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# default workspaces name
+set $WS1  1: term
+set $wS2  2: web
+set $wS3  3: mail
+set $WS4  4: misc
+set $WS5  5: media
+set $WS6  6: code
+set $WS7  7
+set $WS8  8
+set $WS9  9
+set $WS10 10
+
