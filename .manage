@@ -67,7 +67,7 @@ function get_host_file() {
 function list_host_files() {
   (
     cd "$BASE_HOSTS"
-    find . -type f | cut -d / -f 2-
+    find . -type f | cut -d / -f 2- | sort
   )
 }
 
@@ -205,7 +205,7 @@ function get_config_file() {
 function list_config_files() {
   (
     cd "$BASE_CONFIGS"
-    find . -type f | cut -d / -f 2-
+    find . -type f | cut -d / -f 2- | sort
   )
 }
 
@@ -246,7 +246,7 @@ function get_part_file() {
 function list_part_files() {
   (
     cd "$BASE_PARTS"
-    find . -type f | cut -d / -f 2- | sed "s/\.yaml$//"
+    find . -type f | cut -d / -f 2- | sed "s/\.yaml$//" | sort
   )
 }
 
