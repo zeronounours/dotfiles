@@ -95,12 +95,10 @@ function run_restore_host() {
   # update current host
   local -a to_load
   while IFS= read -r config; do
-    if profile_exists "$config"; then
-      IFS=$'\n' to_load+=($(resolve_profile "$config"))
-    elif config_exists "$config"; then
+    if config_exists "$config"; then
       to_load+=("$config")
     else
-      echo "[${_ERR_RED}!${_ERR_RST}] Unknown profile or config '$config'" >&2
+      echo "[${_ERR_RED}!${_ERR_RST}] Unknown config '$config'" >&2
       return 1
     fi
   done <<<"$(get_current_host)"

@@ -4,7 +4,7 @@ function usage() {
   echo "Usage: $SCRIPT update [-h|--help]"
   # if $1 is non empty, print long usage
   if [ -z "$1" ]; then return; fi
-  echo "Reload all profiles and configs of the current host"
+  echo "Reload all configs of the current host"
   echo ""
   echo "Options:"
   echo "    -Q, --super-quiet   Suppress almost all output"
@@ -42,12 +42,10 @@ function run() {
   # update current host
   local -a to_load
   while IFS= read -r config; do
-    if profile_exists "$config"; then
-      IFS=$'\n' to_load+=($(resolve_profile "$config"))
-    elif config_exists "$config"; then
+    if config_exists "$config"; then
       to_load+=("$config")
     else
-      echo "[${_ERR_RED}!${_ERR_RST}] Unknown profile or config '$config'" >&2
+      echo "[${_ERR_RED}!${_ERR_RST}] Unknown config '$config'" >&2
       return 1
     fi
   done <<<"$(get_current_host)"

@@ -2,24 +2,24 @@
 
 function usage() {
   echo "Usage: $SCRIPT list [-h|--help] [-a|--all] [-c|--current]"
-  echo "                    [-H|--hosts] [-P|--profiles] [-C|--configs]"
+  echo "                    [-H|--hosts] [-C|--configs] [-P|--parts]"
   # if $1 is non empty, print long usage
   if [ -z "$1" ]; then return; fi
-  echo "List available hosts, profiles, configs and host configuration"
+  echo "List available hosts, configs, parts and current configuration"
   echo ""
   echo "Options:"
-  echo "    -a, --all         List every piece of information. Same as -c -H -P -C"
+  echo "    -a, --all         List every piece of information. Same as -c -H -C -P"
   echo "                      This is the default behavior"
   echo "    -c, --current     List the current host configuration"
   echo "    -H, --hosts       List the available hosts"
-  echo "    -P, --profiles    List the available profiles"
   echo "    -C, --configs     List the available configs"
+  echo "    -P, --parts       List the available parts"
   echo "    -h, --help        Display this message"
 }
 
 function run() {
   # parse arguments
-  local current=0 hosts=0 profiles=0 configs=0
+  local current=0 hosts=0 configs=0 parts=0
   while [ -n "$1" ]; do
     case "$1" in
       -h | --help)
@@ -34,8 +34,8 @@ function run() {
       -H | --hosts)
         hosts=1
         shift;;
-      -P | --profiles)
-        profiles=1
+      -P | --parts)
+        parts=1
         shift;;
       -C | --configs)
         configs=1
@@ -56,8 +56,8 @@ function run() {
   done
 
   # defaults to all
-  if [[ $current == 0 && $hosts == 0 && $profiles == 0 && $configs == 0 ]]; then
-        current=1 hosts=1 profiles=1 configs=1
+  if [[ $current == 0 && $hosts == 0 && $parts == 0 && $configs == 0 ]]; then
+        current=1 hosts=1 parts=1 configs=1
   fi
 
   local sep=""
@@ -73,15 +73,15 @@ function run() {
     sep=$'\n'
   fi
 
-  if [[ $profiles == 1 ]]; then
-    echo "${sep}Available profiles:"
-    list_profile_files | sed -nr "s/^([^#].*)$/  - \1/p"
-    sep=$'\n'
-  fi
-
   if [[ $configs == 1 ]]; then
     echo "${sep}Available configs:"
     list_config_files | sed -nr "s/^([^#].*)$/  - \1/p"
+    sep=$'\n'
+  fi
+
+  if [[ $parts == 1 ]]; then
+    echo "${sep}Available parts:"
+    list_part_files | sed -nr "s/^([^#].*)$/  - \1/p"
     sep=$'\n'
   fi
 }

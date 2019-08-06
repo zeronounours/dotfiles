@@ -3,8 +3,8 @@
 
 BASE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BASE_HOSTS="$BASE/meta/hosts"
-BASE_PROFILES="$BASE/meta/profiles"
 BASE_CONFIGS="$BASE/meta/configs"
+BASE_PARTS="$BASE/meta/parts"
 
 ###
 # Color management
@@ -51,7 +51,7 @@ function initialize_workspace() {
       git submodule update --init --recursive --remote
     )
     # create meta directories
-    mkdir -p "$BASE_HOSTS" "$BASE_PROFILES" "$BASE_CONFIGS"
+    mkdir -p "$BASE_HOSTS" "$BASE_CONFIGS" "$BASE_PARTS"
     # create an empty current host file
     save_current_host
   fi
@@ -65,7 +65,10 @@ function get_host_file() {
 }
 
 function list_host_files() {
-  ls "$BASE_HOSTS"
+  (
+    cd "$BASE_HOSTS"
+    find . -type f | cut -d / -f 2-
+  )
 }
 
 function host_exists() {
@@ -113,7 +116,7 @@ function save_host() {
 
 
 ###
-# CURRENT HOST MANAGEMENT$BASE
+# CURRENT HOST MANAGEMENT
 ###
 function get_current_host_file() {
   echo "$BASE/.current"
@@ -130,13 +133,13 @@ function load_host_file() {
       # skip comments
       if [[ "$line" == "#"* ]]; then continue; fi
 
-        # resolve profiles & config
-        if profile_exists "$line" || config_exists "$line"; then
+        # resolve config
+        if config_exists "$line"; then
           if ! grep -x -q "$line" <<<"$__current_host"; then
             __current_host+="$line"$'\n'
           fi
         else
-          echo "[${_ERR_RED}!${_ERR_RST}] Invalid profile or config in host: $line" >&2
+          echo "[${_ERR_RED}!${_ERR_RST}] Invalid config in host: $line" >&2
           return 1
         fi
       done <"$file"
@@ -193,52 +196,17 @@ function save_current_host() {
 
 
 ###
-# PROFILE MANAGEMENT
-###
-function get_profile_file() {
-  echo "$BASE_PROFILES/$1"
-}
-
-function list_profile_files() {
-  ls "$BASE_PROFILES"
-}
-
-function profile_exists() {
-  local profile="$1"
-  local file="$(get_profile_file "$profile")"
-  if ! [[ -f "$file" && -r "$file" ]]; then
-    return 1
-  fi
-}
-
-function resolve_profile() {
-  local profile="$1"
-  local -a configs
-
-  while IFS= read -r line; do
-    # skip comments
-    if [[ "$line" == "#"* ]]; then continue; fi
-
-    # resolve config
-    if config_exists "$line"; then
-      configs+=("$line")
-    else
-      echo "[${_ERR_RED}!${_ERR_RST}] Invalid config in profile '$profile': $line" >&2
-      return 1
-    fi
-  done < "$(get_profile_file "$profile")"
-  (IFS=$'\n'; echo "${configs[*]}")
-}
-
-###
 # CONFIG MANAGEMENT
 ###
 function get_config_file() {
-  echo "$BASE_CONFIGS/$1.yaml"
+  echo "$BASE_CONFIGS/$1"
 }
 
 function list_config_files() {
-  ls "$BASE_CONFIGS/" | sed -nr 's/\.yaml$//p'
+  (
+    cd "$BASE_CONFIGS"
+    find . -type f | cut -d / -f 2-
+  )
 }
 
 function config_exists() {
@@ -249,12 +217,57 @@ function config_exists() {
   fi
 }
 
+function resolve_config() {
+  local config="$1"
+  local -a parts
+
+  while IFS= read -r line; do
+    # skip comments
+    if [[ "$line" == "#"* ]]; then continue; fi
+
+    # resolve config
+    if part_exists "$line"; then
+      parts+=("$line")
+    else
+      echo "[${_ERR_RED}!${_ERR_RST}] Invalid part in config'$config': $line" >&2
+      return 1
+    fi
+  done < "$(get_config_file "$config")"
+  (IFS=$'\n'; echo "${parts[*]}")
+}
+
+###
+# PART MANAGEMENT
+###
+function get_part_file() {
+  echo "$BASE_PARTS/$1.yaml"
+}
+
+function list_part_files() {
+  (
+    cd "$BASE_PARTS"
+    find . -type f | cut -d / -f 2- | sed "s/\.yaml$//"
+  )
+}
+
+function part_exists() {
+  local part="$1"
+  local file="$(get_part_file "$part")"
+  if ! [[ -f "$file" && -r "$file" ]]; then
+    return 1
+  fi
+}
+
+###
+# INTERFACE WITH DOTBOT
+###
 function install_config() {
   local config="$1"
   shift
-  local base_file="$BASE/meta/base.yaml"
-  local end_file="$BASE/meta/end.yaml"
-  local source_file="$(get_config_file "$config")"
+  local base_part="$BASE/meta/base.yaml"
+  local end_part="$BASE/meta/end.yaml"
+  local -a parts=()
+  IFS=$'\n' parts+=($(resolve_config "$config"))
 
   # remove previously generated configs
   for f in /tmp/dotfiles.cfg.??????.yaml; do
@@ -262,15 +275,20 @@ function install_config() {
       rm -f "$f"
     fi
   done
-  local config_file="$(mktemp -p "/tmp" "dotfiles.cfg.XXXXXX.yaml")"
 
   # create the temporary config file
-  if [[ -f "$base_file" && -r "$base_file" ]]; then
-    echo "$(<"$base_file")" >> "$config_file"
+  local config_file="$(mktemp -p "/tmp" "dotfiles.cfg.XXXXXX.yaml")"
+  # base.yaml
+  if [[ -f "$base_part" && -r "$base_part" ]]; then
+    echo "$(<"$base_part")" >> "$config_file"
   fi
-  echo "$(<"$source_file")" >> "$config_file"
-  if [[ -f "$end_file" && -r "$end_file" ]]; then
-    echo "$(<"$end_file")" >> "$config_file"
+  # concat each part
+  for f in "${parts[@]}"; do
+    cat "$(get_part_file "$f")" >> "$config_file"
+  done
+  # end.yaml
+  if [[ -f "$end_part" && -r "$end_part" ]]; then
+    echo "$(<"$end_part")" >> "$config_file"
   fi
 
   "$BASE/vendors/dotbot/bin/dotbot" \

@@ -12,9 +12,9 @@ function usage() {
   if [ -z "$1" ]; then return; fi
   echo ""
   echo "Commands:"
-  echo "    list      list profiles or configurations"
-  echo "    add       Add or remove profiles or configurations to the current host"
-  echo "    update    Reload profiles and configurations of the current host"
+  echo "    list      list configurations"
+  echo "    add       Add or remove configurations to the current host"
+  echo "    update    Reload configurations of the current host"
   echo "    host      Manage host configurations"
   echo "    help      Get help on commands"
   echo ""
