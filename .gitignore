@@ -1,4 +1,5 @@
 ## Start secrets section
+/dotfiles/ssh/10_per_hosts_config
 ## End secrets section
 
 # repo specific files

@@ -1,0 +1,10 @@
+#######################################
+## Global
+#######################################
+Host *
+  Port 22
+  User zeronounours
+  ServerAliveInterval 60
+  ServerAliveCountMax 30
+  ForwardAgent yes
+

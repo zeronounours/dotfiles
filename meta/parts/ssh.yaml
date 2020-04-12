@@ -1,0 +1,18 @@
+
+# defines dynamic dir where config part should be added
+- env:
+    sshdyn: $dyndir/ssh.d
+
+# generate the ssh_config and link it in user home
+- defer:
+    id: ssh_conf_gen
+    tasks:
+      - concat:
+          $dyndir/ssh_config: $sshdyn
+      - link:
+          ~/.ssh/ssh_config: $dyndir/ssh_config
+
+- link:
+    $sshdyn/10_per_hosts_config: ssh/10_per_hosts_config
+    $sshdyn/20_base_config: ssh/20_base_config
+
