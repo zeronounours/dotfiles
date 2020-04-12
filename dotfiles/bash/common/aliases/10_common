@@ -1,0 +1,49 @@
+# to get colors on ls & some utils functions
+alias ls='ls --color=auto'
+alias ll='ls -alh'
+alias la='ls -a'
+alias l="ls"
+
+# to get colors on grep & some mistkes catchers
+alias grpe='grep'
+alias gerp='grep'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias rgrep='rgrep --color=auto'
+
+# Security aliases
+alias rm='rm --preserve-root'
+alias shred='shred -n 35 -z -u -v'
+
+# Recursivly create directories
+alias mkdir='mkdir -p'
+
+# to ease cd-ing into parent directories
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+
+# history
+alias h='history'
+
+# alias screen
+alias sc='screen'
+
+# aliases for sudo
+alias ssudo='sudo -sE'
+alias ssuod='ssudo'
+alias suod='sudo'
+
+# to find the top-10 bigger files on the current directory
+alias topten='du -sk $(/bin/ls -A) | sort -rn | head -10'
+
+# directory tree
+alias tree="find . | sed 's/[^/]*\//|   /g;s/| *\([^| ]\)/+--- \1/'"
+
+# Alias to reload bashrc
+alias brc='source ~/.bashrc'
+
+# Palette des couleurs
+alias palette='echo -n "     "; for i in {0..10}; do printf "% 4d " $i; done; echo; for c in {30..37}; do printf "% 4d " $c; for i in {0..10}; do echo -ne "\033[${i};${c}mtest\033[0m "; done; echo; done'

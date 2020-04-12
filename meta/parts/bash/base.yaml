@@ -1,0 +1,30 @@
+
+# defines dynamic dirs where config part should be added
+- env:
+    bash_definitions: $dyndir/bash definitions.d
+    bash_aliases: $dyndir/bash_aliases.d
+    bash_functions: $dyndir/bash_functions.d
+    bash_prompt: $dyndir/bash_prompt.d
+    bash_services: $dyndir/bash_services.d
+
+- link:
+  ~/.bashrc: bash/bashrc
+
+# generate the bash files and link them in user home
+- defer:
+    id: bash_conf_gen
+    tasks:
+      - concat:
+          $dyndir/bash_definitions: $bash_definitions
+          $dyndir/bash_aliases: $bash_aliases
+          $dyndir/bash_functions: $bash_functions
+          $dyndir/bash_prompt: $bash_prompt
+          $dyndir/bash_services: $bash_services
+      - link:
+          ~/.bash_definitions: $dyndir/bash_definitions
+          ~/.bash_aliases: $dyndir/bash_aliases
+          ~/.bash_functions: $dyndir/bash_functions
+          ~/.bash_prompt: $dyndir/bash_prompt
+          ~/.bash_definitions: $dyndir/bash_definitions
+          ~/.bash_services: $dyndir/bash_services
+

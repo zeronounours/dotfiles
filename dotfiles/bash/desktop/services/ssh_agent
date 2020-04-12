@@ -1,0 +1,21 @@
+# start ssh-agent if in a login shell
+# It check whether another agent has already been launched
+# Compatible with openssh agent and gnome agent
+if shopt -q login_shell; then
+  if which gnome-keyring-daemon &>/dev/null && [ -n "$DESKTOP_SESSION" ]; then
+    eval $(gnome-keyring-daemon --start)
+    export SSH_AUTH_SOCK
+  elif [ -z "$SSH_AUTH_SOCK" ]; then
+    SSH_AUTH_SOCK=$(ls -l /tmp/ssh-*/agent.* 2> /dev/null | grep $(whoami) | awk '{print $9}')
+
+    [ -z "$SSH_AGENT_PID" -a -n "$(echo $SSH_AUTH_SOCK | cut -d. -f2-)" ] && \
+      SSH_AGENT_PID=$((`echo $SSH_AUTH_SOCK | cut -d. -f2-` + 1))
+    [ -n "$SSH_AUTH_SOCK" -a -n "$SSH_AGENT_PID" ] && \
+      export SSH_AUTH_SOCK SSH_AGENT_PID
+
+    if [ -z "$SSH_AGENT_PID" -a -z "$SSH_TTY" ]; then
+      eval `ssh-agent -s` > /dev/null
+    fi
+  fi
+fi
+

@@ -1,0 +1,25 @@
+
+- link:
+    $bash_definitions:
+      glob: true
+      path: bash/common/definitions/*
+      relink: true
+    $bash_aliases:
+      glob: true
+      path: bash/common/aliases/*
+      relink: true
+    $bash_functions:
+      glob: true
+      path: bash/common/functions/*
+      relink: true
+    $bash_prompt:
+      glob: true
+      path: bash/common/prompt/*
+      relink: true
+
+- link:
+    $bash_functions:
+      glob: true
+      path: bash/common/keyboards/*
+      relink: true
+

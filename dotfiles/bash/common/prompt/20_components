@@ -1,0 +1,15 @@
+# last command execution status
+execution="\$(if [[ \$? == 0 ]]; then echo \"$Green\342\234\223\"; else echo \"$Red\342\234\227\"; fi)"
+
+# User part
+user="\$(if [ \$EUID -eq 0 ]; then echo \"$root_color\"; else echo \"$normal_color\"; fi\)\u@\h"
+
+# Current directory
+pwd="$pwd_color\w"
+
+# Current history number
+history="$history_color[\!]"
+
+# End of the prompt
+end="$end_color\$\[$Color_Off\]"
+

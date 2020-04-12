@@ -1,0 +1,2 @@
+# Alias to print logwatch to stdout
+alias loclog='logwatch --output stdout'

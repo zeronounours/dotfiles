@@ -1,0 +1,2 @@
+# To update the system
+alias maj="sudo pacman -Syu"

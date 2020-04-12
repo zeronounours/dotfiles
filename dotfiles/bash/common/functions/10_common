@@ -1,0 +1,357 @@
+# repeat n times command
+function repeat()
+{
+  local i max
+  max=$1; shift;
+  for ((i=1; i <= max ; i++)); do
+    eval "$@";
+  done
+}
+
+# function to ask confirmation
+confirm() {
+  local space on
+
+  if [[ "$2" ]]; then
+    if [[ "$2" == "o" ]]; then
+      space="[O/n]"
+    elif [[ "$2" == "n" ]]; then
+      space="[o/N]"
+    else
+      error "La confirmation doit avoir 'o' ou 'n' pour valeur par défaut"
+    fi
+  else
+    space="[o/n]"
+  fi
+
+  while true; do
+    read -n 1 -p "$1 $space " on
+
+    # default value
+    if [[ "$on" == "" && "$2" ]]; then
+      on=$2
+    else
+      echo
+    fi
+
+    case $on in
+      [Oo]* )
+        return 0
+        ;;
+      [Nn]* )
+        return 1
+        ;;
+    esac
+  done
+}
+
+
+# Find a file with a pattern in name - dans le rep local:
+function ff() { find . -type f -iname '*'$*'*' -ls ; }
+
+
+# change le titre de la fenêtre de la console
+t () {
+  echo -ne "\\e]2;$1\\a"
+}
+
+
+function fn_to_lowercase()       # Correct filenames to lowercase
+{
+  if [ "$#" = 0 ]
+  then
+    echo "Usage: fn_to_lowercase [filenames...]"
+    return 0
+  fi
+
+  for arg in "$@"; do
+    filename=`basename "$arg"`
+    dirname=`dirname "$arg"`
+    oldname=`echo "$filename" | sed -e "s/ /\\\\ /"`
+    newname=`echo "$filename" | tr A-Z a-z`
+    if [ ! -e "$dirname/$oldname" ];
+    then
+      echo "$dirname/$oldname does not exists."
+    elif [ "$oldname" = "$newname" ]
+    then
+      echo "$dirname/$oldname needs no change, skipping..."
+    elif [ -e "$dirname/$newname" ]
+    then
+      echo "$dirname/$newname exists, skipping..."
+    else
+      mv "$dirname/$oldname" "$dirname/$newname"
+      echo "$dirname/$oldname => $dirname/$newname"
+    fi
+  done
+}
+
+
+function fn_no_spaces()       # Correct spaces in filenames
+{
+  if [ "$#" = 0 ]
+  then
+    echo "Usage: fn_no_spaces [filenames...]"
+    return 0
+  fi
+
+  for arg in "$@"
+  do
+    filename=`basename "$arg"`
+    dirname=`dirname "$arg"`
+    oldname=`echo "$filename" | sed -e "s/ /\\\\ /"`
+    newname=`echo "$filename" | sed -e : -e s/\ /_/ -e s/%20/_/ -e s/%28/[/ -e s/%29/]/ -e s/%5B/[/ -e s/%5D/]/ -e t`
+    if [ ! -e "$dirname/$oldname" ];
+    then
+      echo "$dirname/$oldname does not exists."
+    elif [ "$oldname" = "$newname" ]
+    then
+      echo "$dirname/$oldname needs no change, skipping..."
+    elif [ -e "$dirname/$newname" ]
+    then
+      echo "$dirname/$newname exists, skipping..."
+    else
+      mv "$dirname/$oldname" "$dirname/$newname"
+      echo "$dirname/$oldname => $dirname/$newname"
+    fi
+  done
+}
+
+# gojo - tries to unarchive anything thrown at it
+gojo() {
+  ##### Probably done more robustly with file(1) but not as easily
+  local FILENAME="${1}"
+  local FILEEXTENSION=`echo ${1} | cut -d. -f2-`
+  case "$FILEEXTENSION" in
+    tar)
+      tar xvf "$FILENAME";;
+    tar.gz)
+      tar xzvf "$FILENAME";;
+    tgz)
+      tar xzvf "$FILENAME";;
+    gz)
+      gunzip "$FILENAME";;
+    tbz)
+      tar xjvf "$FILENAME";;
+    tbz2)
+      tar xjvf "$FILENAME";;
+    tar.bz2)
+      tar xjvf "$FILENAME";;
+    tar.bz)
+      tar xjvf "$FILENAME";;
+    tar.xz)
+      tar xJvf "$FILENAME";;
+    bz2)
+      bunzip2 "$FILENAME";;
+    tar.Z)
+      tar xZvf "$FILENAME";;
+    Z)
+      uncompress "$FILENAME";;
+    zip)
+      unzip "$FILENAME";;
+    rar)
+      unrar x "$FILENAME";;
+  esac
+}
+
+# for fun
+bonjour (){
+  local rnd
+  rnd=$[RANDOM%4]
+
+  case $rnd in
+    0 )
+      echo "Bonjour Maître vénéré"
+      ;;
+    1 )
+      echo "Quel plaisir de vous revoir Grand Maître!"
+      ;;
+    2 )
+      echo "Maître tout puissant, je vous salue"
+      ;;
+    3 )
+      echo "Mon Maître, je suis à vos ordres"
+      ;;
+  esac
+}
+
+# Retrieve public IP
+pub(){
+  local ip_site
+
+  ip_site="http://ipecho.net/plain"
+
+  echo "Votre ip publique est:"
+
+  if [ `which wget` ]; then
+    echo -ne "$BYellow \t"; wget -O - -q $ip_site; echo -e "${Color_Off}"
+  elif [ `which curl` ]; then
+    echo -ne "$BYellow \t"; curl $ip_site; echo -e "${Color_Off}"
+  elif [ `which lynx` ]; then
+    echo -ne "$BYellow \t"; lynx --dump $ip_site; echo -e "${Color_Off}"
+  else
+    echo "Impossible de trouver un programme pour récupérer une page web"
+    exit 1
+  fi
+}
+
+
+# Retrieve private IP
+function priv()
+{
+  local ip lo eth wlan
+
+  ip=$(echo $BYellow | sed 's/\\e//g')
+  lo=$(echo $BCyan | sed 's/\\e//g')
+  eth=$(echo $BRed | sed 's/\\e//g')
+  wlan=$(echo $BPurple | sed 's/\\e//g')
+
+  echo "Vos ip privées sont:"
+
+  if [ `which ip` ]; then
+    ip a | grep "inet " | egrep "(eth[^ ]+|wlan[^ ]|lo)" | awk '
+    {print $NF "/" $2}
+    ' | awk -F/ '
+    $1 == "lo" {print "\t '$lo'" $1 ": '$ip'" $2}
+    $1 ~ "eth" {print "\t '$eth'" $1 ": '$ip'" $2}
+    $1 ~ "wlan" {print "\t '$wlan'" $1 ": '$ip'" $2}
+    '; echo -ne $Color_Off
+
+  elif [ -f /sbin/ifconfig ]; then
+    /sbin/ifconfig | egrep -B1 "inet add?r" | awk '
+    $1 == "inet" { print $2 }
+    $2 == "Link" { printf "%s:" , $1 }
+    ' | awk -F: '
+    $1 == "lo" {print "\t '$lo'" $1 ": '$ip'" $3}
+    $1 ~ "eth" {print "\t '$eth'" $1 ": '$ip'" $3}
+    $1 ~ "wlan" {print "\t '$wlan'" $1 ": '$ip'" $3}
+    '; echo -ne $Color_Off
+  else
+    echo 'Impossible de trouver un programme pour récupérer les adresses des interfaces'
+    exit 1
+  fi
+}
+
+# Fonction pour afficher les paquets nécessitant un reboot, suite a une maj
+function find-obsolete() {
+    local pid cmd file
+
+    for pid in $(\grep '(deleted)' /proc/*/maps | \grep -v '/dev/zero' | cut -d/ -f 3 | sort -un); do
+        cmd=$(ps -o comm -p $pid | tail -n 1)
+        for file in $(\grep '(deleted)' /proc/$pid/maps | \grep -v '/dev/zero' | awk '{print $6}' | sort -u); do
+            echo "$pid $cmd $file"
+        done
+    done | column -t
+}
+
+# Lecture vidéo en ASCII Art
+function vid2ascii(){
+    # Couleurs
+    local JAUNE="\\033[0;33m"
+    local ROUGE="\\033[0;31m"
+    local VERT="\\033[0;32m"
+    local NORMAL="\\033[0;0m"
+
+    # Rend local OPTIND (pour getopt)
+    local OPTIND o a
+    # Commande player de base
+    # -monitorpixelaspect : définit le ratio largeur/hauteur (1/2 permet de compenser la taille des caractères)
+    # -contrast 50 : pousse le contraste pour avoir une meilleure différence noire/blanc
+    # -quiet : supprime le HUD Mplayer
+    # -nolirc : désactive le support des télécommandes et fait disparaître deux messages d'erreurs inutiles
+    local COMMAND="mplayer -monitorpixelaspect 0.5 -contrast 50 -quiet -nolirc "
+    # Par défaut, on utilise aa sous ncurses pour l'affichage
+    local LIB="-vo aa:driver=curses "
+    local OPTIONS=""
+    local FORCE_DRIVER=""
+    local VIDEO=""
+    local EXECUTE=1
+
+    # Récupération des arguments
+    while getopts "chqv:" opt; do
+      case $opt in
+        # Couleur (color)
+        c)
+            # Force la variable CACA_DRIVER pour l'utilisation de ncurses
+            # (caca ne supporte pas la directive caca:driver=curses)
+            FORCE_DRIVER='CACA_DRIVER=ncurses'
+            LIB=" -vo caca "
+            ;;
+        # Aide (help)
+        h)
+            echo -e "$VERT" "Aide de la fonction vid2ascii :" "\n"
+            echo -e "    - Utilisation : vid2ascii -v VIDEO --options" "\n"
+            echo -e "    - Liste des options :" "\n"
+            echo -e "        -h Affiche cette aide" "\n"
+            echo -e "        -c Active la couleur (libcaca)" "\n"
+            echo -e "        -q Silencieux, cache tous les messages mplayer" "\n"
+            echo -e "$NORMAL";
+            EXECUTE=0
+            ;;
+        # Silencieux (quiet)
+        # Supprime encore plus de messages mplayer
+        q)
+            OPTIONS+=" -really-quiet "
+            ;;
+        # Vidéo (video)
+        # Nécessite un argument
+        v)
+            VIDEO="\"${OPTARG}\""
+            ;;
+        # Option par défaut (inconnue)
+        \?)
+            echo "Option inconnue : -$OPTARG" >&2
+            EXECUTE=0
+            ;;
+      esac
+    done
+    if [[ $EXECUTE -eq 1 ]]; then
+        # Affiche et exécute la commande
+        echo $FORCE_DRIVER $COMMAND $LIB $OPTIONS $VIDEO
+        echo -e "$ROUGE" "Appuyez sur q ou bien faites CTRL+C pour couper la vidéo" "$NORMAL"
+        eval $FORCE_DRIVER $COMMAND $LIB $OPTIONS $VIDEO
+    fi
+}
+
+# Une jolie entrée triée pour env
+function env() {
+  local var_color=$Yellow val_color=$Blue ncol=$Color_Off
+
+  # --color option
+  local opt_color=auto
+  local -a opt=()
+  while [ -n "$1" ]; do
+    case "$1" in
+      --color)
+        shift; opt_color="$1";;
+      --color=*)
+        opt_color="${1#--color=}";;
+      *)
+        opt=("${opt[@]}" "$1");;
+    esac
+    shift
+  done
+
+  # désactive la couleur si demandé / nécessaire
+  case "$opt_color" in
+    y | ye | yes) ;;
+    n | no)
+      var_color=""; val_color=""; ncol="";;
+    a | au | aut | auto)
+      # vérifie que stdout est le terminal et qu’il support les couleurs
+      en_color=`tput colors 2> /dev/null`
+      if [[ ! (-t 1 && $? == 0 && $en_color > 2) ]]; then
+        var_color=""; val_color=""; ncol=""
+      fi;;
+  esac
+
+  # Tri seulement si l’on a 'env' ou 'env --color=X'
+  local var val
+  if [[ ${#opt[@]} == 0 ]]; then
+    command env -0 | while read -r -d '' line; do
+      var="${line%%=*}"; val="${line#*=}"
+      echo -e "$var_color$var${ncol}=$val_color$val$ncol"
+    done | sort
+  else
+    command env "${opt[@]}"
+  fi
+}

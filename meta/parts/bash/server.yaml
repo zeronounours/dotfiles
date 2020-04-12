@@ -1,0 +1,7 @@
+
+- link:
+    $bash_aliases:
+      glob: true
+      path: bash/server/aliases/*
+      relink: true
+

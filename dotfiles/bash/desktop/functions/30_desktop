@@ -1,0 +1,30 @@
+# Ease choosing a wifi network with wpa_supplicant
+function wpa_select_network() {
+  local name="$1"
+
+  # find network id
+  local networks="$(wpa_cli list_networks | tail +3 | \
+    awk '$2 ~ /'$name'/ {print $1 " " $2}')"
+
+  local net_id
+  if [[ -z "$networks" ]]; then
+    echo "No networks found matching '$name'" >&2
+    return 1
+  elif [[ $(wc -l <<<"$networks") == 1 ]]; then
+    net_id="$(cut -d" " -f1 <<<"$networks")"
+  else
+    # use a select to finalize
+    echo "Multiple networks found:"
+    PS3="Select the network to connect to: "
+    select net in $(cut -d" " -f2- <<<"$networks"); do
+      local line="$(awk "\$2 == \"$net\" {print \$1}" <<<"$networks")"
+      net_id="$(cut -d" " -f1 <<<"$line")"
+      break
+    done
+    # verify that we got an id or quit
+    [[ -z "$net_id" ]] && return
+  fi
+
+  # select the network
+  wpa_cli select_network "$net_id"
+}

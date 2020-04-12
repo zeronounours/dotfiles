@@ -1,0 +1,15 @@
+
+- link:
+    $bash_aliases:
+      glob: true
+      path: bash/desktop/aliases/*
+      relink: true
+    $bash_functions:
+      glob: true
+      path: bash/desktop/functions/*
+      relink: true
+    $bash_services:
+      glob: true
+      path: bash/desktop/services/*
+      relink: true
+

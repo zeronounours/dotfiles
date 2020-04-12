@@ -1,0 +1,27 @@
+# Print a bépo keyboard layout
+function bépo() {
+  # defines the colors to use
+  dead="$BRed"
+  alt="$Cyan"
+  alts="$Purple"
+  nc="$Color_Off"
+
+  # Print the keyboard
+  echo "┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────╔═════════╗"
+  echo "│ # ${alts}¶${nc}│ 1 ${alts}„${nc}│ 2 ${alts}“${nc}│ 3 ${alts}”${nc}│ 4 ${alts}≤${nc}│ 5 ${alts}≥${nc}│ 6  ║ 7 ${alts}¬${nc}│ 8 ${alts}¼${nc}│ 9 ${alts}½${nc}│ 0 ${alts}¾${nc}│ ° ${alts}′${nc}│ \` ${alts}″${nc}║         ║"
+  echo "│ \$ ${alt}–${nc}│\" ${alt}––${nc}│ « ${alt}<${nc}│ » ${alt}>${nc}│ ( ${alt}[${nc}│ ) ${alt}]${nc}│ @ ${alt}^${nc}║ + ${alt}±${nc}│ - ${alt}−${nc}│ / ${alt}÷${nc}│ * ${alt}×${nc}│ = ${alt}≠${nc}│ % ${alt}‰${nc}║ <--     ║"
+  echo "╔════╧══╗─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─╚══╦══════╣"
+  echo "║  |<-  ║ B ${alts}¦${nc}│ É $dead˝${nc}│ P ${alts}§${nc}│ O ${alts}Œ${nc}│ È ${alts}\`${nc}║ !  │ V  │ D ${alts}Ð${nc}│ L  │ J ${alts}Ĳ${nc}│ Z ${alts}Ə${nc}│ W  ║   |  ║"
+  echo "║  ->|  ║ b ${alt}|${nc}│ é $dead´${nc}│ p ${alt}&${nc}│ o ${alt}œ${nc}│ è $dead\`${nc}║ $deadˆ${nc} ${alt}¡${nc}│ v $deadˇ${nc}│ d ${alt}ð${nc}│ l $dead/${nc}│ j ${alt}ĳ${nc}│ z ${alt}ə${nc}│ w $dead˘${nc}║ <-'  ║"
+  echo "╠═══════╩╗───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───╚╗     ║"
+  echo "║        ║ A ${alts}Æ${nc}│ U ${alts}Ù${nc}│ I $dead˙${nc}│ E $dead¤${nc}│ ;  $dead̛${nc}║ C ${alts}ſ${nc}│ T ${alts}Þ${nc}│ S  │ R ${alts}™${nc}│ N  │ M ${alts}º${nc}│ Ç $dead,${nc}║     ║"
+  echo "║  CAPS  ║ a ${alt}æ${nc}│ u ${alt}ù${nc}│ i $dead¨${nc}│ e ${alt}€${nc}│ , ${alt}’${nc}║ c ${alt}©${nc}│ t ${alt}þ${nc}│ s ${alt}ß${nc}│ r ${alt}®${nc}│ n $dead˜${nc}│ m $dead¯${nc}│ ç $dead¸${nc}║     ║"
+  echo "╠══════╦═╝──┬─┴──┬─┴──┬─┴─══─┴──┬─┴──┬─┴─══─┴──┬─┴──┬─┴──┬─┴──╔═╧════╩═════╣"
+  echo "║   ^  ║ Ê  │ À  │ Y ${alts}‘${nc}│ X ${alts}’${nc}│ : ${alts}·${nc}│ K  ║ ?  │ Q  │ G  │ H ${alts}‡${nc}│ F ${alts}ª${nc}║     ^      ║"
+  echo "║   |  ║ ê ${alt}/${nc}│ à ${alt}\\\\${nc}│ y ${alt}{${nc}│ x ${alt}}${nc}│ . ${alt}…${nc}│ k ${alt}~${nc}║ ' ${alt}¿${nc}│ q $dead°${nc}│ g $deadµ${nc}│ h ${alt}†${nc}│ f $dead˛${nc}║     |      ║"
+  echo "╠══════╩╦═══╧══╦═╧═══╦╧════╧════╧════╧════╧════╧═╦══╧══╦═╧════╬═════╦══════╣"
+  echo "║       ║      ║     ║ insécable   ${alts}fine insécable${nc}║     ║      ║     ║      ║"
+  echo "║ Ctrl  ║ Pom  ║ Alt ║ SPACE        ${alt}_${nc}            ║AltGr║ Pom  ║Menu ║ Ctrl ║"
+  echo "╚═══════╩══════╩═════╩═══════════════════════════╩═════╩══════╩═════╩══════╝"
+  echo ""
+}

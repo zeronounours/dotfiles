@@ -1,0 +1,2 @@
+# To update the system
+alias maj='sudo apt-get update && sudo apt-get upgrade'

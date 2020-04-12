@@ -1,0 +1,27 @@
+# Print a qwerty keyboard layout
+function qwerty() {
+  # defines the colors to use
+  dead="$BRed"
+  alt="$Cyan"
+  alts="$Purple"
+  nc="$Color_Off"
+
+  # Print the keyboard
+  echo "┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────╔═════════╗"
+  echo "│ ¬ ${alts}¬${nc}│ ! ${alts}¡${nc}│ \" ${alts}½${nc}│ £ ${alts}⅓${nc}│ \$ ${alts}¼${nc}│ % ${alts}⅜${nc}│ ^ ${alts}⅝${nc}║ & ${alts}⅞${nc}│ * ${alts}™${nc}│ ( ${alts}±${nc}│ ) ${alts}°${nc}│ _ ${alts}¿${nc}│ + ${dead}˛${nc}║         ║"
+  echo "│ ${dead}\`${nc} ${alt}¦${nc}│ 1 ${alt}¹${nc}│ 2 ${dead}\"${nc}│ 3 ${alt}³${nc}│ 4 ${alt}€${nc}│ 5 ${alt}½${nc}│ 6 ${dead}^${nc}║ 7 ${alt}{${nc}│ 8 ${alt}[${nc}│ 9 ${alt}]${nc}│ 0 ${alt}}${nc}│ - ${alt}\\\\${nc}│ = ${dead}¸${nc}║ <--     ║"
+  echo "╔════╧══╗─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─╚══╦══════╣"
+  echo "║  |<-  ║ Q ${alts}Ω${nc}│ W  │ E ${alts}É${nc}│ R ${alts}®${nc}│ T ${alts}Ŧ${nc}║ Y ${alts}Ý${nc}│ U ${alts}Ú${nc}│ I ${alts}Í${nc}│ O ${alts}Ó${nc}│ P ${alts}Þ${nc}│ { ${dead}°${nc}│ } ${dead}¯${nc}║   |  ║"
+  echo "║  ->|  ║ q ${alt}@${nc}│ w ${alt}ẃ${nc}│ e ${alt}é${nc}│ r ${alt}¶${nc}│ t ${alt}ŧ${nc}║ y ${alt}ý${nc}│ u ${alt}ú${nc}│ i ${alt}í${nc}│ o ${alt}ó${nc}│ p ${alt}þ${nc}│ [ ${dead}\"${nc}│ ] $dead~${nc}║ <-'  ║"
+  echo "╠═══════╩╗───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───╚╗     ║"
+  echo "║        ║ A ${alts}Á${nc}│ S ${alts}§${nc}│ D ${alts}Ð${nc}│ F ${alts}ª${nc}│ G ${alts}Ŋ${nc}║ H ${alts}Ħ${nc}│ J  │ K ${alts}&${nc}│ L ${alts}Ł${nc}│ : ${dead}˝${nc}│ @ ${dead}ˇ${nc}│ ~ $dead˘${nc}║     ║"
+  echo "║  CAPS  ║ a ${alt}á${nc}│ s ${alt}ß${nc}│ d ${alt}ð${nc}│ f ${alt}đ${nc}│ g ${alt}ŋ${nc}║ h ${alt}ħ${nc}│ j  │ k ${alt}ĸ${nc}│ l ${alt}ł${nc}│ ; $dead'${nc}│ ' $dead'${nc}│ # $dead~${nc}║     ║"
+  echo "╠══════╦═╝──┬─┴──┬─┴──┬─┴─══─┴──┬─┴──┬─┴─══─┴──┬─┴──┬─┴──┬─┴──╔═╧════╩═════╣"
+  echo "║   ^  ║ |  │ Z ${alts}<${nc}│ X ${alts}>${nc}│ C ${alts}Ç${nc}│ V ${alts}‘${nc}│ B ${alts}’${nc}║ N  │ M ${alts}º${nc}│ < ${alts}×${nc}│ > ${alts}÷${nc}│ ? ${dead}˙${nc}║     ^      ║"
+  echo "║   |  ║ \  │ z ${alt}«${nc}│ x ${alt}»${nc}│ c ${alt}ç${nc}│ v ${alt}“${nc}│ b ${alt}”${nc}║ n  │ m ${alt}µ${nc}│ ,  │ . ${alt}·${nc}│ / ${dead} ̣${nc}║     |      ║"
+  echo "╠══════╩╦═══╧══╦═╧═══╦╧════╧════╧════╧════╧════╧═╦══╧══╦═╧════╬═════╦══════╣"
+  echo "║       ║      ║     ║                           ║     ║      ║     ║      ║"
+  echo "║ Ctrl  ║ Pom  ║ Alt ║ SPACE                     ║AltGr║ Pom  ║Menu ║ Ctrl ║"
+  echo "╚═══════╩══════╩═════╩═══════════════════════════╩═════╩══════╩═════╩══════╝"
+  echo ""
+}
