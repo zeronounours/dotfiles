@@ -276,6 +276,9 @@ function install_config() {
     fi
   done
 
+  # ensure secrets are decrypted before doing anything
+  decrypt_secrets
+
   # create the temporary config file
   local config_file="$(mktemp -p "/tmp" "dotfiles.cfg.XXXXXX.yaml")"
   # base.yaml
@@ -306,3 +309,45 @@ function install_config() {
   return $exitcode
 }
 
+###
+# SECRET MANAGEMENT
+###
+function add_to_secrets() {
+  local file="$1"
+  local abs_path="$PWD/$file"
+
+  # ensure a file was given
+  if ! [ -f "$file" ]; then
+      echo "[${_ERR_RED}!${_ERR_RST}] '$file' is not a valid file" >&2
+      return 1
+  fi 
+
+  # ensure the file is added to gitignore
+  sed -ri "/## Start secrets section/a\\${abs_path#$BASE}" "$BASE/.gitignore"
+
+  "$BASE/vendors/git-secret" add "$file"
+}
+
+function remove_from_secrets() {
+  local file="$1"
+  local abs_path="$PWD/$file"
+
+  # ensure a file was given
+  if ! [ -f "$file" ]; then
+      echo "[${_ERR_RED}!${_ERR_RST}] '$file' is not a valid file" >&2
+      return 1
+  fi 
+
+  "$BASE/vendors/git-secret" remove "$file"
+
+  # ensure the file is removed from gitignore
+  sed -ri "/## Start secrets section/,/## End secrets section/{ \\|${abs_path#$BASE}|d }" "$BASE/.gitignore"
+}
+
+function encrypt_secrets() {
+  "$BASE/vendors/git-secret" hide -d
+}
+
+function decrypt_secrets() {
+  "$BASE/vendors/git-secret" reveal
+}

@@ -1,3 +1,6 @@
+## Start secrets section
+## End secrets section
+
 # repo specific files
 /.current
 /dotfiles/.dynamic/
@@ -144,3 +147,5 @@ Sessionx.vim
 tags
 # Persistent undo
 [._]*.un~
+.gitsecret/keys/random_seed
+!*.secret

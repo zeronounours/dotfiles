@@ -16,6 +16,7 @@ function usage() {
   echo "    add       Add or remove configurations to the current host"
   echo "    update    Reload configurations of the current host"
   echo "    host      Manage host configurations"
+  echo "    secret    Manage secrets"
   echo "    help      Get help on commands"
   echo ""
   echo "Options:"
@@ -33,7 +34,7 @@ function main() {
       -h | --help)
         usage long
         return;;
-      list | add | update | host | help)
+      list | add | update | host | secret | help)
         cmd="$1"
         shift
         break;;
