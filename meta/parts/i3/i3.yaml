@@ -1,0 +1,8 @@
+
+- link:
+    $i3dyn/10_base:               i3/10_base
+    $i3dyn/20_layout:             i3/20_layout
+    $i3dyn/30_keybindings:        i3/30_keybindings
+    $i3dyn/50_windows_behaviors:  i3/50_windows_behaviors
+    $i3dyn/99_auto_start:         i3/99_auto_start
+

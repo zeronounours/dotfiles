@@ -1,0 +1,7 @@
+
+- link:
+    $i3dyn/40_status_bar: i3/40_status_bar
+
+- link:
+    ~/.config/i3status/config: i3status/config
+

@@ -1,0 +1,14 @@
+
+# defines dynamic dir where config part should be added
+- env:
+    i3dyn: $dyndir/i3.d
+
+# generate the i3 config and link it in user home
+- defer:
+    id: i3_conf_gen
+    tasks:
+      - concat:
+          $dyndir/i3.conf: $i3dyn
+      - link:
+          ~/.config/i3/config: $dyndir/i3.conf
+
