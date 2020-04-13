@@ -349,5 +349,28 @@ function encrypt_secrets() {
 }
 
 function decrypt_secrets() {
-  "$BASE/vendors/git-secret" reveal
+  local force="$1"
+
+  # Only decrypt if some files cannot be found
+  local secret_files="$(sed -n \
+    '/## Start secrets section/,/## End secrets section/{ \|^\s*[^#\t ]|p }' \
+    "$BASE/.gitignore"
+  )"
+
+  local need_refresh="n"
+  while read -r file; do
+    if ! [ -f "$BASE$file" ]; then
+      need_refresh="y"
+      break
+    fi
+  done <<<"$secret_files"
+
+  if [[ "$need_refresh" == "y" || "$force" == "force" ]]; then
+    if [[ "$need_refresh" == "y" ]]; then
+      echo "Need to decrypt secret files"
+    else
+      echo "Force to decrypt secret files"
+    fi
+    "$BASE/vendors/git-secret" reveal
+  fi
 }
