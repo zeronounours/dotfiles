@@ -1,0 +1,9 @@
+" Load either with vim8 built-in feature of pathogen
+
+" For version 8 and later, use the package feature of vim
+" nothing is to be done as plugins are already installed in the right place
+if !exists('+packpath')
+  " Use pathogen to load plugins before version 8
+  " pathogen defaults to loading bundle/{} and pack/{}/start/{}
+  execute pathogen#infect()
+endif

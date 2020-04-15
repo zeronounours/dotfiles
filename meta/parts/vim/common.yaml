@@ -1,0 +1,37 @@
+
+# link common vimrc files
+- link:
+    $vimrc/10_common: vim/vimrc/10_common
+    $vimrc/20_load_plugins: vim/vimrc/20_load_plugins
+    $vimrc/25_ctrlp: vim/vimrc/25_ctrlp
+    $vimrc/25_grammalecte: vim/vimrc/25_grammalecte
+    $vimrc/25_lightline: vim/vimrc/25_lightline
+    $vimrc/25_vimwiki: vim/vimrc/25_vimwiki
+
+# link files for the .vim directory
+- link:
+  $vim_runtime/autoload/:
+    create: true
+    path: vim/vim/autoload/*
+    glob: true
+    relink: true
+  $vim_runtime/colors/:
+    create: true
+    path: vim/vim/colors/*
+    glob: true
+    relink: true
+  $vim_runtime/ftplugin/:
+    create: true
+    path: vim/vim/ftplugin/*
+    glob: true
+    relink: true
+  $vim_runtime/spell/:
+    create: true
+    path: vim/vim/spell/*
+    glob: true
+    relink: true
+
+# link files for plugins
+- link:
+  $vim_runtime/pack/common: vim/vim/pack/common
+

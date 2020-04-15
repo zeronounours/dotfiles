@@ -1,0 +1,9 @@
+
+# link common vimrc files
+- link:
+    $vimrc/30_ide: vim/vimrc/30_ide
+
+# link files for plugins
+- link:
+  $vim_runtime/pack/ide: vim/vim/pack/ide
+

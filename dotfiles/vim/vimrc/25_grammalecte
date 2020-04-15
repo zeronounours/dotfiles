@@ -1,0 +1,3 @@
+" Configure the location of grammalecte
+let g:grammalecte_cli_py='/usr/local/bin/grammalecte-cli.py'
+

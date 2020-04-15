@@ -1,0 +1,50 @@
+" Ensure a non compatible mode
+set nocompatible
+
+" Default encodings for internal buffers and files
+set encoding=utf-8
+set fileencoding=utf-8
+
+" Show leader keys commands
+set showcmd
+
+" Utils
+" Unload files upon close
+set nohidden
+" Dont use the mouse
+set mouse=
+
+" Print line numbers
+set number
+
+" Increase the number of pages which can be tabbed
+set tabpagemax=20
+
+" Print invisble characters
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,nbsp:·
+set list
+
+" open file below and on the right when splitting file
+set splitbelow
+set splitright
+
+" ensure the status line is always on
+set laststatus=2
+
+" Ensure scrolling when at 3 lines of the top/bottom
+set scrolloff=3
+
+" filetype detection
+if has("autocmd")
+  filetype plugin indent on
+endif
+
+" syntax
+if has("syntax")
+  syntax on
+endif
+
+" prevent remapping
+if has('langmap') && exists('+langremap')
+  set langnoremap
+endif

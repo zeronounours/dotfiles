@@ -1,0 +1,4 @@
+# link files for plugins
+- link:
+  $vim_runtime/pack/ruby: vim/vim/pack/ruby
+
