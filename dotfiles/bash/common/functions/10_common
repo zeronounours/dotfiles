@@ -199,11 +199,10 @@ pub(){
 function priv()
 {
   local ip lo eth wlan
-
-  ip=$(echo $BYellow | sed 's/\\e//g')
-  lo=$(echo $BCyan | sed 's/\\e//g')
-  eth=$(echo $BRed | sed 's/\\e//g')
-  wlan=$(echo $BPurple | sed 's/\\e//g')
+  local ip="$BYellow"
+  local lo="$BCyan"
+  local eth="$BRed"
+  local wlan="$BPurple"
 
   echo "Vos ip privées sont:"
 
@@ -213,8 +212,10 @@ function priv()
     ' | awk -F/ '
     $1 == "lo" {print "\t '$lo'" $1 ": '$ip'" $2}
     $1 ~ "eth" {print "\t '$eth'" $1 ": '$ip'" $2}
+    $1 ~ "enp" {print "\t '$eth'" $1 ": '$ip'" $2}
     $1 ~ "wlan" {print "\t '$wlan'" $1 ": '$ip'" $2}
-    '; echo -ne $Color_Off
+    $1 ~ "wlp" {print "\t '$wlan'" $1 ": '$ip'" $2}
+    '; echo -n $Color_Off
 
   elif [ -f /sbin/ifconfig ]; then
     /sbin/ifconfig | egrep -B1 "inet add?r" | awk '
@@ -223,8 +224,10 @@ function priv()
     ' | awk -F: '
     $1 == "lo" {print "\t '$lo'" $1 ": '$ip'" $3}
     $1 ~ "eth" {print "\t '$eth'" $1 ": '$ip'" $3}
+    $1 ~ "enp" {print "\t '$eth'" $1 ": '$ip'" $2}
     $1 ~ "wlan" {print "\t '$wlan'" $1 ": '$ip'" $3}
-    '; echo -ne $Color_Off
+    $1 ~ "wlp" {print "\t '$wlan'" $1 ": '$ip'" $3}
+    '; echo -n $Color_Off
   else
     echo 'Impossible de trouver un programme pour récupérer les adresses des interfaces'
     exit 1

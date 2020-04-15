@@ -1,6 +1,6 @@
 # In case of SSH, change the colors
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-  normal_color="$Cyan"
-  root_color="$Red"
+  normal_color="\[$Cyan\]"
+  root_color="\[$Red\]"
 fi
 

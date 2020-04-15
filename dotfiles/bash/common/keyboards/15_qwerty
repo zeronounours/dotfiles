@@ -9,7 +9,7 @@ function qwerty() {
   # Print the keyboard
   echo "┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────╔═════════╗"
   echo "│ ¬ ${alts}¬${nc}│ ! ${alts}¡${nc}│ \" ${alts}½${nc}│ £ ${alts}⅓${nc}│ \$ ${alts}¼${nc}│ % ${alts}⅜${nc}│ ^ ${alts}⅝${nc}║ & ${alts}⅞${nc}│ * ${alts}™${nc}│ ( ${alts}±${nc}│ ) ${alts}°${nc}│ _ ${alts}¿${nc}│ + ${dead}˛${nc}║         ║"
-  echo "│ ${dead}\`${nc} ${alt}¦${nc}│ 1 ${alt}¹${nc}│ 2 ${dead}\"${nc}│ 3 ${alt}³${nc}│ 4 ${alt}€${nc}│ 5 ${alt}½${nc}│ 6 ${dead}^${nc}║ 7 ${alt}{${nc}│ 8 ${alt}[${nc}│ 9 ${alt}]${nc}│ 0 ${alt}}${nc}│ - ${alt}\\\\${nc}│ = ${dead}¸${nc}║ <--     ║"
+  echo "│ ${dead}\`${nc} ${alt}¦${nc}│ 1 ${alt}¹${nc}│ 2 ${dead}\"${nc}│ 3 ${alt}³${nc}│ 4 ${alt}€${nc}│ 5 ${alt}½${nc}│ 6 ${dead}^${nc}║ 7 ${alt}{${nc}│ 8 ${alt}[${nc}│ 9 ${alt}]${nc}│ 0 ${alt}}${nc}│ - ${alt}\\${nc}│ = ${dead}¸${nc}║ <--     ║"
   echo "╔════╧══╗─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─╚══╦══════╣"
   echo "║  |<-  ║ Q ${alts}Ω${nc}│ W  │ E ${alts}É${nc}│ R ${alts}®${nc}│ T ${alts}Ŧ${nc}║ Y ${alts}Ý${nc}│ U ${alts}Ú${nc}│ I ${alts}Í${nc}│ O ${alts}Ó${nc}│ P ${alts}Þ${nc}│ { ${dead}°${nc}│ } ${dead}¯${nc}║   |  ║"
   echo "║  ->|  ║ q ${alt}@${nc}│ w ${alt}ẃ${nc}│ e ${alt}é${nc}│ r ${alt}¶${nc}│ t ${alt}ŧ${nc}║ y ${alt}ý${nc}│ u ${alt}ú${nc}│ i ${alt}í${nc}│ o ${alt}ó${nc}│ p ${alt}þ${nc}│ [ ${dead}\"${nc}│ ] $dead~${nc}║ <-'  ║"

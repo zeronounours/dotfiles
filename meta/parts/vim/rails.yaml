@@ -1,4 +1,4 @@
 # link files for plugins
 - link:
-  $vim_runtime/pack/rails: vim/vim/pack/rails
+    $vim_runtime/pack/rails: vim/vim/pack/rails
 

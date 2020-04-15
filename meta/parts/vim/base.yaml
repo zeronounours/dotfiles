@@ -17,14 +17,16 @@
       # Ensure generation of vim tags
       - shell:
         - command: >-
-            vim '+helptags ALL'
-                '+qall'
+            vim
+            '+helptags ALL'
+            '+qall'
           description: Generate help tags for vim plugins
           quiet: true
 
         - command: >-
-            vim '+mkspell ~/.vim/spell/fr.utf-8.add'
-                '+mkspell ~/.vim/spell/en.utf-8.add'
-                '+qall'
+            vim
+            '+mkspell ~/.vim/spell/fr.utf-8.add'
+            '+mkspell ~/.vim/spell/en.utf-8.add'
+            '+qall'
           description: Generate vim spelling dictionaries
           quiet: true

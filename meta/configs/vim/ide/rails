@@ -1,4 +1,4 @@
-base
-ide
-ruby
-rails
+vim/base
+vim/ide
+vim/ruby
+vim/rails

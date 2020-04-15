@@ -10,28 +10,28 @@
 
 # link files for the .vim directory
 - link:
-  $vim_runtime/autoload/:
-    create: true
-    path: vim/vim/autoload/*
-    glob: true
-    relink: true
-  $vim_runtime/colors/:
-    create: true
-    path: vim/vim/colors/*
-    glob: true
-    relink: true
-  $vim_runtime/ftplugin/:
-    create: true
-    path: vim/vim/ftplugin/*
-    glob: true
-    relink: true
-  $vim_runtime/spell/:
-    create: true
-    path: vim/vim/spell/*
-    glob: true
-    relink: true
+    $vim_runtime/autoload/:
+      create: true
+      path: vim/vim/autoload/*
+      glob: true
+      relink: true
+    $vim_runtime/colors/:
+      create: true
+      path: vim/vim/colors/*
+      glob: true
+      relink: true
+    $vim_runtime/ftplugin/:
+      create: true
+      path: vim/vim/ftplugin/*
+      glob: true
+      relink: true
+    $vim_runtime/spell/:
+      create: true
+      path: vim/vim/spell/*
+      glob: true
+      relink: true
 
 # link files for plugins
 - link:
-  $vim_runtime/pack/common: vim/vim/pack/common
+    $vim_runtime/pack/common: vim/vim/pack/common
 

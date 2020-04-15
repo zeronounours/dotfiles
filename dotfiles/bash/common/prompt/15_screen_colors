@@ -1,6 +1,6 @@
 # In case of screen, change the colors
 if [[ $TERMCAP =~ screen ]] || [[ $TERM == "screen" ]]; then
-  pwd_color="$Yellow"
+  pwd_color="\[$Yellow\]"
   end_color="$pwd_color"
 fi
 

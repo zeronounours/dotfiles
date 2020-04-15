@@ -23,3 +23,5 @@
       path: bash/common/keyboards/*
       relink: true
 
+- link:
+    ~/.logo: bash/common/logo

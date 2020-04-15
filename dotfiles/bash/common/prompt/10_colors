@@ -1,7 +1,7 @@
 # Base colors
-normal_color="$Green"
-pwd_color="$Blue"
-history_color="$Yellow"
+normal_color="\[$Green\]"
+pwd_color="\[$Blue\]"
+history_color="\[$Yellow\]"
 end_color="$pwd_color"
-root_color="$purple"
+root_color="\[$Purple\]"
 

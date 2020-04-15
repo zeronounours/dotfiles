@@ -9,7 +9,7 @@ function azerty() {
   # Print the keyboard
   echo "┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────╔═════════╗"
   echo "│ Œ ${alts}”${nc}│ 1 ${alts}·${nc}│ 2 ${alts}É${nc}│ 3 ${alts}¸${nc}│ 4 ${alts}´${nc}│ 5 ${alts}¨${nc}│ 6 ${alts}¦${nc}║ 7 ${alts}È${nc}│ 8 ${alts}¯${nc}│ 9 ${alts}Ç${nc}│ 0 ${alts}À${nc}│ °  │ + ${dead}°${nc}║         ║"
-  echo "│ œ ${alt}“${nc}│ & ${dead}'${nc}│ é ${alt}~${nc}│ \" ${alt}#${nc}│ ' ${alt}{${nc}│ ( ${alt}[${nc}│ - ${alt}|${nc}║ è ${dead}\`${nc}│ _ ${alt}\\\\${nc}│ ç ${alt}^${nc}│ à ${alt}@${nc}│ ) ${alt}ÿ${nc}│ = ${alt}}${nc}║ <--     ║"
+  echo "│ œ ${alt}“${nc}│ & ${dead}'${nc}│ é ${alt}~${nc}│ \" ${alt}#${nc}│ ' ${alt}{${nc}│ ( ${alt}[${nc}│ - ${alt}|${nc}║ è ${dead}\`${nc}│ _ ${alt}\\${nc}│ ç ${alt}^${nc}│ à ${alt}@${nc}│ ) ${alt}ÿ${nc}│ = ${alt}}${nc}║ <--     ║"
   echo "╔════╧══╗─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─╚══╦══════╣"
   echo "║  |<-  ║ A ${alts}ä${nc}│ Z ${alts}Å${nc}│ E ${alts}¢${nc}│ R ${alts}Ç${nc}│ T ${alts}Þ${nc}║ Y ${alts}Ý${nc}│ U ${alts}ü${nc}│ I ${alts}ï${nc}│ O ${alts}ö${nc}│ P ${alts}\`${nc}│ ${dead}\"${nc} ${alts}'${nc}│ £ ${alts}ë${nc}║   |  ║"
   echo "║  ->|  ║ a ${alt}â${nc}│ z ${alt}å${nc}│ e ${alt}€${nc}│ r ${alt}ç${nc}│ t ${alt}þ${nc}║ y ${alt}ý${nc}│ u ${alt}û${nc}│ i ${alt}î${nc}│ o ${alt}ô${nc}│ p ${alt}¶${nc}│ ${dead}^${nc} ${dead}~${nc}│ $ ${alt}ê${nc}║ <-'  ║"

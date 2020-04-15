@@ -5,5 +5,5 @@
 
 # link files for plugins
 - link:
-  $vim_runtime/pack/ide: vim/vim/pack/ide
+    $vim_runtime/pack/ide: vim/vim/pack/ide
 

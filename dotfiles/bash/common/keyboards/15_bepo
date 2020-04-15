@@ -18,7 +18,7 @@ function bépo() {
   echo "║  CAPS  ║ a ${alt}æ${nc}│ u ${alt}ù${nc}│ i $dead¨${nc}│ e ${alt}€${nc}│ , ${alt}’${nc}║ c ${alt}©${nc}│ t ${alt}þ${nc}│ s ${alt}ß${nc}│ r ${alt}®${nc}│ n $dead˜${nc}│ m $dead¯${nc}│ ç $dead¸${nc}║     ║"
   echo "╠══════╦═╝──┬─┴──┬─┴──┬─┴─══─┴──┬─┴──┬─┴─══─┴──┬─┴──┬─┴──┬─┴──╔═╧════╩═════╣"
   echo "║   ^  ║ Ê  │ À  │ Y ${alts}‘${nc}│ X ${alts}’${nc}│ : ${alts}·${nc}│ K  ║ ?  │ Q  │ G  │ H ${alts}‡${nc}│ F ${alts}ª${nc}║     ^      ║"
-  echo "║   |  ║ ê ${alt}/${nc}│ à ${alt}\\\\${nc}│ y ${alt}{${nc}│ x ${alt}}${nc}│ . ${alt}…${nc}│ k ${alt}~${nc}║ ' ${alt}¿${nc}│ q $dead°${nc}│ g $deadµ${nc}│ h ${alt}†${nc}│ f $dead˛${nc}║     |      ║"
+  echo "║   |  ║ ê ${alt}/${nc}│ à ${alt}\\${nc}│ y ${alt}{${nc}│ x ${alt}}${nc}│ . ${alt}…${nc}│ k ${alt}~${nc}║ ' ${alt}¿${nc}│ q $dead°${nc}│ g $deadµ${nc}│ h ${alt}†${nc}│ f $dead˛${nc}║     |      ║"
   echo "╠══════╩╦═══╧══╦═╧═══╦╧════╧════╧════╧════╧════╧═╦══╧══╦═╧════╬═════╦══════╣"
   echo "║       ║      ║     ║ insécable   ${alts}fine insécable${nc}║     ║      ║     ║      ║"
   echo "║ Ctrl  ║ Pom  ║ Alt ║ SPACE        ${alt}_${nc}            ║AltGr║ Pom  ║Menu ║ Ctrl ║"

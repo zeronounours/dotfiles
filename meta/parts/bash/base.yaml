@@ -1,14 +1,14 @@
 
 # defines dynamic dirs where config part should be added
 - env:
-    bash_definitions: $dyndir/bash definitions.d
+    bash_definitions: $dyndir/bash_definitions.d
     bash_aliases: $dyndir/bash_aliases.d
     bash_functions: $dyndir/bash_functions.d
     bash_prompt: $dyndir/bash_prompt.d
     bash_services: $dyndir/bash_services.d
 
 - link:
-  ~/.bashrc: bash/bashrc
+    ~/.bashrc: bash/bashrc
 
 # generate the bash files and link them in user home
 - defer:
