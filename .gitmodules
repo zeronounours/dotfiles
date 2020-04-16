@@ -1,6 +1,7 @@
 [submodule "vendors/dotbot"]
 	path = vendors/dotbot
 	url = https://github.com/anishathalye/dotbot
+	ignore = dirty
 [submodule "dotfiles/vim/vim/bundle/ale"]
 	path = dotfiles/vim/vim/pack/ide/start/ale
 	url = https://github.com/dense-analysis/ale.git
@@ -22,6 +23,7 @@
 [submodule "dotfiles/vim/vim/bundle/vim-Grammalecte"]
 	path = dotfiles/vim/vim/pack/common/start/vim-Grammalecte
 	url = https://github.com/dpelle/vim-Grammalecte
+	ignore = dirty
 [submodule "dotfiles/vim/vim/bundle/vim-python-pep8-indent"]
 	path = dotfiles/vim/vim/pack/python/start/vim-python-pep8-indent
 	url = https://github.com/Vimjas/vim-python-pep8-indent.git
