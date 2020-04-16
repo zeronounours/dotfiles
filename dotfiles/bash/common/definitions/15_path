@@ -1,0 +1,6 @@
+
+# change the PATH to include the local bin directory if it exists
+if [ -d "$HOME/.local/bin" ]; then
+  export PATH="$PATH:$HOME/.local/bin"
+fi
+
