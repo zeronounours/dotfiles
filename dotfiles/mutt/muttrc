@@ -1,0 +1,54 @@
+
+  set my_config_dir="~/.mutt"
+
+# Options
+  #set askcc
+unset confirmappend
+  set delete
+  set edit_headers
+  set editor            = "vim +:silent+?^$"
+  set fast_reply
+  set forward_format    = "Fwd: %s"
+  set forward_quote
+  set header_cache      = "~/.mutt/cache""
+#unset help
+  set include
+  set index_format      = "%3C %Z %[!%m/%d] %-17.17F %s"
+  set mail_check        = 120
+#  set mailcap_path      = "$my_config_dir/mailcap"
+unset mark_old
+unset markers
+  set mime_forward      = ask-no
+  set mbox_type         = Maildir
+  set menu_scroll
+  set pager_context     = 5
+  set pager_index_lines = 10
+  set pager_stop
+  set pipe_decode
+  set reply_to
+  set reverse_name
+  set signature         = "$my_config_dir/signature"
+  set sort              = threads
+  set sort_aux          = reverse-last-date-received
+  #set status_format     = "-%r- %f%?t? Tagged:%t?%?p? Drafts:%p? -%>-"
+  set strict_threads
+  set thorough_search
+  set tilde
+  set timeout           = 300
+  set tmpdir            = "$my_config_dir/temp"
+  set imap_keepalive    = 300
+  set imap_check_subscribed
+
+auto_view text/html
+alternative_order text/plain text/enriched text/html
+
+ignore *
+unignore from: to: cc: date: subject:
+hdr_order from: to: cc: date: subject:
+
+source "$my_config_dir/colors"
+source "$my_config_dir/mailboxes"
+source "$my_config_dir/bindings"
+source "$my_config_dir/macros"
+source "$my_config_dir/gpg"
+source "$my_config_dir/hooks"

@@ -1,4 +1,7 @@
 ## Start secrets section
+/dotfiles/mutt/mutt/signature
+/dotfiles/mutt/mutt/mailboxes
+/dotfiles/mutt/mutt/gpg
 /dotfiles/ssh/10_per_hosts_config
 ## End secrets section
 

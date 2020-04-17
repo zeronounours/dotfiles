@@ -1,0 +1,14 @@
+
+- link:
+    ~/.mutt/muttrc:
+      path: mutt/muttrc
+      create: true
+    ~/.mutt/:
+      glob: true
+      path: mutt/mutt/*
+      relink: true
+
+# ensure the temp dir is created
+- shell:
+  - mkdir -p ~/.mutt/temp
+

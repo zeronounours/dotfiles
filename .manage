@@ -325,7 +325,10 @@ function add_to_secrets() {
   # ensure the file is added to gitignore
   sed -ri "/## Start secrets section/a\\${abs_path#$BASE}" "$BASE/.gitignore"
 
+  # Add the file to git-secret
   "$BASE/vendors/git-secret" add "$file"
+  # ensure we start creating an encrypted version of the file
+  "$BASE/vendors/git-secret" hide
 }
 
 function remove_from_secrets() {
@@ -336,7 +339,7 @@ function remove_from_secrets() {
   if ! [ -f "$file" ]; then
       echo "[${_ERR_RED}!${_ERR_RST}] '$file' is not a valid file" >&2
       return 1
-  fi 
+  fi
 
   "$BASE/vendors/git-secret" remove "$file"
 

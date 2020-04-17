@@ -1,0 +1,2 @@
+# Macros
+macro index Z "<shell-escape>mbsync --all<enter>" "Sync all"
