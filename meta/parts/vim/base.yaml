@@ -4,7 +4,7 @@
     vimrc: $dyndir/vimrc.d
     vim_runtime: $dyndir/vim
 
-# generate the bash files and link them in user home
+# generate the vim files and link them in user home
 - defer:
     id: vim_conf_gen
     tasks:

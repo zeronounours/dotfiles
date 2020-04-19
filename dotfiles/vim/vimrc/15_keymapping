@@ -1,0 +1,3 @@
+
+" remap za to <space> to toggle folding
+nmap <space> za

@@ -2,6 +2,7 @@
 # link common vimrc files
 - link:
     $vimrc/10_common: vim/vimrc/10_common
+    $vimrc/15_keymapping: vim/vimrc/15_keymapping
     $vimrc/20_load_plugins: vim/vimrc/20_load_plugins
     $vimrc/25_ctrlp: vim/vimrc/25_ctrlp
     $vimrc/25_grammalecte: vim/vimrc/25_grammalecte
