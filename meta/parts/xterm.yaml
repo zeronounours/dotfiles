@@ -1,0 +1,21 @@
+
+# Download Hack font and install it
+- download:
+    $dlddir/Hack-v3.tar.gz:
+      url: https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.tar.gz
+      force: false
+- shell:
+  - mkdir -p "$dlddir/Hack-v3"
+  - tar -xzf "$dlddir/Hack-v3.tar.gz" -C "$dlddir/Hack-v3"
+
+- link:
+    ~/.local/share/fonts:
+      glob: true
+      path: "$dlddir/Hack-v3/ttf/*"
+      relink: true
+
+
+# link the xterm configuration in Xresources
+- link:
+    $xresources: xresources/xterm
+

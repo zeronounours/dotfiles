@@ -8,6 +8,7 @@
 # repo specific files
 /.current
 /dotfiles/.dynamic/
+/dotfiles/.download/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -5,9 +5,12 @@
       relink: true
     concat:
       create: true
+    download:
+      create: true
 
 - clean: ['~']
 
 - env:
     dyndir: .dynamic    # directories used to store dynamically generated files
+    dlddir: .download   # directories used to store downloaded files
 

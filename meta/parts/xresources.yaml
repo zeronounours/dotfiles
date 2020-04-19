@@ -1,0 +1,14 @@
+
+# defines dynamic dirs where config part should be added
+- env:
+    xresources: $dyndir/xresources.d
+
+# generate the files and link them in user home
+- defer:
+    id: xresources_conf_gen
+    tasks:
+      - concat:
+          $dyndir/Xresources: $xresources
+      - link:
+          ~/.Xresources: $dyndir/Xresources
+
