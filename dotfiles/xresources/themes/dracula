@@ -1,0 +1,63 @@
+
+! Dracula Xresources palette
+! colors
+
+#define S_black         #000000
+#define S_black_S       #4D4D4D
+#define S_red           #FF5555
+#define S_red_S         #FF6E67
+#define S_green         #50FA7B
+#define S_green_S       #5AF78E
+#define S_yellow        #F1FA8C
+#define S_yellow_S      #F4F99D
+#define S_blue          #BD93F9
+#define S_blue_S        #CAA9FA
+#define S_purple        #FF79C6
+#define S_purple_S      #FF92D0
+#define S_cyan          #8BE9FD
+#define S_cyan_S        #9AEDFE
+#define S_white         #BFBFBF
+#define S_white_S       #E6E6E6
+
+#define S_foreground    #F8F8F2
+#define S_background    #282A36
+#define S_cursor        S_foreground
+
+! special
+*.foreground:   S_foreground
+*.background:   S_background
+*.cursorColor:  S_cursor
+
+! black
+*.color0:       S_black
+*.color8:       S_black_S
+
+! red
+*.color1:       S_red
+*.color9:       S_red_S
+
+! green
+*.color2:       S_green
+*.color10:      S_green_S
+
+! yellow
+*.color3:       S_yellow
+*.color11:      S_yellow_S
+
+! blue
+*.color4:       S_blue
+*.color12:      S_blue_S
+
+! magenta
+*.color5:       S_purple
+*.color13:      S_purple_S
+
+! cyan
+*.color6:       S_cyan
+*.color14:      S_cyan_S
+
+! white
+*.color7:       S_white
+*.color15:      S_white_S
+
+

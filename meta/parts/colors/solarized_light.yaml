@@ -1,0 +1,10 @@
+# URL: https://github.com/altercation/solarized
+
+# link vimrc files
+- link:
+    $vimrc/50_color: vim/vimrc/colors/50_solarized_light
+
+# link the xterm configuration in Xresources
+- link:
+    $xresources/theme: xresources/themes/solarized_light
+

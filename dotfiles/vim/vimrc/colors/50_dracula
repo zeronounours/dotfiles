@@ -1,0 +1,11 @@
+" load dracula theme
+if !exists('+packpath')
+  execute pathogen#infect('pack/{}/opt/dracula')
+else
+  packadd dracula
+endif
+colorscheme dracula
+
+" Change the theme of light line
+let g:lightline.colorscheme='dracula'
+

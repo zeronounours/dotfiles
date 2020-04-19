@@ -1,0 +1,7 @@
+" load solarized dark theme
+set background=dark
+colorscheme solarized
+
+" Change the theme of light line
+let g:lightline.colorscheme='solarized'
+

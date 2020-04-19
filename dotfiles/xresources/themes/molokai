@@ -1,0 +1,51 @@
+
+! Molokai theme
+! colors
+
+#define S_black         #272822
+#define S_black_S       #75715e
+#define S_red           #f92672
+#define S_green         #a6e22e
+#define S_yellow        #f4bf75
+#define S_blue          #66d9ef
+#define S_purple        #ae81ff
+#define S_cyan          #a1efe4
+#define S_white         #f8f8f2
+
+! special
+*.foreground:   S_white
+*.background:   S_black
+*.cursorColor:  S_white
+
+! black
+*.color0:       S_black
+*.color8:       S_black_S
+
+! red
+*.color1:       S_red
+*.color9:       S_red
+
+! green
+*.color2:       S_green
+*.color10:      S_green
+
+! yellow
+*.color3:       S_yellow
+*.color11:      S_yellow
+
+! blue
+*.color4:       S_blue
+*.color12:      S_blue
+
+! magenta
+*.color5:       S_purple
+*.color13:      S_purple
+
+! cyan
+*.color6:       S_cyan
+*.color14:      S_cyan
+
+! white
+*.color7:       S_white
+*.color15:      S_white
+

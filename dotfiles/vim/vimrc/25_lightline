@@ -1,3 +1,4 @@
 " do not show the current mode (already handled by lightline)
 set noshowmode
+let g:lightline = {}
 

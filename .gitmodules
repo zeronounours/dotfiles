@@ -66,3 +66,9 @@
 [submodule "dotfiles/vim/vim/pack/ide/start/vim-polyglot"]
 	path = dotfiles/vim/vim/pack/ide/start/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
+[submodule "dotfiles/vim/vim/pack/colors/opt/dracula"]
+	path = dotfiles/vim/vim/pack/colors/opt/dracula
+	url = https://github.com/dracula/vim.git
+[submodule "dotfiles/vim/vim/pack/colors/opt/tender"]
+	path = dotfiles/vim/vim/pack/colors/opt/tender
+	url = https://github.com/jacoborus/tender.vim

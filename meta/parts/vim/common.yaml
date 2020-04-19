@@ -35,4 +35,5 @@
 # link files for plugins
 - link:
     $vim_runtime/pack/common: vim/vim/pack/common
+    $vim_runtime/pack/colors: vim/vim/pack/colors
 

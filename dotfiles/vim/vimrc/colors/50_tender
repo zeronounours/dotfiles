@@ -1,0 +1,14 @@
+" load tender theme
+if !exists('+packpath')
+  execute pathogen#infect('pack/{}/opt/tender')
+else
+  packadd tender
+endif
+if has('termguicolors')
+  set termguicolors
+endif
+colorscheme tender
+
+" Change the theme of light line
+let g:lightline.colorscheme='tender'
+

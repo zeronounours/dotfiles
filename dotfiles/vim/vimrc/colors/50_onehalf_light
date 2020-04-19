@@ -1,0 +1,11 @@
+" load onehalf light theme
+if !exists('+packpath')
+  execute pathogen#infect('pack/{}/opt/onehalf')
+else
+  packadd onehalf
+endif
+colorscheme onehalflight
+
+" Change the theme of light line
+let g:lightline.colorscheme='onehalflight'
+

@@ -1,0 +1,63 @@
+
+! Tender theme
+! colors
+
+#define S_black         #282828
+#define S_black_S       #1d1d1d
+#define S_red           #f43753
+#define S_red_S         #f43753
+#define S_green         #c9d05c
+#define S_green_S       #c9d05c
+#define S_yellow        #ffc24b
+#define S_yellow_S      #ffc24b
+#define S_blue          #b3deef
+#define S_blue_S        #b3deef
+#define S_purple        #d3b987
+#define S_purple_S      #d3b987
+#define S_cyan          #73cef4
+#define S_cyan_S        #73cef4
+#define S_white         #eeeeeE
+#define S_white_S       #
+
+#define S_foreground    S_white
+#define S_background    S_black
+#define S_cursor        S_foreground
+
+! special
+*.foreground:   S_foreground
+*.background:   S_background
+*.cursorColor:  S_cursor
+
+! black
+*.color0:       S_black
+*.color8:       S_black_S
+
+! red
+*.color1:       S_red
+*.color9:       S_red_S
+
+! green
+*.color2:       S_green
+*.color10:      S_green_S
+
+! yellow
+*.color3:       S_yellow
+*.color11:      S_yellow_S
+
+! blue
+*.color4:       S_blue
+*.color12:      S_blue_S
+
+! magenta
+*.color5:       S_purple
+*.color13:      S_purple_S
+
+! cyan
+*.color6:       S_cyan
+*.color14:      S_cyan_S
+
+! white
+*.color7:       S_white
+*.color15:      S_white_S
+
+

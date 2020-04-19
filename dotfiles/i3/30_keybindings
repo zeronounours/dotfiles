@@ -143,7 +143,7 @@ mode "$mode_display" {
   bindcode 36 mode "default"
   bindcode 9 mode "default"
 }
-# shortcut to access display selection
+# shortcut to access display selection ($mod+x)
 bindcode $mod+53 mode "$mode_display"
 
 ## Manual management of external displays

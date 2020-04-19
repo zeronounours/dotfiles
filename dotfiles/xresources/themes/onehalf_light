@@ -1,0 +1,52 @@
+
+! onehalf light theme
+! colors
+
+#define S_black         #383a42
+#define S_red           #e45649
+#define S_green         #50a14f
+#define S_yellow        #c18401
+#define S_blue          #0184bc
+#define S_purple        #a626a4
+#define S_cyan          #0997b3
+#define S_white         #fafafa
+#define S_cursor        #313640
+
+! special
+*.foreground:   S_black
+*.background:   S_white
+*.cursorColor:  S_cursor
+
+! black
+*.color0:       S_black
+*.color8:       S_black
+
+! red
+*.color1:       S_red
+*.color9:       S_red
+
+! green
+*.color2:       S_green
+*.color10:      S_green
+
+! yellow
+*.color3:       S_yellow
+*.color11:      S_yellow
+
+! blue
+*.color4:       S_blue
+*.color12:      S_blue
+
+! magenta
+*.color5:       S_purple
+*.color13:      S_purple
+
+! cyan
+*.color6:       S_cyan
+*.color14:      S_cyan
+
+! white
+*.color7:       S_white
+*.color15:      S_white
+
+

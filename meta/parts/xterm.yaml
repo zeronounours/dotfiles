@@ -5,8 +5,8 @@
       url: https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.tar.gz
       force: false
 - shell:
-  - mkdir -p "$dlddir/Hack-v3"
-  - tar -xzf "$dlddir/Hack-v3.tar.gz" -C "$dlddir/Hack-v3"
+    - mkdir -p "$dlddir/Hack-v3"
+    - tar -xzf "$dlddir/Hack-v3.tar.gz" -C "$dlddir/Hack-v3"
 
 - link:
     ~/.local/share/fonts:
@@ -14,8 +14,11 @@
       path: "$dlddir/Hack-v3/ttf/*"
       relink: true
 
+- shell:
+    - fc-cache -f -v
+
 
 # link the xterm configuration in Xresources
 - link:
-    $xresources: xresources/xterm
+    $xresources/xterm: xresources/xterm
 
