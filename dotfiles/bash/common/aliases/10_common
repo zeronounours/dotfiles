@@ -45,5 +45,3 @@ alias tree="find . | sed 's/[^/]*\//|   /g;s/| *\([^| ]\)/+--- \1/'"
 # Alias to reload bashrc
 alias brc='source ~/.bashrc'
 
-# Palette des couleurs
-alias palette='echo -n "     "; for i in {0..10}; do printf "% 4d " $i; done; echo; for c in {30..37}; do printf "% 4d " $c; for i in {0..10}; do echo -ne "\033[${i};${c}mtest\033[0m "; done; echo; done'

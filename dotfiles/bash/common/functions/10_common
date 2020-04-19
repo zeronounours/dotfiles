@@ -358,3 +358,38 @@ function env() {
     command env "${opt[@]}"
   fi
 }
+
+# Palette des couleurs
+alias palette='system_palette;echo;256colors_palette'
+function system_palette() {
+  echo -n "     "
+  for i in {0..10}; do
+    printf "% 4d " $i
+  done
+
+  echo
+  for c in {30..37}; do
+    printf "% 4d " $c
+    for i in {0..10}; do
+      echo -ne "\033[${i};${c}mtest\033[0m "
+    done
+  echo
+  done
+}
+
+function 256colors_palette() {
+  for i in {0..255}; do
+    # print the color
+    printf $'\e[48;5;%dm\e[38;5;15m %03d ' $i $i
+    printf $'\e[48;5;0m\e[38;5;%dm %03d ' $i $i
+
+    # add additional new lines
+    if [ $i -lt 16 ]; then
+      [ $((i % 8)) -eq 7 ] && echo
+      [ $((i % 16)) -eq 15 ] && echo
+    else
+      [ $(((i-16) % 6)) -eq 5 ] && echo
+      [ $(((i-16) % 36)) -eq 35 ] && echo
+    fi
+  done
+}
