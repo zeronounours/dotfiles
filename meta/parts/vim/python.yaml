@@ -1,4 +1,9 @@
 # link files for plugins
 - link:
     $vim_runtime/pack/python: vim/vim/pack/python
+    $vim_runtime/after/plugin/virtualenv.vim: vim/vim/after/plugin/virtualenv.vim
 
+# Ensure the base python linters are installed in the default vim env
+- shell:
+  - description: "Create vim virtualenv"
+    command: sh -c 'source "$HOME/.local/bin/virtualenvwrapper.sh"; mkvirtualenv -i flake8 -i pylint -i isort -i black vim_default'

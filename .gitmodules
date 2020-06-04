@@ -72,3 +72,6 @@
 [submodule "dotfiles/vim/vim/pack/colors/opt/tender"]
 	path = dotfiles/vim/vim/pack/colors/opt/tender
 	url = https://github.com/jacoborus/tender.vim
+[submodule "dotfiles/vim/vim/pack/python/start/vim-virtualenv"]
+	path = dotfiles/vim/vim/pack/python/start/vim-virtualenv
+	url = https://github.com/jmcantrell/vim-virtualenv
