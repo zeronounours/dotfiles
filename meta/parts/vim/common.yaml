@@ -8,6 +8,7 @@
     $vimrc/25_grammalecte: vim/vimrc/25_grammalecte
     $vimrc/25_lightline: vim/vimrc/25_lightline
     $vimrc/25_vimwiki: vim/vimrc/25_vimwiki
+    $vimrc/50_colors_common: vim/vimrc/50_colors_common
 
 # link files for the .vim directory
 - link:
