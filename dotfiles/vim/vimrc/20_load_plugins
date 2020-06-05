@@ -7,3 +7,4 @@ if !exists('+packpath')
   " pathogen defaults to loading bundle/{} and pack/{}/start/{}
   execute pathogen#infect()
 endif
+

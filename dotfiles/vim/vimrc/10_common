@@ -5,6 +5,9 @@ set nocompatible
 set encoding=utf-8
 set fileencoding=utf-8
 
+" Change the leader to space
+let mapleader = " "
+
 " Show leader keys commands
 set showcmd
 
@@ -14,8 +17,8 @@ set nohidden
 " Dont use the mouse
 set mouse=
 
-" Print line numbers
-set number
+" Print line numbers as mixed relative + absolute
+set number relativenumber
 
 " Increase the number of pages which can be tabbed
 set tabpagemax=20
@@ -48,3 +51,4 @@ endif
 if has('langmap') && exists('+langremap')
   set langnoremap
 endif
+

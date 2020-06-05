@@ -1,4 +1,4 @@
 " Change the VimWiki Syntax to markdown
 let g:vimwiki_list = [{'path': '~/vimwiki/',
-                      \ 'syntax': 'markdown', 'ext': '.md'}]
+                      \ 'syntax': 'default', 'ext': '.wiki'}]
 

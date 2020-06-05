@@ -1,3 +1,11 @@
+" remap za to <leader><space> to toggle folding
+nmap <leader><space> za
 
-" remap za to <space> to toggle folding
-nmap <space> za
+" Mappings to navigate through ALE errors
+nmap <silent> <C-t> <Plug>(ale_previous_wrap)
+nmap <silent> <C-n> <Plug>(ale_next_wrap)
+
+" Mappings for YouCompleteMe
+nnoremap <silent> <leader>td :YcmCompleter GoTo<CR>
+nnoremap <silent> <leader>tr :YcmCompleter GoToReferences<CR>
+nnoremap <silent> <leader>tf :YcmCompleter FixIt<CR>
