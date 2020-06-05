@@ -1,4 +1,26 @@
 " do not show the current mode (already handled by lightline)
 set noshowmode
-let g:lightline = {}
+let g:lightline = {
+  \   'active': {
+  \     'left': [['mode', 'paste'], ['readonly', 'filename', 'modified'], ['lang_env']],
+  \     'right': [['lineinfo'], ['percent'], ['fileformat', 'fileencoding', 'filetype']]
+  \   },
+  \   'component': {
+  \     'lang_env': '%{_lang_env_lighline()}',
+  \   },
+  \ }
+
+" Function to retrieve the status of language environment (rvm, virtualenv…)
+function _lang_env_lighline()
+  " do different things based on the filetype
+  if &filetype == "python" && exists("g:virtualenv_loaded")
+    " use virtualenv.vim to retrieve the venv
+    " only print something if not using the default venv (vim_default)
+    if exists('g:virtualenv_name') && g:virtualenv_name != "vim_default"
+      return virtualenv#statusline()
+    endif
+  endif
+  " if nothing matched, return nothing
+  return ""
+endfunction
 

@@ -2,6 +2,7 @@
 - link:
     $vim_runtime/pack/python: vim/vim/pack/python
     $vim_runtime/after/plugin/virtualenv.vim: vim/vim/after/plugin/virtualenv.vim
+    $vimrc/25_virtualenv: vim/vimrc/25_virtualenv
 
 # Ensure the base python linters are installed in the default vim env
 - shell:
