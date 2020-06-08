@@ -75,3 +75,6 @@
 [submodule "dotfiles/vim/vim/pack/python/start/vim-virtualenv"]
 	path = dotfiles/vim/vim/pack/python/start/vim-virtualenv
 	url = https://github.com/jmcantrell/vim-virtualenv
+[submodule "dotfiles/vim/vim/pack/ide/start/YouCompleteMe"]
+	path = dotfiles/vim/vim/pack/youcompleteme/start/YouCompleteMe
+	url = https://github.com/ycm-core/YouCompleteMe

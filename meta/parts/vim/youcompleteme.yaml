@@ -1,0 +1,19 @@
+# copy the plugin in a temporary directory
+- env:
+    ycm: vim/vim/pack/youcompleteme
+    ycm_root: $ycm/start/YouCompleteMe
+
+# Ensure the package could be install/compiled (require cmake)
+- condition:
+    if: '! [ -f "$ycm_root/third_party/ycmd/ycm_core.so" -o -f "$ycm_root/third_party/ycmd/ycm_core.dll" ]'
+    then:
+      - shell:
+        - description: "Compile YouCompleteMe (require build-essential cmake python3-dev)"
+          command: python3 "$ycm_root/install.py"
+
+# If it was sucessfully compiled, link it in the .vim directory
+- condition:
+    if: '[ -f "$ycm_root/third_party/ycmd/ycm_core.so" -o -f "$ycm_root/third_party/ycmd/ycm_core.dll" ]'
+    then:
+      - link:
+          $vim_runtime/pack/youcompleteme: $ycm
