@@ -13,3 +13,5 @@ history="$history_color[\!]"
 # End of the prompt
 end="$end_color\$\[$Color_Off\]"
 
+# Current git branch
+git="$git_color\$(git symbolic-ref HEAD 2>/dev/null | sed -e 's#refs/heads/#(#' -e 's/\$/)/')"

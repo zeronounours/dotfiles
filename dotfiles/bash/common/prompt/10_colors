@@ -4,4 +4,5 @@ pwd_color="\[$Blue\]"
 history_color="\[$Yellow\]"
 end_color="$pwd_color"
 root_color="\[$Purple\]"
+git_color="\[$Red\]"
 
