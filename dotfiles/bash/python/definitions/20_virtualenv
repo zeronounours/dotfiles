@@ -1,5 +1,6 @@
 # configure the virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/development
+export VIRTUALENVWRAPPER_PYTHON="$(which python3)"
 source "$HOME/.local/bin/virtualenvwrapper.sh"
 

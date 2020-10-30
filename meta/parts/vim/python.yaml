@@ -5,6 +5,9 @@
     $vimrc/25_virtualenv: vim/vimrc/25_virtualenv
 
 # Ensure the base python linters are installed in the default vim env
+- env:
+    PATH: "$PATH:$HOME/.local/bin"
+    VIRTUALENVWRAPPER_PYTHON: /usr/bin/python3
 - shell:
   - description: "Create vim virtualenv"
-    command: sh -c 'source "$HOME/.local/bin/virtualenvwrapper.sh"; mkvirtualenv -i flake8 -i pylint -i isort -i black vim_default'
+    command: bash -c 'source "$HOME/.local/bin/virtualenvwrapper.sh"; mkvirtualenv -i flake8 -i pylint -i isort -i black vim_default'
