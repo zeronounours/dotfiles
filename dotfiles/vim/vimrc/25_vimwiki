@@ -1,4 +1,6 @@
-" Change the VimWiki Syntax to markdown
+" Define the list of vim wikis
 let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'default', 'ext': '.wiki'}]
 
+" Add folding to vimwiki
+let g:vimwiki_folding = 'syntax'

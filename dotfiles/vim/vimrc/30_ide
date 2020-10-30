@@ -1,2 +1,3 @@
 set colorcolumn=80
 
+command! Blackify :%!black - 2>/dev/null
