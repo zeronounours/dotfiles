@@ -10,7 +10,7 @@
       - concat:
           $dyndir/ssh_config: $sshdyn
       - link:
-          ~/.ssh/ssh_config: $dyndir/ssh_config
+          ~/.ssh/config: $dyndir/ssh_config
 
 - link:
     $sshdyn/10_per_hosts_config: ssh/10_per_hosts_config
