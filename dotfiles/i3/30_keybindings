@@ -135,9 +135,9 @@ bindsym $mod+Control+l exec "ssh-add -D; i3lock -f"
 set $mode_display Ext Screen (v) VGA On, (x) VGA Off
 mode "$mode_display" {
   # v
-  bindcode 55 exec --no-startup-id xrandr --output VGA-1 --auto --right-of LVDS-1, mode "default"
+  bindcode 55 exec --no-startup-id xrandr --output $secondary_screen --auto --$secondary_position-of $main_screen, mode "default"
   # x
-  bindcode 53 exec --no-startup-id xrandr --output VGA-1 --auto --off, mode "default"
+  bindcode 53 exec --no-startup-id xrandr --output $secondary_screen --auto --off, mode "default"
 
   # back to normal: Enter or Escape
   bindcode 36 mode "default"

@@ -1,0 +1,9 @@
+###############################################
+####            Custom variables           ####
+###############################################
+#
+# Screen config
+set $main_screen  eDP-1
+set $secondary_screen  HDMI-1
+set $secondary_position  right
+

@@ -1,0 +1,9 @@
+###############################################
+####            Custom variables           ####
+###############################################
+#
+# Screen config
+set $main_screen  LVDS-1
+set $secondary_screen  VGA-1
+set $secondary_position  right
+
