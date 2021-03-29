@@ -39,9 +39,6 @@ alias suod='sudo'
 # to find the top-10 bigger files on the current directory
 alias topten='du -sk $(/bin/ls -A) | sort -rn | head -10'
 
-# directory tree
-alias tree="find . | sed 's/[^/]*\//|   /g;s/| *\([^| ]\)/+--- \1/'"
-
 # Alias to reload bashrc
 alias brc='source ~/.bashrc'
 

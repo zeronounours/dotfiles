@@ -393,3 +393,15 @@ function 256colors_palette() {
     fi
   done
 }
+# directory tree
+function tree() {
+  if [[ "${1:-}" == "--du" ]]; then
+    du -ah \
+      | sed -r 's/^([^\s]+)\s+(.*)$/\2#\1/' \
+      | sort \
+      | sed 's/[^/]*\//|   /g;s/| *\([^| ]\)/+--- \1/' \
+      | sed -r '1s/^(.*)#([^#]*)$/[\2] \1/;2,$s/\+--- (.*)#([^#]*)$/+--- [\2] \1/'
+  else
+    find . | sed 's/[^/]*\//|   /g;s/| *\([^| ]\)/+--- \1/'
+  fi
+}
