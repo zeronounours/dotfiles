@@ -78,3 +78,6 @@
 [submodule "dotfiles/vim/vim/pack/ide/start/YouCompleteMe"]
 	path = dotfiles/vim/vim/pack/youcompleteme/start/YouCompleteMe
 	url = https://github.com/ycm-core/YouCompleteMe
+[submodule "dotfiles/vim/vim/pack/common/start/tabular"]
+	path = dotfiles/vim/vim/pack/common/start/tabular
+	url = https://github.com/godlygeek/tabular.git

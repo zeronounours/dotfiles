@@ -1,3 +1,7 @@
 set colorcolumn=80
 
 command! Blackify :%!black - 2>/dev/null
+
+" Configure vim-terraform, included in vim-polyglot
+let g:terraform_align = 1
+let g:terraform_fold_sections = 1
