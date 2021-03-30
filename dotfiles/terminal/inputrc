@@ -1,5 +1,78 @@
 # vi mode
 set editing-mode vi
-set keymap vi-command
-set show-mode-in-prompt on
+
+# no bell
+set bell-style none
+
+# Configure the keyboard
+$if mode=vi
+	set show-mode-in-prompt on
+	set keymap vi-command
+	# remap hjkl to tsrn
+	"t": backward-char
+	"n": forward-char
+	"s": next-history
+	"r": previous-history
+	"h": vi-change-char
+	"H": vi-replace
+	"k": vi-subst
+	# Movements
+	"b": vi-prev-word
+	"é": vi-next-word
+	"^": beginning-of-line
+	"0": beginning-of-line
+	"$": end-of-line
+	" ": forward-char
+	#   find matching bracket
+	"]]": vi-match
+	# search
+	#   cannot use vi-search or vi-search-again because they
+	#   have hardcoded checks on chars 'n', 'N', '/' and '?'.
+	#   Instead use the commands called by each one
+	"/": non-incremental-reverse-search-history
+	"?": non-incremental-forward-search-history
+	"m": non-incremental-reverse-search-history-again
+	"M": non-incremental-forward-search-history-again
+	# Append/inset
+	"a": vi-append-mode
+	"A": vi-append-eol
+	"i": vi-insertion-mode
+	"I": vi-insert-beg
+	# Undo/Redo
+	# vi-undo is not exposed in config, but default config maps it to u
+	#"u": vi-undo
+	"\C-r": vi-redo
+	# Args
+	"1": vi-arg-digit
+	"2": vi-arg-digit
+	"3": vi-arg-digit
+	"4": vi-arg-digit
+	"5": vi-arg-digit
+	"6": vi-arg-digit
+	"7": vi-arg-digit
+	"8": vi-arg-digit
+	"9": vi-arg-digit
+	# Delete/yank/paste/change
+	"d": vi-delete-to
+	"y": vi-yank-to
+	"p": vi-put
+	"c": vi-change-to
+	"x": vi-delete
+	"X": vi-rubout
+	# History
+	"gg": vi-fetch-history
+	"G": end-of-history
+	# Readline specific
+	"#": insert-comment
+	set keymap vi-insert
+	# Completion
+	"\C-n": menu-complete
+	"\C-p": menu-complete-backward
+	# History
+	"\C-r": reverse-search-history
+	"\C-s": forward-search-history
+	#    \e[A = UP  \e[B = DOWN
+	"\e[A": history-search-backward
+	"\e[B": history-search-forward
+$endif
 
