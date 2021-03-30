@@ -1,3 +1,4 @@
 # Define default programs to use
 export EDITOR="vim"
 export PAGER="less"
+export HTTP_HOME="https://duckduckgo.com"
