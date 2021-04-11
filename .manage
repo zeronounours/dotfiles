@@ -48,7 +48,9 @@ function initialize_workspace() {
     # load submodules
     (
       cd "$BASE"
-      git submodule update --init --recursive --remote
+      # Update submodules. Only match remote for 1st level
+      git submodule update --init --remote
+      git submodule update --init --recursive
     )
     # create meta directories
     mkdir -p "$BASE_HOSTS" "$BASE_CONFIGS" "$BASE_PARTS"

@@ -65,6 +65,8 @@ $if mode=vi
 	# Readline specific
 	"#": insert-comment
 	set keymap vi-insert
+	# Word deletion
+	"\C-w": kill-word
 	# Completion
 	"\C-n": menu-complete
 	"\C-p": menu-complete-backward
