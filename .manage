@@ -296,7 +296,7 @@ function install_config() {
     echo "$(<"$end_part")" >> "$config_file"
   fi
 
-  "$BASE/vendors/dotbot/bin/dotbot" \
+  python3 "$BASE/vendors/dotbot/bin/dotbot" \
     --base-directory "$BASE/dotfiles" \
     --config-file "$config_file" \
     --plugin-dir "$BASE/plugins" \
