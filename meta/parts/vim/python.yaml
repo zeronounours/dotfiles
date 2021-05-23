@@ -10,4 +10,4 @@
     VIRTUALENVWRAPPER_PYTHON: /usr/bin/python3
 - shell:
   - description: "Create vim virtualenv"
-    command: bash -c 'source "$HOME/.local/bin/virtualenvwrapper.sh"; mkvirtualenv -i flake8 -i pylint -i isort -i black vim_default'
+    command: bash -c 'source "$HOME/.local/bin/virtualenvwrapper.sh"; mkvirtualenv -p $(which python3) -i flake8 -i pylint -i isort -i black vim_default'
