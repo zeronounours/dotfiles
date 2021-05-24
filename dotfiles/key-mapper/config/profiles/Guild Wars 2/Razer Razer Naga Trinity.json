@@ -7,10 +7,10 @@
         "1,6,1": "KEY_GRAVE",
         "1,7,1": "KEY_9",
         "1,8,1": "disable",
-        "1,9,1": "KEY_NUMERIC_8",
-        "1,10,1": "KEY_NUMERIC_3",
+        "1,9,1": "KEY_KP8",
+        "1,10,1": "KEY_KP3",
         "1,11,1": "KEY_SEMICOLON",
-        "1,12,1": "KEY_NUMERIC_5",
-        "1,13,1": "KEY_NUMERIC_6"
+        "1,12,1": "KEY_KP5",
+        "1,13,1": "KEY_KP6"
     }
 }
