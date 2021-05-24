@@ -1,0 +1,134 @@
+#!/bin/bash
+
+set -e
+
+SCRIPT="$(basename "$0")"
+
+CONFIG_BASE="$HOME/.config/key-mapper"
+PRESETS_DIR="$CONFIG_BASE/presets"
+PROFILES_DIR="$CONFIG_BASE/profiles"
+PROFILE_PRESET_NAME="profile"
+DEFAULT_PROFILE="$PROFILES_DIR/default.json"
+
+function usage() {
+  echo "Usage: $SCRIPT [-h|--help] {list|load <profile>|reset}"
+  # if $1 is non empty, print long usage
+  if [ -z "$1" ]; then return; fi
+  echo ""
+  echo "For this command to work, be sure to configure config.json to autoload"
+  echo "$PROFILE_PRESET_NAME.json for any device you may use"
+  echo ""
+  echo "Commands:"
+  echo "    list              list available profiles"
+  echo "    load <profile>    load a new profile"
+  echo "    reset             reset the loaded profile"
+  echo "    init              initialize all profiles in config.json"
+  echo ""
+  echo "Options:"
+  echo "    -h, --help        Display this message"
+}
+
+function reset_profiles() {
+  # This function removes all links pointing to a profile
+  key-mapper-control --command stop-all
+  if [[ -d "$PRESETS_DIR" ]]; then
+    find -L "$PRESETS_DIR" -lname "$PROFILES_DIR/*" -exec ln -sf "$DEFAULT_PROFILE" '{}' \;
+  fi
+}
+
+
+function command_list() {
+  # Command to list available profiles
+  # Need to remove the first line, which is always $PROFILES_DIR itself
+  find -L "$PROFILES_DIR" -maxdepth 1 -type d -exec basename '{}' \; | tail -n+2
+}
+
+
+function command_reset() {
+  # Command to reset all profiles. It also stop all key-mappings
+  reset_profiles
+}
+
+
+function command_load() {
+  # Command to load a new profile.
+  local profile="$1"
+  # First check this is a valid profile
+  if ! [[ -d "$PROFILES_DIR/$profile" ]]; then
+      echo "$SCRIPT: unknown profile name: ${profile}" >&2
+      exit 1
+  fi
+
+  # It first reset profiles to pervent failures
+  reset_profiles
+  # Create symlinks for all devices in the profile
+  local device
+  find -L "$PROFILES_DIR/$profile" -name '*.json' -type f -exec basename '{}' \; | while read -r json; do
+    device="${json%.json}"
+    # Ensure the device directory exists
+    mkdir -p "$PRESETS_DIR/$device"
+    ln -sf "$PROFILES_DIR/$profile/$json" "$PRESETS_DIR/$device/$PROFILE_PRESET_NAME.json"
+  done
+  # load the profiles
+  key-mapper-control --command autoload
+}
+
+
+function command_init() {
+  # Function to initialize symlinks for profiles
+  # rely on python to parse the json reliably
+  echo "$CONFIG_BASE/config.json" | python3 -c 'import json; print("\n".join([k for k, v in json.load(open(input()))["autoload"].items() if v == "'"$PROFILE_PRESET_NAME"'"]))' | while read -r device; do
+    if [[ -n "$device" && ! -e "$PRESETS_DIR/$device/$PROFILE_PRESET_NAME.json" ]]; then
+      mkdir -p "$PRESETS_DIR/$device"
+      ln -s "$DEFAULT_PROFILE" "$PRESETS_DIR/$device/$PROFILE_PRESET_NAME.json"
+    fi
+  done
+}
+
+# Ensure key-mapper is installed
+if ! command -v key-mapper-control &> /dev/null; then
+  echo "$SCRIPT: Unable to locate dependency key-mapper: make sure you've installed it https://github.com/sezanzeb/key-mapper" >&2
+  exit 2
+fi
+
+# parse arguments
+declare cmd="" args=""
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -h | --help)
+      usage long
+      exit;;
+    list | reset | init)
+      cmd="$1"
+      shift
+      break;;
+    load)
+      if [[ $# -eq 1 ]]; then
+        echo "$SCRIPT: missing argument: ${1} requires one argument" >&2
+        exit 1
+      fi
+      cmd="$1"
+      args="$2"
+      shift 2
+      break;;
+    --* )
+      echo "$SCRIPT: invalid option: ${1:2}" >&2
+      usage
+      exit 1;;
+    -* )
+      echo "$SCRIPT: invalid option: ${1:1}" >&2
+      usage
+      exit 1;;
+    * )
+      echo "$SCRIPT: invalid command: ${1}" >&2
+      usage
+      exit 1;;
+  esac
+done
+if [[ "x$cmd" == "x" ]]; then
+  usage long
+  exit 1
+fi
+
+# execute the command
+"command_$cmd" "$args"

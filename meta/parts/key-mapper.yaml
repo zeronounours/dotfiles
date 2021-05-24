@@ -1,0 +1,9 @@
+
+- link:
+    ~/.config/key-mapper/config.json: key-mapper/config/config.json
+    ~/.config/key-mapper/xmodmap.json: key-mapper/config/xmodmap.json
+    ~/.config/key-mapper/profiles: key-mapper/config/profiles
+    ~/.local/bin/key-mapper-profile: key-mapper/bin/key-mapper-profile
+
+- shell:
+  - ~/.local/bin/key-mapper-profile init
