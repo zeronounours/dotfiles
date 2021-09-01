@@ -81,3 +81,6 @@
 [submodule "dotfiles/vim/vim/pack/common/start/tabular"]
 	path = dotfiles/vim/vim/pack/common/start/tabular
 	url = https://github.com/godlygeek/tabular.git
+[submodule "dotfiles/vim/vim/pack/common/start/vim-openscad"]
+	path = dotfiles/vim/vim/pack/common/start/vim-openscad
+	url = https://github.com/sirtaj/vim-openscad

@@ -322,7 +322,7 @@ function add_to_secrets() {
   if ! [ -f "$file" ]; then
       echo "[${_ERR_RED}!${_ERR_RST}] '$file' is not a valid file" >&2
       return 1
-  fi 
+  fi
 
   # ensure the file is added to gitignore
   sed -ri "/## Start secrets section/a\\${abs_path#$BASE}" "$BASE/.gitignore"
