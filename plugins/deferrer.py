@@ -58,7 +58,10 @@ class Deferrer(Plugin):
         self._log.lowinfo('Deferring %d tasks' % len(data))
         self._deferred.append(data)
         if self._dispatcher is None:
-            self._dispatcher = Dispatcher(self._context.base_directory())
+            self._dispatcher = Dispatcher(
+                self._context.base_directory(),
+                self._context.options(),
+            )
         return True
 
     def _run_deferred(self, data):
