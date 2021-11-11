@@ -1,2 +1,6 @@
 # To update the system
-alias maj="sudo pacman -Syu"
+PACKAGE_MANAGER="yay"
+alias maj="$PACKAGE_MANAGER -Syu"
+function autoremove() {
+	$PACKAGE_MANAGER -Rcs "$($PACKAGE_MANAGER -Qdtq)"
+}
