@@ -60,7 +60,7 @@ class Deferrer(Plugin):
         if self._dispatcher is None:
             self._dispatcher = Dispatcher(
                 self._context.base_directory(),
-                self._context.options(),
+                options=self._context.options(),
             )
         return True
 

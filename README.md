@@ -16,7 +16,7 @@ Clone and run the installation script:
 ```bash
 git clone https://github.com/zeronounours/dotfiles.git
 cd dotfiles
-./install add default
+./manage add default
 ```
 
 ### More advanced usages
@@ -33,10 +33,13 @@ should be the name of a config. A dedicated command `hosts` is implemented
 to manage versioning of hosts config files.
 
 
-The script `install` should be used to manage configuration and to load or
+The script `manage` should be used to manage configuration and to load or
 remove configs and profiles from the current host.
 See `install --help` for more information.
 
+### Debugging
+To debug the execution of [dotbot][dotbot], the environment variable
+`DOTFILES_DEBUG` may be set to any non-null value.
 
 [dotbot]: https://git.io/dotbot
 [config_doc]: https://github.com/anishathalye/dotbot#configuration

@@ -300,6 +300,7 @@ function install_config() {
     --base-directory "$BASE/dotfiles" \
     --config-file "$config_file" \
     --plugin-dir "$BASE/plugins" \
+    ${DOTFILES_DEBUG:+-v} \
     "$@"
   local exitcode=$?
 
