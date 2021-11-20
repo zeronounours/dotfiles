@@ -39,6 +39,9 @@ function run() {
     esac
   done
 
+  # update submodules
+  update_submodules
+
   # update current host
   local -a to_load
   while IFS= read -r config; do

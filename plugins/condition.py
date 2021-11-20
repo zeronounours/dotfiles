@@ -44,7 +44,10 @@ class Condition(Plugin):
     def _run_tasks(self, tasks):
         success = True
         # create the dispatcher
-        dispatcher = Dispatcher(self._context.base_directory())
+        dispatcher = Dispatcher(
+            self._context.base_directory(),
+            options=self._context.options(),
+        )
         # ensure the context of deferred tasks is the same as current
         dispatcher._context.set_defaults(self._context.defaults())
         # run all tasks
