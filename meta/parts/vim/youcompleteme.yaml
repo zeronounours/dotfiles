@@ -5,7 +5,7 @@
 
 # Ensure the package could be install/compiled (require cmake)
 - condition:
-    if: '! [ -f "$ycm_root/third_party/ycmd/ycm_core.so" -o -f "$ycm_root/third_party/ycmd/ycm_core.dll" ]'
+    if: '! [ -f "$ycm_root/third_party/ycmd/ycm_core"*".so" -o -f "$ycm_root/third_party/ycmd/ycm_core"*".dll" ]'
     then:
       - shell:
         - description: "Compile YouCompleteMe (require build-essential cmake python3-dev)"
@@ -13,7 +13,7 @@
 
 # If it was sucessfully compiled, link it in the .vim directory
 - condition:
-    if: '[ -f "$ycm_root/third_party/ycmd/ycm_core.so" -o -f "$ycm_root/third_party/ycmd/ycm_core.dll" ]'
+    if: '[ -f "$ycm_root/third_party/ycmd/ycm_core"*".so" -o -f "$ycm_root/third_party/ycmd/ycm_core"*".dll" ]'
     then:
       - link:
           $vim_runtime/pack/youcompleteme: $ycm
