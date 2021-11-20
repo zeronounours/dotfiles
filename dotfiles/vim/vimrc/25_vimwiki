@@ -1,5 +1,12 @@
+" allow changing vimwiki location
+if empty($VIMWIKI_PATH)
+  let g:vimwiki_path = '~/vimwiki'
+else
+  let g:vimwiki_path = $VIMWIKI_PATH
+endif
+
 " Define the list of vim wikis
-let g:vimwiki_list = [{'path': '~/vimwiki/',
+let g:vimwiki_list = [{'path': g:vimwiki_path,
                       \ 'syntax': 'default', 'ext': '.wiki'}]
 
 " Add folding to vimwiki
