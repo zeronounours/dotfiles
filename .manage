@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 BASE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BASE_HOSTS="$BASE/meta/hosts"
 BASE_CONFIGS="$BASE/meta/configs"
@@ -36,6 +35,14 @@ else
   _ERR_RED=""; _ERR_GRN=""; _ERR_BRW=""
   _ERR_BLU=""; _ERR_MTA=""; _ERR_CYN=""
 fi
+
+# check minimal Bash version
+if ! (( BASH_VERSINFO[0] > 4 || \
+  (BASH_VERSINFO[0] == 4 && BASH_VERSINFO[1] >= 3) )); then
+    echo "[${_ERR_RED}!${_ERR_RST}] Requires at least Bash 4.3" >&2
+    exit 2
+fi
+
 
 ###
 # Base functions
@@ -149,7 +156,7 @@ function load_host_file() {
 
         # resolve config
         if config_exists "$line"; then
-          if ! grep -x -q "$line" <<<"$__current_host"; then
+          if ! current_host_has "$line"; then
             __current_host+="$line"$'\n'
           fi
         else
@@ -161,6 +168,13 @@ function load_host_file() {
       echo "[${_ERR_RED}!${_ERR_RST}] $file exists but is not readable" >&2
       return 1
     fi
+}
+
+function current_host_has() {
+  local config="$1"
+  if ! grep -x -q "$config" <<<"$__current_host"; then
+    return 1
+  fi
 }
 
 function load_current_host() {
@@ -185,7 +199,7 @@ function add_current_host() {
   load_current_host
   local config="$1"
   # only add if not already in it
-  if ! grep -x -q "$config" <<<"$__current_host"; then
+  if ! current_host_has "$config"; then
     __current_host+="$config"$'\n'
   fi
 }
@@ -231,22 +245,45 @@ function config_exists() {
   fi
 }
 
+function simple_templater() {
+  local file="$1"
+  # use eval to provide bash syntax
+  eval "cat <<EOF
+$(cat "$file")
+EOF"
+}
+
 function resolve_config() {
   local config="$1"
   local -a parts
 
   while IFS= read -r line; do
-    # skip comments
-    if [[ "$line" == "#"* ]]; then continue; fi
+    # skip comments and empty lines
+    if [[ "$line" == "#"* ]] || [[ "$line" == "" ]]; then continue; fi
 
     # resolve config
-    if part_exists "$line"; then
-      parts+=("$line")
+    if [[ "$line" == "dependency="* ]]; then
+
+      # check dependancies
+      if config_exists "${line#dependency=}"; then
+        parts+=("$line")
+      else
+        echo "[${_ERR_RED}!${_ERR_RST}] Invalid dependency in config '$config': ${line#dependency=}" >&2
+        return 1
+      fi
+
     else
-      echo "[${_ERR_RED}!${_ERR_RST}] Invalid part in config'$config': $line" >&2
-      return 1
+
+      # check parts
+      if part_exists "$line"; then
+        parts+=("$line")
+      else
+        echo "[${_ERR_RED}!${_ERR_RST}] Invalid part in config '$config': $line" >&2
+        return 1
+      fi
+
     fi
-  done < "$(get_config_file "$config")"
+  done <<< "$(simple_templater "$(get_config_file "$config")")"
   (IFS=$'\n'; echo "${parts[*]}")
 }
 
@@ -275,13 +312,66 @@ function part_exists() {
 ###
 # INTERFACE WITH DOTBOT
 ###
-function install_config() {
+function install_all_configs() {
+  # install a list of config
+  #  CRC32(to_load@install_all_configs) = bcb044c5
+  local -n _bcb044c5_to_load="$1"
+  local verbose="${2:-}"
+  # loaded is used to load config only once, while keeping the order
+  local -A loaded=()
+  local config
+  for config in "${_bcb044c5_to_load[@]}"; do
+    install_all_configs_recurse "$config"
+  done
+}
+
+function install_all_configs_recurse() {
+  # use to install config recursively, for dependencies
   local config="$1"
-  shift
+  local dependency_of="${2:-}"
+
+  # resolve the config file
+  local config_content
+  config_content="$(resolve_config "$config")"
+  # stop here if resolution failed
+  if [[ $? != 0 ]]; then return; fi
+  echo "DEBUG config_content=$config_content"
+
+  # install dependencies recursively
+  if grep -q '^dependency=' <<<"$config_content"; then
+    local dep
+    while read -r dep; do
+    echo "DEBUG dep=$dep"
+      install_all_configs_recurse "${dep#dependency=}" "$config"
+    done <<<"$(grep '^dependency=' <<<"$config_content")"
+  fi
+
+  # ensure only not loaded config are
+  echo "DEBUG config=$config"
+  if [[ ${loaded[$config]} == 1 ]]; then return; fi
+
+  if [[ "$dependency_of" == "" ]]; then
+    echo "[${_OUT_BLU}*${_OUT_RST}] Loading config '$config'"
+  else
+    echo "[${_OUT_BLU}*${_OUT_RST}] Loading '$config' dependency of '$dependency_of'"
+  fi
+
+  # install the config
+  if ! install_config $verbose <<<"$(grep -v '^dependency=' <<<"$config_content")"; then
+    echo "[${_ERR_RED}!${_ERR_RST}] Error while loading config $config" >&2
+    echo "[${_ERR_RED}!${_ERR_RST}] Please fix the config file and run '$SCRIPT update'" >&2
+    return 1
+  fi
+
+  # mark config as loaded
+  loaded[$config]=1
+}
+
+function install_config() {
   local base_part="$BASE/meta/base.yaml"
   local end_part="$BASE/meta/end.yaml"
-  local -a parts=()
-  IFS=$'\n' parts+=($(resolve_config "$config"))
+  # read the config from input
+  readarray -t parts
 
   # remove previously generated configs
   for f in /tmp/dotfiles.cfg.??????.yaml; do

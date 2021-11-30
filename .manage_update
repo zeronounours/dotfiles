@@ -54,19 +54,8 @@ function run() {
   done <<<"$(get_current_host)"
 
   # load all configs
-  # loaded is used to load config only once, while keeping the order
-  local -A loaded=()
-  for config in "${to_load[@]}"; do
-    if [[ ${loaded[$config]} == 1 ]]; then continue; fi
-
-    echo "[${_OUT_BLU}*${_OUT_RST}] Loading config $config"
-    if ! install_config "$config" $verbose; then
-      echo "[${_ERR_RED}!${_ERR_RST}] Error while loading config $config" >&2
-      echo "[${_ERR_RED}!${_ERR_RST}] Please fix the config file and run '$SCRIPT update'" >&2
-      return 1
-    fi
-    loaded[$config]=1
-  done
-
+  if ! install_all_configs to_load "$verbose"; then
+    return 1
+  fi
 }
 
