@@ -1,3 +1,12 @@
+$(if current_host_has vim/vim; then cat <<'EOF'
 vim/base
-xresources
-colors/solarized_light
+vim/colors/solarized_light
+EOF
+fi
+)
+$(if current_host_has xterm; then cat <<'EOF'
+xresources/base
+xresources/colors/solarized_light
+EOF
+fi
+)

@@ -154,20 +154,20 @@ function load_host_file() {
       # skip comments
       if [[ "$line" == "#"* ]]; then continue; fi
 
-        # resolve config
-        if config_exists "$line"; then
-          if ! current_host_has "$line"; then
-            __current_host+="$line"$'\n'
-          fi
-        else
-          echo "[${_ERR_RED}!${_ERR_RST}] Invalid config in host: $line" >&2
-          return 1
+      # resolve config
+      if config_exists "$line"; then
+        if ! current_host_has "$line"; then
+          __current_host+="$line"$'\n'
         fi
-      done <"$file"
-    elif [[ -e "$file" ]]; then
-      echo "[${_ERR_RED}!${_ERR_RST}] $file exists but is not readable" >&2
-      return 1
-    fi
+      else
+        echo "[${_ERR_RED}!${_ERR_RST}] Invalid config in host: $line" >&2
+        return 1
+      fi
+    done <"$file"
+  elif [[ -e "$file" ]]; then
+    echo "[${_ERR_RED}!${_ERR_RST}] $file exists but is not readable" >&2
+    return 1
+  fi
 }
 
 function current_host_has() {
@@ -248,9 +248,9 @@ function config_exists() {
 function simple_templater() {
   local file="$1"
   # use eval to provide bash syntax
-  eval "cat <<EOF
+  eval "cat <<_0f547162_EOF
 $(cat "$file")
-EOF"
+_0f547162_EOF"
   return $?
 }
 
@@ -337,8 +337,12 @@ function install_all_configs() {
   # loaded is used to load config only once, while keeping the order
   local -A loaded=()
   local config
+  # ensure current host config is loaded to be able to template the configs
+  load_current_host
   for config in "${_bcb044c5_to_load[@]}"; do
     install_all_configs_recurse "$config"
+    # stop here if install failed
+    if [[ $? != 0 ]]; then return 1; fi
   done
 }
 
@@ -360,7 +364,7 @@ function install_all_configs_recurse() {
   local config_content
   config_content="$(resolve_config "$config")"
   # stop here if resolution failed
-  if [[ $? != 0 ]]; then return; fi
+  if [[ $? != 0 ]]; then return 1; fi
 
   # install dependencies recursively
   if grep -q '^dependency=' <<<"$config_content"; then
@@ -407,6 +411,8 @@ function install_config() {
   fi
   # concat each part
   for f in "${parts[@]}"; do
+    # skip empty lines (may append when no parts are configured)
+    if [[ "$f" == "" ]]; then continue; fi
     cat "$(get_part_file "$f")" >> "$config_file"
   done
   # end.yaml

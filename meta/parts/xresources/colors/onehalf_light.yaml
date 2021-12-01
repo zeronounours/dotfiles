@@ -1,0 +1,6 @@
+# URL: https://github.com/sonph/onehalf
+
+# link the xterm configuration in Xresources
+- link:
+    $xresources/theme: xresources/themes/onehalf_light
+

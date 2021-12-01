@@ -16,8 +16,6 @@
       glob: true
       path: bash/common/prompt/*
       relink: true
-
-- link:
     $bash_functions:
       glob: true
       path: bash/common/keyboards/*

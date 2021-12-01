@@ -1,0 +1,6 @@
+# URL: https://github.com/altercation/solarized
+
+# link the xterm configuration in Xresources
+- link:
+    $xresources/theme: xresources/themes/solarized_light
+

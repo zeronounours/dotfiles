@@ -1,0 +1,5 @@
+- link:
+    $bash_definitions:
+      glob: true
+      path: bash/python/definitions/*
+      relink: true

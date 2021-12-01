@@ -1,2 +1,3 @@
+dependency=vim/vim
 vim/base
 vim/ide

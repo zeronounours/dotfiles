@@ -1,4 +1,4 @@
+dependency=vim/ide/common
+dependency=vim/ide/ruby
 vim/base
-vim/ide
-vim/ruby
 vim/rails

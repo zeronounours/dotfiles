@@ -1,2 +1,9 @@
+# core configs for python
+python/core
+# bash bindings to the virtual env
+$(if current_host_has bash/bash; then cat <<'EOF'
 bash/base
-python
+python/bash
+EOF
+fi
+)

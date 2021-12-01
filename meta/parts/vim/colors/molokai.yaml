@@ -1,0 +1,5 @@
+
+# link vimrc files
+- link:
+    $vimrc/50_color: vim/vimrc/colors/50_molokai
+
