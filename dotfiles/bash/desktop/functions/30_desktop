@@ -1,9 +1,11 @@
 # Ease choosing a wifi network with wpa_supplicant
 function wpa_select_network() {
   local name="$1"
+  local iface="$(ip l | grep 'wlan\|wlp' | cut -d: -f2)"
+  iface="${iface##*( )}"
 
   # find network id
-  local networks="$(wpa_cli list_networks | tail +3 | \
+  local networks="$(wpa_cli -i "$iface" list_networks | tail +3 | \
     awk '$2 ~ /'$name'/ {print $1 " " $2}')"
 
   local net_id
@@ -26,5 +28,5 @@ function wpa_select_network() {
   fi
 
   # select the network
-  wpa_cli select_network "$net_id"
+  wpa_cli -i "$iface" select_network "$net_id"
 }
