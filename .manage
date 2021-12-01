@@ -252,10 +252,27 @@ function simple_templater() {
 $(cat "$file")
 EOF"
 }
+  return $?
 
 function resolve_config() {
   local config="$1"
   local -a parts
+
+  # check config file existance
+  local file
+  file="$(get_config_file "$config")"
+  if [[ $? != 0 ]]; then
+    echo "[${_ERR_RED}!${_ERR_RST}] Config file for '$config' does not exist" >&2
+    return 1
+  fi
+
+  # template the config
+  local templated_config
+  templated_config="$(simple_templater "$file")"
+  if [[ $? != 0 ]]; then
+    echo "[${_ERR_RED}!${_ERR_RST}] Invalid config '$config': fail to template it" >&2
+    return 1
+  fi
 
   while IFS= read -r line; do
     # skip comments and empty lines
@@ -283,7 +300,7 @@ function resolve_config() {
       fi
 
     fi
-  done <<< "$(simple_templater "$(get_config_file "$config")")"
+  done <<< "$templated_config"
   (IFS=$'\n'; echo "${parts[*]}")
 }
 
