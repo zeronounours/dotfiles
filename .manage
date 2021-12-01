@@ -251,8 +251,8 @@ function simple_templater() {
   eval "cat <<EOF
 $(cat "$file")
 EOF"
-}
   return $?
+}
 
 function resolve_config() {
   local config="$1"
@@ -347,30 +347,29 @@ function install_all_configs_recurse() {
   local config="$1"
   local dependency_of="${2:-}"
 
-  # resolve the config file
-  local config_content
-  config_content="$(resolve_config "$config")"
-  # stop here if resolution failed
-  if [[ $? != 0 ]]; then return; fi
-  echo "DEBUG config_content=$config_content"
-
-  # install dependencies recursively
-  if grep -q '^dependency=' <<<"$config_content"; then
-    local dep
-    while read -r dep; do
-    echo "DEBUG dep=$dep"
-      install_all_configs_recurse "${dep#dependency=}" "$config"
-    done <<<"$(grep '^dependency=' <<<"$config_content")"
-  fi
-
   # ensure only not loaded config are
-  echo "DEBUG config=$config"
   if [[ ${loaded[$config]} == 1 ]]; then return; fi
 
   if [[ "$dependency_of" == "" ]]; then
     echo "[${_OUT_BLU}*${_OUT_RST}] Loading config '$config'"
   else
     echo "[${_OUT_BLU}*${_OUT_RST}] Loading '$config' dependency of '$dependency_of'"
+  fi
+
+  # resolve the config file
+  local config_content
+  config_content="$(resolve_config "$config")"
+  # stop here if resolution failed
+  if [[ $? != 0 ]]; then return; fi
+
+  # install dependencies recursively
+  if grep -q '^dependency=' <<<"$config_content"; then
+    local dep
+    while read -r dep; do
+      install_all_configs_recurse "${dep#dependency=}" "$config"
+    done <<<"$(grep '^dependency=' <<<"$config_content")"
+
+    echo "[${_OUT_BLU}*${_OUT_RST}] All dependencies installed, installing '$config'"
   fi
 
   # install the config
