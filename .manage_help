@@ -7,11 +7,13 @@ function usage() {
   echo "  Print the help of a command"
   echo ""
   echo "Commands:"
-  echo "    list      list configurations"
-  echo "    add       Add or remove configurations to the current host"
-  echo "    update    Reload configurations of the current host"
-  echo "    host      Manage host configurations"
-  echo "    help      Get help on commands"
+  echo "    list        list configurations"
+  echo "    add         Add or remove configurations to the current host"
+  echo "    update      Reload configurations of the current host"
+  echo "    updatedeps  Reload configurations of the current host"
+  echo "    host        Manage host configurations"
+  echo "    secret      Manage secrets"
+  echo "    help        Get help on commands"
   echo ""
   echo "Try '$SCRIPT --help' to get help on $SCRIPT format"
 }
@@ -21,7 +23,7 @@ function run() {
   local cmd=""
   while [ -n "$1" ]; do
     case "$1" in
-      list | add | update | host | help)
+      list | add | update | updatedeps | host | help)
         cmd="$1"
         shift
         break;;

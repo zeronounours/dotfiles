@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 function usage() {
-  echo "Usage: $SCRIPT update [-h|--help]"
+  echo "Usage: $SCRIPT updatedeps [-h|--help]"
   # if $1 is non empty, print long usage
   if [ -z "$1" ]; then return; fi
-  echo "Reload all configs of the current host"
+  echo "Update all dependencies of the repository"
   echo ""
   echo "Options:"
   echo "    -Q, --super-quiet   Suppress almost all output"
@@ -39,20 +39,7 @@ function run() {
     esac
   done
 
-  # update current host
-  local -a to_load
-  while IFS= read -r config; do
-    if config_exists "$config"; then
-      to_load+=("$config")
-    else
-      echo "[${_ERR_RED}!${_ERR_RST}] Unknown config '$config'" >&2
-      return 1
-    fi
-  done <<<"$(get_current_host)"
-
-  # load all configs
-  if ! install_all_configs to_load "$verbose"; then
-    return 1
-  fi
+  # update submodules
+  update_submodules
 }
 
