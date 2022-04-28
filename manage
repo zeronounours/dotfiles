@@ -35,7 +35,7 @@ function main() {
       -h | --help)
         usage long
         return;;
-      list | add | update | host | secret | help)
+      list | add | update | updatedeps | host | secret | help)
         cmd="$1"
         shift
         break;;

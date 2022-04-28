@@ -10,7 +10,7 @@
 	url = https://github.com/itchyny/lightline.vim
 [submodule "dotfiles/vim/vim/bundle/vim-better-whitespace"]
 	path = dotfiles/vim/vim/pack/ide/start/vim-better-whitespace
-	url = git://github.com/ntpeters/vim-better-whitespace.git
+	url = https://github.com/ntpeters/vim-better-whitespace.git
 [submodule "dotfiles/vim/vim/bundle/vim-css-color"]
 	path = dotfiles/vim/vim/pack/common/start/vim-css-color
 	url = https://github.com/ap/vim-css-color
