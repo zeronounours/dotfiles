@@ -1,0 +1,9 @@
+- link:
+    $bash_definitions:
+      glob: true
+      path: bash/fzf/definitions/*
+      relink: true
+    $bash_functions:
+      glob: true
+      path: bash/fzf/functions/*
+      relink: true

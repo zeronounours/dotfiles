@@ -1,0 +1,3 @@
+dependency=bash/bash
+bash/base
+fzf

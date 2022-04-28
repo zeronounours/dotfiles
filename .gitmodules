@@ -84,3 +84,9 @@
 [submodule "dotfiles/vim/vim/pack/common/start/vim-openscad"]
 	path = dotfiles/vim/vim/pack/common/start/vim-openscad
 	url = https://github.com/sirtaj/vim-openscad
+[submodule "dotfiles/vim/vim/pack/ide/start/fzf.vim"]
+	path = dotfiles/vim/vim/pack/ide/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim
+[submodule "dotfiles/vim/vim/pack/ide/start/fzf"]
+	path = dotfiles/vim/vim/pack/ide/start/fzf
+	url = https://github.com/junegunn/fzf
