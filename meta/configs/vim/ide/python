@@ -1,3 +1,4 @@
 dependency=vim/ide/common
+dependency=python
 vim/base
 vim/python
