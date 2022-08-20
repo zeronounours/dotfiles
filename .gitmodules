@@ -5,21 +5,27 @@
 [submodule "dotfiles/vim/vim/bundle/ale"]
 	path = dotfiles/vim/vim/pack/ide/start/ale
 	url = https://github.com/dense-analysis/ale.git
+	ignore = dirty
 [submodule "dotfiles/vim/vim/bundle/lightline.vim"]
 	path = dotfiles/vim/vim/pack/common/start/lightline.vim
 	url = https://github.com/itchyny/lightline.vim
+	ignore = dirty
 [submodule "dotfiles/vim/vim/bundle/vim-better-whitespace"]
 	path = dotfiles/vim/vim/pack/ide/start/vim-better-whitespace
 	url = https://github.com/ntpeters/vim-better-whitespace.git
+	ignore = dirty
 [submodule "dotfiles/vim/vim/bundle/vim-css-color"]
 	path = dotfiles/vim/vim/pack/common/start/vim-css-color
 	url = https://github.com/ap/vim-css-color
+	ignore = dirty
 [submodule "dotfiles/vim/vim/bundle/vim-fugitive"]
 	path = dotfiles/vim/vim/pack/ide/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
+	ignore = dirty
 [submodule "dotfiles/vim/vim/bundle/vim-gitgutter"]
 	path = dotfiles/vim/vim/pack/ide/start/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
+	ignore = dirty
 [submodule "dotfiles/vim/vim/bundle/vim-Grammalecte"]
 	path = dotfiles/vim/vim/pack/common/start/vim-Grammalecte
 	url = https://github.com/dpelle/vim-Grammalecte
@@ -27,66 +33,88 @@
 [submodule "dotfiles/vim/vim/bundle/vim-python-pep8-indent"]
 	path = dotfiles/vim/vim/pack/python/start/vim-python-pep8-indent
 	url = https://github.com/Vimjas/vim-python-pep8-indent.git
+	ignore = dirty
 [submodule "dotfiles/vim/vim/bundle/vim-repeat"]
 	path = dotfiles/vim/vim/pack/common/start/vim-repeat
 	url = https://github.com/tpope/vim-repeat
+	ignore = dirty
 [submodule "dotfiles/vim/vim/bundle/vim-surround"]
 	path = dotfiles/vim/vim/pack/ide/start/vim-surround
 	url = https://github.com/tpope/vim-surround
+	ignore = dirty
 [submodule "dotfiles/vim/vim/bundle/vimwiki"]
 	path = dotfiles/vim/vim/pack/common/start/vimwiki
 	url = https://github.com/vimwiki/vimwiki.git
+	ignore = dirty
 [submodule "dotfiles/vim/vim/bundle/vim-yaml"]
 	path = dotfiles/vim/vim/pack/common/start/vim-yaml
 	url = https://github.com/stephpy/vim-yaml
+	ignore = dirty
 [submodule "dotfiles/vim/vim/bundle/vim-speeddating"]
 	path = dotfiles/vim/vim/pack/common/start/vim-speeddating
 	url = https://github.com/tpope/vim-speeddating
+	ignore = dirty
 [submodule "dotfiles/vim/vim/pack/common/start/ctrlp.vim"]
 	path = dotfiles/vim/vim/pack/common/start/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim
+	ignore = dirty
 [submodule "dotfiles/vim/vim/pack/common/start/vim-bepo"]
 	path = dotfiles/vim/vim/pack/common/start/vim-bepo
 	url = https://github.com/zeronounours/vim-bepo
+	ignore = dirty
 [submodule "dotfiles/vim/vim/pack/ruby/start/vim-rvm"]
 	path = dotfiles/vim/vim/pack/ruby/start/vim-rvm
 	url = https://github.com/tpope/vim-rvm
+	ignore = dirty
 [submodule "dotfiles/vim/vim/pack/common/start/vim-abolish"]
 	path = dotfiles/vim/vim/pack/common/start/vim-abolish
 	url = https://github.com/tpope/vim-abolish
+	ignore = dirty
 [submodule "dotfiles/vim/vim/pack/ide/start/vim-unimpaired"]
 	path = dotfiles/vim/vim/pack/ide/start/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired
+	ignore = dirty
 [submodule "dotfiles/vim/vim/pack/rails/start/vim-rails"]
 	path = dotfiles/vim/vim/pack/rails/start/vim-rails
 	url = https://github.com/tpope/vim-rails
+	ignore = dirty
 [submodule "dotfiles/vim/vim/pack/rails/start/vim-coffee-script"]
 	path = dotfiles/vim/vim/pack/rails/start/vim-coffee-script
 	url = https://github.com/kchmck/vim-coffee-script
+	ignore = dirty
 [submodule "dotfiles/vim/vim/pack/ide/start/vim-polyglot"]
 	path = dotfiles/vim/vim/pack/ide/start/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
+	ignore = dirty
 [submodule "dotfiles/vim/vim/pack/colors/opt/dracula"]
 	path = dotfiles/vim/vim/pack/colors/opt/dracula
 	url = https://github.com/dracula/vim.git
+	ignore = dirty
 [submodule "dotfiles/vim/vim/pack/colors/opt/tender"]
 	path = dotfiles/vim/vim/pack/colors/opt/tender
 	url = https://github.com/jacoborus/tender.vim
+	ignore = dirty
 [submodule "dotfiles/vim/vim/pack/python/start/vim-virtualenv"]
 	path = dotfiles/vim/vim/pack/python/start/vim-virtualenv
 	url = https://github.com/jmcantrell/vim-virtualenv
+	ignore = dirty
 [submodule "dotfiles/vim/vim/pack/ide/start/YouCompleteMe"]
 	path = dotfiles/vim/vim/pack/youcompleteme/start/YouCompleteMe
 	url = https://github.com/ycm-core/YouCompleteMe
+	ignore = dirty
 [submodule "dotfiles/vim/vim/pack/common/start/tabular"]
 	path = dotfiles/vim/vim/pack/common/start/tabular
 	url = https://github.com/godlygeek/tabular.git
+	ignore = dirty
 [submodule "dotfiles/vim/vim/pack/common/start/vim-openscad"]
 	path = dotfiles/vim/vim/pack/common/start/vim-openscad
 	url = https://github.com/sirtaj/vim-openscad
+	ignore = dirty
 [submodule "dotfiles/vim/vim/pack/ide/start/fzf.vim"]
 	path = dotfiles/vim/vim/pack/ide/start/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
+	ignore = dirty
 [submodule "dotfiles/vim/vim/pack/ide/start/fzf"]
 	path = dotfiles/vim/vim/pack/ide/start/fzf
 	url = https://github.com/junegunn/fzf
+	ignore = dirty
