@@ -9,7 +9,7 @@
     then:
       - shell:
         - description: "Compile YouCompleteMe (require build-essential cmake python3-dev)"
-          command: python3 "$ycm_root/install.py"
+          command: python3 "$ycm_root/install.py" --go-completer
 
 # If it was sucessfully compiled, link it in the .vim directory
 - condition:
