@@ -2,5 +2,5 @@
 PACKAGE_MANAGER="yay"
 alias maj="$PACKAGE_MANAGER -Syu"
 function autoremove() {
-	$PACKAGE_MANAGER -Rcs "$($PACKAGE_MANAGER -Qdtq)"
+  $PACKAGE_MANAGER -Rcs $($PACKAGE_MANAGER -Qdtq)
 }

@@ -5,7 +5,7 @@ function wpa_select_network() {
   iface="${iface##*( )}"
 
   # find network id
-  local networks="$(wpa_cli -i "$iface" list_networks | tail +3 | \
+  local networks="$(wpa_cli -i "$iface" list_networks | tail +2 | \
     awk '$2 ~ /'$name'/ {print $1 " " $2}')"
 
   local net_id
