@@ -7,6 +7,14 @@
     bash_prompt: $dyndir/bash_prompt.d
     bash_services: $dyndir/bash_services.d
 
+# Backup the local .bashrc file to .bash_local
+- shell:
+    - description: "Backup .bashrc to .bash_local"
+      command: >-
+        if [[ -f ~/.bashrc && ! -h ~/.bashrc && ! -e ~/.bash_local ]]; then
+          mv ~/.bashrc ~/.bash_local
+        fi
+
 - link:
     ~/.bashrc: bash/bashrc
 
