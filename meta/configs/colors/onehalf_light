@@ -1,12 +1,14 @@
 $(if current_host_has vim/vim; then cat <<'EOF'
+dependency=vim/vim
 vim/base
-vim/colors/onehalf_ligth
+vim/colors/onehalf_light
 EOF
 fi
 )
 $(if current_host_has xterm; then cat <<'EOF'
+dependency=xterm
 xresources/base
-xresources/colors/onehalf_ligth
+xresources/colors/onehalf_light
 EOF
 fi
 )

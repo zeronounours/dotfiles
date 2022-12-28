@@ -10,6 +10,12 @@
       - shell:
         - description: "Compile YouCompleteMe (require build-essential cmake python3-dev)"
           command: python3 "$ycm_root/install.py" --go-completer
+          command: >-
+            args="";
+            if which go &> /dev/null; then
+              args="$args --go-completer";
+            fi;
+            python3 "$ycm_root/install.py" $args
 
 # If it was sucessfully compiled, link it in the .vim directory
 - condition:
