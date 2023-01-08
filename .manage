@@ -401,7 +401,7 @@ function install_config() {
   done
 
   # ensure secrets are decrypted before doing anything
-  decrypt_secrets
+  decrypt_secrets "noforce" "dummy"
 
   # create the temporary config file
   local config_file="$(mktemp -p "/tmp" "dotfiles.cfg.XXXXXX.yaml")"
@@ -479,7 +479,7 @@ function encrypt_secrets() {
 }
 
 function decrypt_secrets() {
-  local force="$1"
+  local force="$1" dummy="$2"
 
   # Only decrypt if some files cannot be found
   local secret_files="$(sed -n \
@@ -501,6 +501,20 @@ function decrypt_secrets() {
     else
       echo "Force to decrypt secret files"
     fi
-    "$BASE/vendors/git-secret" reveal
+
+    if "$BASE/vendors/git-secret" reveal; then
+      return 0
+    elif [[ "$dummy" == "dummy" ]]; then
+      # create dummy secret files if asked for and secret reveal failed
+      echo "[${_OUT_BRW}i${_OUT_RST}] Some secret could not be decryted: create dummy files"
+      while read -r file; do
+        if ! [ -f "$BASE$file" ]; then
+          touch "$BASE$file"
+        fi
+      done <<<"$secret_files"
+      return 0
+    else
+      return 1
+    fi
   fi
 }
