@@ -8,6 +8,8 @@
 
 # Start a terminal on first workspace
 exec --no-startup-id i3-msg workspace $WS1; exec i3-sensible-terminal
+# Start a keepass on first workspace
+exec --no-startup-id i3-msg workspace $WS10; exec keepassxc
 
 # Start background applications
 exec --no-startup-id nextcloud
