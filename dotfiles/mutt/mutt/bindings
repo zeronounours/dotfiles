@@ -1,23 +1,52 @@
-# More vim-like bindings
+###################
+## bépo - vim-like binding
 bind index i  noop
 bind index g  noop # clear for next binding
 bind index gg first-entry
 bind index G  last-entry
-bind index N  search-opposite
+bind generic /  search
+bind generic m  search-next
+bind generic M  search-opposite
 bind pager i  exit
 bind pager q  toggle-quoted
-bind pager /  search
-bind pager j  next-line
-bind pager k  previous-line
 bind pager g  noop # clear for next binding
 bind pager gg top
 bind pager G  bottom
 bind index,pager \# noop
 bind index,pager \& noop
-bind index,pager R  group-reply
 
 # Sidebar
 bind index ,b sidebar-toggle-visible
-bind index J  sidebar-next
-bind index K  sidebar-prev
-bind index L sidebar-open
+bind index S  sidebar-next
+bind index R  sidebar-prev
+bind index N sidebar-open
+
+###################
+## bépo
+bind browser,attach s next-entry
+bind browser,attach r previous-entry
+bind index s next-undeleted
+bind index r previous-undeleted
+bind generic,index s next-entry
+bind generic,index r previous-entry
+bind browser S next-entry
+bind browser R previous-entry
+bind pager s next-line
+bind pager r previous-line
+bind index,attach t tag-entry
+bind index T tag-pattern
+bind index ^T untag-pattern
+bind index <Esc>t tag-thread
+bind pager,index k save-message
+bind attach,pager c exit
+bind browser c previous-page
+bind pager h change-folder
+bind generic S top-page
+bind generic R bottom-page
+bind browser n select-entry
+bind index n display-message
+bind pager n view-attachments
+bind attach n view-attach
+bind attach k save-entry
+bind index,pager,attach , reply
+####################

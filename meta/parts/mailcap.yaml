@@ -1,0 +1,5 @@
+
+- link:
+    ~/.mailcap:
+      path: mutt/mailcap
+      create: true

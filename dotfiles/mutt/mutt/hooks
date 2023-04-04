@@ -1,0 +1,1 @@
+folder-hook . 'echo `rm -f /tmp/mutt/$(id -u)/*`'

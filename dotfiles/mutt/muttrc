@@ -38,9 +38,11 @@ unset markers
   set tmpdir            = "$my_config_dir/temp"
   set imap_keepalive    = 300
   set imap_check_subscribed
+  set sidebar_visible   = yes
+  set sidebar_sort_method = "alpha"
 
 auto_view text/html
-alternative_order text/plain text/enriched text/html
+alternative_order text/plain text/enriched text/html text multipart/alternative
 
 ignore *
 unignore from: to: cc: date: subject:
