@@ -2,3 +2,7 @@ text/plain; cat %s; copiousoutput
 text/html; mkdir -p /tmp/mutt/$(id -u) \; cp %s /tmp/mutt/$(id -u) \; xdg-open /tmp/mutt/$(id -u)/$(basename %s) &
 text/html; w3m -dump %s; copiousoutput; nametemplate=%s.html
 image/*; mkdir -p /tmp/mutt/$(id -u) \; cp %s /tmp/mutt/$(id -u) \; xdg-open /tmp/mutt/$(id -u)/$(basename %s) &
+application/zip; vim %s; needsterminal
+application/x-tar; vim %s; needsterminal
+application/tar; vim %s; needsterminal
+application/tar+gzip; vim %s; needsterminal
