@@ -2,7 +2,7 @@
 alias ls='ls --color=auto'
 alias ll='ls -alh'
 alias la='ls -a'
-alias l="ls"
+alias l='ls'
 
 # to get colors on grep & some mistkes catchers
 alias grpe='grep'
@@ -42,3 +42,5 @@ alias topten='du -sk $(/bin/ls -A) | sort -rn | head -10'
 # Alias to reload bashrc
 alias brc='source ~/.bashrc'
 
+# Alias for k8s
+alias k='kubectl'
