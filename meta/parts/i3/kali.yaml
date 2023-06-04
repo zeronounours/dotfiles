@@ -1,6 +1,7 @@
 
 - link:
     $i3dyn/15_kali_variables:     i3/custom/15_kali_variables
+    $i3dyn/35_kali_screens:       i3/custom/35_kali_screens
     $i3dyn/99_auto_start:         i3/custom/99_kali_auto_start
 
 

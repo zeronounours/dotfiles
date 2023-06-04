@@ -4,6 +4,33 @@
 #
 # Screen config
 set $main_screen  eDP-1
-set $secondary_screen  HDMI-1
-set $secondary_position  right
+set $screen2 HDMI-1
+set $screen3 DVI-I-1-1
+set $screen4 DVI-I-2-2
+
+
+# +··········+—————————+···················  0
+# ·          | screen3 +—————————+·········  120
+# ·          |         | screen4 |
+# ·          |         |         |
+# ·          |1920x1200|1920x1080|
+# ·          +——+——————+——————+——+········· 1200
+# ·             | screen2     |
+# ·             |             |
+# +—————————————+             |············ 1560 = 1200 + 1440 - 1080
+# | main        |             |
+# | 1920x1080   | 3440x1440   |
+# +—————————————+—————————————+
+# ·          ·  ·      ·
+# ·          ·  ·      ·
+# ·          ·  ·      ·
+# ·          ·  ·      ·
+# ·          ·  ·      ·
+# 0          ·  1920   3640 = 1920 + 3440 / 2
+#            1720 = 1920 + 3440 / 2 - 1920
+#
+set $main_screen_conf  --pos 0x1560
+set $screen2_conf  --pos 1920x1200
+set $screen3_conf  --pos 1720x0
+set $screen4_conf  --pos 3640x120
 

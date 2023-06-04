@@ -1,0 +1,16 @@
+## Manual management of external displays
+# Set the shortcuts and what they do
+set $mode_display Ext Screen (v) VGA On, (x) VGA Off
+mode "$mode_display" {
+  # v
+  bindcode 55 exec --no-startup-id xrandr --output $main_screen --auto $main_screen_conf --output $screen2 --auto $screen2_conf --output $screen3 --auto $screen3_conf --output $screen4 --auto $screen4_conf, mode "default"
+  # x
+  bindcode 53 exec --no-startup-id xrandr --output $screen2 --off --output $screen3 --off --output $screen4 --off, mode "default"
+
+  # back to normal: Enter or Escape
+  bindcode 36 mode "default"
+  bindcode 9 mode "default"
+}
+# shortcut to access display selection ($mod+x)
+bindcode $mod+53 mode "$mode_display"
+
