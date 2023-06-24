@@ -1,0 +1,3 @@
+dependency=vim/ide/common
+vim/base
+vim/rust
