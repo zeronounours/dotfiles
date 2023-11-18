@@ -405,3 +405,11 @@ function tree() {
     find . | sed 's/[^/]*\//|   /g;s/| *\([^| ]\)/+--- \1/'
   fi
 }
+
+# generate a password
+function genpass() {
+  local defchars='[a-zA-Z0-9#$%&@^`~.,:;/\_|<>*+!?={}[\]()-]'
+  local length="${1:-32}" chars="${2:-$defchars}"
+  tr -dc "$chars" < /dev/urandom | head -c "$length"
+  echo
+}
