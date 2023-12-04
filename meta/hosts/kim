@@ -3,7 +3,6 @@ bash/bash
 bash/server
 colors/tender
 vim/vim
-python
 input
 screen
 xterm
