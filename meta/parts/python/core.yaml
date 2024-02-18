@@ -1,19 +1,14 @@
 # Ensure the we installed some python package
 - shell:
-  # install ipython for both python 2 & 3
-  - description: "Installing ipython2"
-    command: >-
-      if which python2 &> /dev/null && python2 -m pip --version &> /dev/null; then
-        python2 -m pip install --user ipython
-      fi
+  # install ipython
   - description: "Installing ipython3"
     command: >-
       if which python3 &> /dev/null && python3 -m pip --version &> /dev/null; then
-        python3 -m pip install --user ipython
+        python3 -m pip install --user --break-system-packages ipython
       fi
   # install virtualenvs & virtualenvwrapper
   - description: "Installing virtualenvwrapper for python3"
     command: >-
       if which python3 &> /dev/null && python3 -m pip --version &> /dev/null; then
-        python3 -m pip install --user virtualenv virtualenvwrapper
+        python3 -m pip install --user --break-system-packages virtualenv virtualenvwrapper
       fi

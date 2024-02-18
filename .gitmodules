@@ -25,6 +25,7 @@
 [submodule "dotfiles/vim/vim/bundle/vim-gitgutter"]
 	path = dotfiles/vim/vim/pack/ide/start/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
+	branch = main
 	ignore = dirty
 [submodule "dotfiles/vim/vim/bundle/vim-Grammalecte"]
 	path = dotfiles/vim/vim/pack/common/start/vim-Grammalecte
