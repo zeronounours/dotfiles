@@ -5,8 +5,8 @@
 # Screen config
 set $main_screen  eDP-1
 set $screen2 HDMI-1
-set $screen3 DVI-I-1-1
-set $screen4 DVI-I-2-2
+set $screen3 DVI-I-2-2
+set $screen4 DVI-I-1-1
 
 
 # +··········+—————————+···················  0
