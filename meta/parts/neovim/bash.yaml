@@ -1,0 +1,6 @@
+- link:
+    $bash_definitions:
+      glob: true
+      path: bash/neovim/aliases/*
+      relink: true
+

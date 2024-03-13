@@ -1,1 +1,12 @@
-vim/neovim
+$(if current_host_has vim/vim; then cat <<EOF1
+neovim/neovim
+# bash binding
+$(if current_host_has bash/bash; then cat <<EOF2
+bash/base
+neovim/bash
+EOF2
+fi
+)
+EOF1
+fi
+)
