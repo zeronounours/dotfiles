@@ -1,6 +1,9 @@
 - link:
     $bash_definitions:
       glob: true
+      path: bash/neovim/definitions/*
+      relink: true
+    $bash_aliases:
+      glob: true
       path: bash/neovim/aliases/*
       relink: true
-

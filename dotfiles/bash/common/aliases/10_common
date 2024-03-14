@@ -44,3 +44,6 @@ alias brc='source ~/.bashrc'
 
 # Alias for k8s
 alias k='kubectl'
+
+# Alias for vim
+alias v='vim'

@@ -1,5 +1,5 @@
 xterm*termName: xterm-256color
-xterm*faceName: Hack:size=10
+xterm*faceName: HackNerdFont:size=10
 xterm*loginShell: true
 
 xterm.vt100.translations: #override \n\

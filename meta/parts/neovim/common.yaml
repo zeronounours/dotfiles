@@ -1,0 +1,40 @@
+# Download neovim AppImage and install it
+- download:
+    $dlddir/nvim.appimage:
+      url: https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+      force: true
+- shell:
+    - chmod u+x "$dlddir/nvim.appimage"
+- link:
+    ~/.local/bin/nvim:
+      path: "$dlddir/nvim.appimage"
+      relink: true
+
+# link common files
+- link:
+    $nvim_init/10_common.lua: neovim/init.lua/10_common.lua
+    $nvim_chadrc/10_default.lua: neovim/lua/chadrc.lua/10_default.lua
+    $nvim_mappings/10_default.lua: neovim/lua/mappings.lua/10_default.lua
+    $nvim_options/10_default.lua: neovim/lua/options.lua/10_default.lua
+    $nvim_lua/configs/:
+      create: true
+      path: neovim/lua/configs/*
+      glob: true
+      relink: true
+    $nvim_lua/plugins/:
+      create: true
+      path: neovim/lua/plugins/*
+      glob: true
+      relink: true
+
+- defer:
+      # Post install all mason
+      - shell:
+        - command: >-
+            vim
+            '+MasonInstallAll'
+            '+qall'
+          description: Install mason parsers
+          quiet: true
+          stdout: false
+          stderr: false

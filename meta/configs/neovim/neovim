@@ -1,0 +1,9 @@
+neovim/base
+neovim/common
+# bash binding
+$(if current_host_has bash/bash; then cat <<EOF
+bash/base
+neovim/bash
+EOF
+fi
+)

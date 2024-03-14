@@ -1,17 +1,17 @@
 
-# Download Hack font and install it
+# Download nerd font and install it
 - download:
-    $dlddir/Hack-v3.tar.gz:
-      url: https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.tar.gz
+    $dlddir/Hack-NerdFont.tar.xz:
+      url: https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.tar.xz
       force: false
 - shell:
-    - mkdir -p "$dlddir/Hack-v3"
-    - tar -xzf "$dlddir/Hack-v3.tar.gz" -C "$dlddir/Hack-v3"
+    - mkdir -p "$dlddir/Hack-NerdFont"
+    - tar -xJf "$dlddir/Hack-NerdFont.tar.xz" -C "$dlddir/Hack-NerdFont"
 
 - link:
     ~/.local/share/fonts:
       glob: true
-      path: "$dlddir/Hack-v3/ttf/*"
+      path: "$dlddir/Hack-NerdFont/*.ttf"
       relink: true
 
 - shell:
