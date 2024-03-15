@@ -71,7 +71,7 @@ map(
 )
 
 -- terminal
-map("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })
+map("t", "<C-ESC>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })
 
 -- new terminals
 map("n", "<leader>h", function()
@@ -95,10 +95,10 @@ map({ "n", "t" }, "<A-f>", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "Terminal Toggle Floating term" })
 
-map("t", "<ESC>", function()
+map("t", "<C-k>", function()
   local win = vim.api.nvim_get_current_win()
   vim.api.nvim_win_close(win, true)
-end, { desc = "Terminal Close term in terminal mode" })
+end, { desc = "Terminal Close term in nterminal mode" })
 
 -- whichkey
 map("n", "<leader>wK", "<cmd>WhichKey <CR>", { desc = "Whichkey all keymaps" })

@@ -1,4 +1,5 @@
 local api = require "nvim-tree.api"
+local events = require "nvim-tree.events"
 
 -- utils functions for mappings
 local function open_and_close()
@@ -109,6 +110,18 @@ local options = {
   },
   disable_netrw = false,
   hijack_netrw = true,
+  update_focused_file = {
+    enable = true,
+  },
 }
 
 require("nvim-tree").setup(options)
+
+-- Configure event handler
+events.subscribe(events.Event.TreeOpen, function()
+  -- Change root to the git directory if any
+  local root = require("nvim-tree.git").get_toplevel(api.tree.get_nodes().absolute_path)
+  if root ~= nil then
+    api.tree.change_root(root)
+  end
+end)
