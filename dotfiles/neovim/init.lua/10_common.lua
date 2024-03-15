@@ -1,43 +1,26 @@
--- Neovim configuration initially based on nvchad
---  starter: https://github.com/NvChad/starter
---  config: https://github.com/NvChad/NvChad
---
-vim.g.base46_cache = vim.fn.stdpath "data" .. "/nvchad/base46/"
-vim.g.mapleader = " "
 
--- bootstrap lazy and all plugins
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+-- Default encodings for internal buffers and files
+vim.opt.encoding = "utf-8"
+vim.opt.fileencoding = "utf-8"
 
-if not vim.loop.fs_stat(lazypath) then
-  local repo = "https://github.com/folke/lazy.nvim.git"
-  vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
-end
+-- Print line numbers as mixed relative + absolute
+vim.opt.number = true
+vim.opt.relativenumber = true
 
-vim.opt.rtp:prepend(lazypath)
+-- Increase the number of pages which can be tabbed
+vim.opt.tabpagemax = 20
 
-local lazy_config = require "configs.lazy"
+-- Print invisble characters
+vim.opt.listchars = "eol:↴,tab:>-,trail:~,extends:>,precedes:<,nbsp:·"
+vim.opt.list = true
 
--- load plugins
-require("lazy").setup({
-  {
-    "NvChad/NvChad",
-    lazy = false,
-    branch = "v2.5",
-    import = "nvchad.plugins",
-    config = function()
-      require "options"
-    end,
-  },
+-- open file below and on the right when splitting file
+vim.opt.splitbelow = true
+vim.opt.splitright = true
 
-  { import = "plugins" },
-}, lazy_config)
+-- Ensure scrolling when at 3 lines of the top/bottom
+vim.opt.scrolloff = 3
 
--- load theme
-dofile(vim.g.base46_cache .. "defaults")
-dofile(vim.g.base46_cache .. "statusline")
-
-require "nvchad.autocmds"
-
-vim.schedule(function()
-  require "mappings"
-end)
+-- disable netrw in favor of nvim-tree.lua
+--[[ vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1 ]]

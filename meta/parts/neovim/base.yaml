@@ -1,25 +1,23 @@
 # defines dynamic dirs where config part should be added
 - env:
     nvim_dyndir: $dyndir/nvim
+    nvim_runtime: $dyndir/config
+    nvim_lua: $nvim_runtime/lua
     nvim_init: $nvim_dyndir/init.lua.d
     nvim_chadrc: $nvim_dyndir/chadrc.lua.d
     nvim_mappings: $nvim_dyndir/mappings.lua.d
     nvim_options: $nvim_dyndir/options.lua.d
-    nvim_lua: $nvim_dyndir/lua
 
 # generate the neovim files and link them in user home
 - defer:
     id: neovim_conf_gen
     tasks:
       - concat:
-          $nvim_dyndir/init.lua: $nvim_init
+          $nvim_runtime/init.lua: $nvim_init
           $nvim_lua/chadrc.lua: $nvim_chadrc
           $nvim_lua/mappings.lua: $nvim_mappings
           $nvim_lua/options.lua: $nvim_options
       - link:
-          ~/.config/nvim/init.lua:
+          ~/.config/nvim:
             create: true
-            path: $nvim_dyndir/init.lua
-          ~/.config/nvim/lua:
-            create: true
-            path: $nvim_lua
+            path: $nvim_runtime

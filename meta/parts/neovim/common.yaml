@@ -12,10 +12,14 @@
 
 # link common files
 - link:
+    # neovim specific config
+    $nvim_init/05_nvchad.lua: neovim/init.lua/05_nvchad.lua
     $nvim_init/10_common.lua: neovim/init.lua/10_common.lua
-    $nvim_chadrc/10_default.lua: neovim/lua/chadrc.lua/10_default.lua
-    $nvim_mappings/10_default.lua: neovim/lua/mappings.lua/10_default.lua
+    $nvim_chadrc/10_common.lua: neovim/lua/chadrc.lua/10_common.lua
+    $nvim_mappings/00_base.lua: neovim/lua/mappings.lua/00_base.lua
+    $nvim_mappings/10_common.lua: neovim/lua/mappings.lua/10_common.lua
     $nvim_options/10_default.lua: neovim/lua/options.lua/10_default.lua
+    $nvim_runtime/lazy-lock.json: neovim/lazy-lock.json
     $nvim_lua/configs/:
       create: true
       path: neovim/lua/configs/*
@@ -24,6 +28,18 @@
     $nvim_lua/plugins/:
       create: true
       path: neovim/lua/plugins/*
+      glob: true
+      relink: true
+
+    # Config shared with vim
+    $nvim_runtime/ftplugin/:
+      create: true
+      path: vim/vim/ftplugin/*
+      glob: true
+      relink: true
+    $nvim_runtime/spell/:
+      create: true
+      path: vim/vim/spell/*
       glob: true
       relink: true
 
