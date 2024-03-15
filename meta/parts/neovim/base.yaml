@@ -1,9 +1,8 @@
 # defines dynamic dirs where config part should be added
 - env:
     nvim_dyndir: $dyndir/nvim
-    nvim_runtime: $dyndir/config
+    nvim_runtime: $nvim_dyndir/config
     nvim_lua: $nvim_runtime/lua
-    nvim_init: $nvim_dyndir/init.lua.d
     nvim_chadrc: $nvim_dyndir/chadrc.lua.d
     nvim_mappings: $nvim_dyndir/mappings.lua.d
     nvim_options: $nvim_dyndir/options.lua.d
@@ -13,7 +12,6 @@
     id: neovim_conf_gen
     tasks:
       - concat:
-          $nvim_runtime/init.lua: $nvim_init
           $nvim_lua/chadrc.lua: $nvim_chadrc
           $nvim_lua/mappings.lua: $nvim_mappings
           $nvim_lua/options.lua: $nvim_options
