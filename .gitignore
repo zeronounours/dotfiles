@@ -3,6 +3,7 @@
 /dotfiles/mutt/mutt/mailboxes
 /dotfiles/mutt/mutt/gpg
 /dotfiles/ssh/10_per_hosts_config
+/dotfiles/neovim/lua/configs/ollama.lua
 ## End secrets section
 
 # repo specific files

@@ -1,2 +1,3 @@
 # use nvim instead of vim
 alias vim='nvim'
+alias nv='nvim'

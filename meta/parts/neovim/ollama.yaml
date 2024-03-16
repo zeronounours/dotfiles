@@ -1,0 +1,6 @@
+# link common files
+- link:
+    # neovim specific config
+    $nvim_mappings/20_ollama.lua: neovim/lua/mappings.lua/20_ollama.lua
+    $nvim_lua/configs/ollama.lua: neovim/lua/configs/ollama.lua
+    $nvim_lua/plugins/ollama.lua: neovim/lua/plugins/ollama.lua

@@ -33,23 +33,25 @@
 - link:
     # neovim specific config
     $nvim_runtime/init.lua: neovim/init.lua
+    $nvim_runtime/lazy-lock.json: neovim/lazy-lock.json
+    # chadrc
     $nvim_chadrc/10_common.lua: neovim/lua/chadrc.lua/10_common.lua
+    # mappings
     $nvim_mappings/00_base.lua: neovim/lua/mappings.lua/00_base.lua
     $nvim_mappings/10_common.lua: neovim/lua/mappings.lua/10_common.lua
+    # options
     $nvim_options/00_aliases.lua: neovim/lua/options.lua/00_aliases.lua
     $nvim_options/05_nvchad.lua: neovim/lua/options.lua/05_nvchad.lua
     $nvim_options/10_common.lua: neovim/lua/options.lua/10_common.lua
-    $nvim_runtime/lazy-lock.json: neovim/lazy-lock.json
-    $nvim_lua/configs/:
-      create: true
-      path: neovim/lua/configs/*
-      glob: true
-      relink: true
-    $nvim_lua/plugins/:
-      create: true
-      path: neovim/lua/plugins/*
-      glob: true
-      relink: true
+    # configs
+    $nvim_lua/configs/conform.lua: neovim/lua/configs/conform.lua
+    $nvim_lua/configs/lazy.lua: neovim/lua/configs/lazy.lua
+    $nvim_lua/configs/nvim-tree.lua: neovim/lua/configs/nvim-tree.lua
+    $nvim_lua/configs/treesitter.lua: neovim/lua/configs/treesitter.lua
+    $nvim_lua/configs/vimwiki.lua: neovim/lua/configs/vimwiki.lua
+    # plugins
+    $nvim_lua/plugins/init.lua: neovim/lua/plugins/init.lua
+    $nvim_lua/plugins/override.lua: neovim/lua/plugins/override.lua
 
     # Config shared with vim
     $nvim_runtime/ftplugin/:
