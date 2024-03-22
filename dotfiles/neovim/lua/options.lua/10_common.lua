@@ -6,6 +6,13 @@ opt.fileencoding = "utf-8"
 opt.number = true
 opt.relativenumber = true
 
+-- Default indenting
+o.expandtab = true
+o.smartindent = true
+o.shiftwidth = 2
+o.tabstop = 2
+o.softtabstop = 2
+
 -- Increase the number of pages which can be tabbed
 opt.tabpagemax = 20
 
