@@ -38,6 +38,23 @@ return {
     }
   },
 
+  -- Define Mason language/linter/etc. to be installed and lspconfig
+  --  use :Mason to list them all
+  {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      return vim.tbl_deep_extend("force", opts, require("configs.lspconfig").mason)
+    end,
+  },
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      require("nvchad.configs.lspconfig").defaults()
+      require("configs.lspconfig").lspconfig()
+    end,
+  },
+
+
   -- Override tree-sitter parsers to be installed
   {
     "nvim-treesitter/nvim-treesitter",
@@ -45,4 +62,10 @@ return {
       return vim.tbl_deep_extend("force", opts, require "configs.treesitter")
     end
   },
+
+  -- Disable autopair
+  {
+    "windwp/nvim-autopairs",
+    enabled = false,
+  }
 }

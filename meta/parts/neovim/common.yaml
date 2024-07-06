@@ -43,15 +43,19 @@
     $nvim_options/00_aliases.lua: neovim/lua/options.lua/00_aliases.lua
     $nvim_options/05_nvchad.lua: neovim/lua/options.lua/05_nvchad.lua
     $nvim_options/10_common.lua: neovim/lua/options.lua/10_common.lua
+    $nvim_options/15_luasnip.lua: neovim/lua/options.lua/15_luasnip.lua
     # configs
     $nvim_lua/configs/conform.lua: neovim/lua/configs/conform.lua
     $nvim_lua/configs/lazy.lua: neovim/lua/configs/lazy.lua
     $nvim_lua/configs/nvim-tree.lua: neovim/lua/configs/nvim-tree.lua
     $nvim_lua/configs/treesitter.lua: neovim/lua/configs/treesitter.lua
     $nvim_lua/configs/vimwiki.lua: neovim/lua/configs/vimwiki.lua
+    $nvim_lua/configs/lspconfig.lua: neovim/lua/configs/lspconfig.lua
     # plugins
     $nvim_lua/plugins/init.lua: neovim/lua/plugins/init.lua
     $nvim_lua/plugins/override.lua: neovim/lua/plugins/override.lua
+    # snippets
+    $nvim_runtime/snippets: neovim/snippets
 
     # Config shared with vim
     $nvim_runtime/ftplugin/:
