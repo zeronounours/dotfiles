@@ -25,7 +25,6 @@ local servers = {
     ["lua-language-server"] = "lua_ls",
     ["openscad-language-server"] = "openscad_ls",
     ["phpactor"] = "phpactor",
-    ["python-lsp-server"] = "pylsp",
     ["ruby-lsp"] = "ruby_lsp",
     ["ruff"] = "ruff",
     ["rust-analyzer"] = "rust_analyzer",
