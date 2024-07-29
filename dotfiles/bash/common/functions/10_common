@@ -52,7 +52,8 @@ function ff() { find . -type f -iname '*'$*'*' -ls ; }
 
 # change le titre de la fenêtre de la console
 t () {
-  echo -ne "\\e]2;$1\\a"
+  unset PROMPT_COMMAND
+  echo -ne "\e]0;$1\a"
 }
 
 
