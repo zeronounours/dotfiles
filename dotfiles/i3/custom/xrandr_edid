@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Ease the management of xrandr displays
+# add an --edid option to replace --output and select with edid instead of name
+
+# create a mapping between xrandr output name & the complete EDID
+edid_mappings="$(xrandr --props | sed -nr ':a;/.* connected /{s/^([^ ]*) connected.*$/\1 /;h;:b;n;/^\s*EDID:/{:c;n;/^\s*[a-f0-9]+\s*$/{s/\s*([a-f0-9]+)\s*/\1/;H;b c};x;s/\n//g;p;b a};b b}')"
+
+declare -a args=()
+declare next_edid=f
+declare skip_next_output_config=f
+
+for a in "$@"; do
+  if [[ "$next_edid" == "t" ]]; then
+    output="$(grep "$(xxd -p <<<"$a")" <<<"$edid_mappings" | cut -d' ' -f1)"
+    if [[ -z "$output" ]]; then
+      echo "Failed to resolve EDID $a" >&2
+      skip_next_output_config=t
+    else
+      args+=("--output" "$output")
+      skip_next_output_config=f
+    fi
+    next_edid=f
+
+  elif [[ "$a" == "--edid" ]]; then
+    next_edid=t
+    skip_next_output_config=f
+
+  elif [[ "$a" == "--output" ]]; then
+    skip_next_output_config=f
+    args+=("--output")
+
+  elif [[ "$skip_next_output_config" == "t" ]]; then
+    :
+
+  else
+    args+=("$a")
+  fi
+done
+
+# finally run xrandr
+xrandr "${args[@]}"

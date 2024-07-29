@@ -4,4 +4,4 @@
     $i3dyn/35_kali_screens:       i3/custom/35_kali_screens
     $i3dyn/99_auto_start:         i3/custom/99_kali_auto_start
 
-
+    ~/.local/bin/xrandr_edid:     i3/custom/xrandr_edid

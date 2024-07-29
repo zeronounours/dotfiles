@@ -3,9 +3,9 @@
 set $mode_display Ext Screen (v) VGA On, (x) VGA Off
 mode "$mode_display" {
   # v
-  bindcode 55 exec --no-startup-id xrandr --output $main_screen --auto $main_screen_conf --output $screen2 --auto $screen2_conf --output $screen3 --auto $screen3_conf --output $screen4 --auto $screen4_conf, mode "default"
+  bindcode 55 exec --no-startup-id bash ~/.local/bin/xrandr_edid --output $main_screen --auto $main_screen_conf --edid $screen2_edid --auto $screen2_conf --edid $screen3_edid --auto $screen3_conf --edid $screen4_edid --auto $screen4_conf, mode "default"
   # x
-  bindcode 53 exec --no-startup-id xrandr --output $screen2 --off --output $screen3 --off --output $screen4 --off, mode "default"
+  bindcode 53 exec --no-startup-id bash ~/.local/bin/xrandr_edid --edid $screen2_edid --off --edid $screen3_edid --off --edid $screen4_edid --off, mode "default"
 
   # back to normal: Enter or Escape
   bindcode 36 mode "default"

@@ -4,9 +4,9 @@
 #
 # Screen config
 set $main_screen  eDP-1
-set $screen2 HDMI-1
-set $screen3 DVI-I-2-2
-set $screen4 DVI-I-1-1
+set $screen2_edid ZQE-CBA
+set $screen3_edid T2454pA
+set $screen4_edid SMXL2270HD
 
 
 # +··········+—————————+···················  0
