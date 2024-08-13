@@ -30,6 +30,7 @@ local servers = {
     ["rust-analyzer"] = "rust_analyzer",
     ["tailwindcss-language-server"] = "tailwindcss",
     ["terraform-ls"] = "terraformls",
+    ["typescript-language-server"] = "tsserver",
     ["texlab"] = "texlab",
 }
 
