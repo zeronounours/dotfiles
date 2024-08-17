@@ -39,6 +39,7 @@
     # mappings
     $nvim_mappings/00_base.lua: neovim/lua/mappings.lua/00_base.lua
     $nvim_mappings/10_common.lua: neovim/lua/mappings.lua/10_common.lua
+    $nvim_mappings/20_telescope.lua: neovim/lua/mappings.lua/20_telescope.lua
     # options
     $nvim_options/00_aliases.lua: neovim/lua/options.lua/00_aliases.lua
     $nvim_options/05_nvchad.lua: neovim/lua/options.lua/05_nvchad.lua
