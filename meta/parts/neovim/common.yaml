@@ -55,6 +55,7 @@
     # plugins
     $nvim_lua/plugins/init.lua: neovim/lua/plugins/init.lua
     $nvim_lua/plugins/override.lua: neovim/lua/plugins/override.lua
+    $nvim_lua/plugins/trouble.lua: neovim/lua/plugins/trouble.lua
     # snippets
     $nvim_runtime/snippets: neovim/snippets
 
