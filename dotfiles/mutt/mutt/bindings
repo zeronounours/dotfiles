@@ -14,6 +14,9 @@ bind pager gg top
 bind pager G  bottom
 bind index,pager \# noop
 bind index,pager \& noop
+bind index A create-alias
+bind index a toggle-read
+bind index <Space> toggle-new
 
 # Sidebar
 bind index ,b sidebar-toggle-visible
@@ -48,5 +51,6 @@ bind index n display-message
 bind pager n view-attachments
 bind attach n view-attach
 bind attach k save-entry
-bind index,pager,attach , reply
+bind index,pager,attach , group-reply
+bind index,pager,attach \; reply
 ####################

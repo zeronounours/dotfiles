@@ -9,3 +9,7 @@ nmap <silent> <C-n> <Plug>(ale_next_wrap)
 nnoremap <silent> <leader>td :YcmCompleter GoTo<CR>
 nnoremap <silent> <leader>tr :YcmCompleter GoToReferences<CR>
 nnoremap <silent> <leader>tf :YcmCompleter FixIt<CR>
+
+" Mapping for uuid generation
+inoremap <c-u> <c-r>=trim(system('uuidgen'))<cr>
+nnoremap <c-u> i<c-r>=trim(system('uuidgen'))<cr><esc>

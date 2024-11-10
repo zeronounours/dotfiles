@@ -1,2 +1,3 @@
 # Macros
 macro index Z "<shell-escape>mbsync --all<enter>" "Sync all"
+macro index <Tab> "<next-unread-mailbox><enter><next-new-then-unread><enter>" "Go to new mail"
