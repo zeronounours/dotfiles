@@ -1,0 +1,7 @@
+# link the base configuration for alacritty
+- link:
+    $alacritty_config/base.toml: alacritty/base.toml
+    $alacritty_config/themes: alacritty/themes
+- shell:
+    - |
+      echo '"base.toml",' > $alacritty_import/00-base.toml

@@ -8,7 +8,14 @@ fi
 $(if current_host_has xterm; then cat <<'EOF'
 dependency=xterm
 xresources/base
-xresources/colors/molokai
+xresources/colors/monokai
+EOF
+fi
+)
+$(if current_host_has alacritty; then cat <<'EOF'
+dependency=alacritty
+alacritty/base
+alacritty/colors/monokai
 EOF
 fi
 )

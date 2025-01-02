@@ -12,3 +12,10 @@ xresources/colors/solarized_light
 EOF
 fi
 )
+$(if current_host_has alacritty; then cat <<'EOF'
+dependency=alacritty
+alacritty/base
+alacritty/colors/solarized_light
+EOF
+fi
+)

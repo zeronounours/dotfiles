@@ -1,0 +1,3 @@
+- shell:
+    - |
+      echo '"themes/solarized_light.toml",' > $alacritty_import/01-theme.toml

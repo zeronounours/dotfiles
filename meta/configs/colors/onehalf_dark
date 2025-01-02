@@ -12,3 +12,10 @@ xresources/colors/onehalf_dark
 EOF
 fi
 )
+$(if current_host_has alacritty; then cat <<'EOF'
+dependency=alacritty
+alacritty/base
+alacritty/colors/onehalf_dark
+EOF
+fi
+)

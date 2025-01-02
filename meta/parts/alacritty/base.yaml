@@ -1,0 +1,21 @@
+# defines dynamic dirs where dynamic import should be added
+- env:
+    alacritty_import: $dyndir/alacritty_import.d
+    alacritty_config: $dyndir/alacritty
+
+# generate the files and link them in user home
+- defer:
+    id: alacritty_import_gen
+    tasks:
+      - concat:
+          $alacritty_config/alacritty.toml: $alacritty_import
+      - link:
+          ~/.config/alacritty/:
+            glob: true
+            path: $alacritty_config/*
+
+# link the importer configuration for alacritty
+- link:
+    # importer parts
+    $alacritty_import/%importer-prelude.toml: alacritty/importer-prelude.toml
+    $alacritty_import/}importer-postlude.toml: alacritty/importer-postlude.toml

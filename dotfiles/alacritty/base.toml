@@ -1,0 +1,14 @@
+[general]
+# enable IPC
+ipc_socket = true
+
+[window]
+startup_mode = "Windowed"
+dynamic_title = true
+
+[scrolling]
+history = 20000
+
+[font]
+normal = { family = "HackNerdFont", style = "Regular" }
+size = 7
