@@ -1,0 +1,15 @@
+# defines dynamic dirs where config part should be added
+- env:
+    xsession: $dyndir/xsession.d
+
+# generate the files and link them in user home
+- defer:
+    id: xsession_conf_gen
+    tasks:
+      - concat:
+          $dyndir/xsession: $xsession
+      - shell:
+          - 'chmod 600 "$dyndir/xsession"'
+      - link:
+          ~/.xsession: $dyndir/xsession
+

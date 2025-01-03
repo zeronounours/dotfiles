@@ -1,2 +1,9 @@
 alacritty/base
 alacritty/common
+
+$(if current_host_has i3/i3; then cat <<'EOF'
+xsession/base
+alacritty/i3_xsession
+EOF
+fi
+)

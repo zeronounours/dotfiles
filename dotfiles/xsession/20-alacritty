@@ -1,0 +1,2 @@
+# enable alacritty terminal for i3-sensible-terminal
+export TERMINAL=alacritty

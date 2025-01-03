@@ -1,0 +1,13 @@
+# defines dynamic dirs where config part should be added
+- env:
+    xbindkeys: $dyndir/xbindkeys.d
+
+# generate the files and link them in user home
+- defer:
+    id: xbindkeys_conf_gen
+    tasks:
+      - concat:
+          $dyndir/xbindkeys: $xbindkeys
+      - link:
+          ~/.xbindkeysrc: $dyndir/xbindkeys
+

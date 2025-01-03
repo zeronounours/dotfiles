@@ -1,0 +1,5 @@
+# link common files
+- link:
+    $xbindkeys:
+      path: xbindkeys/*
+      glob: true

@@ -1,0 +1,3 @@
+# link xsession file to enable xbindkeys
+- link:
+    $xsession/10-xbindkeys: xsession/10-xbindkeys

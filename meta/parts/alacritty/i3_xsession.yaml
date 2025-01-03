@@ -1,0 +1,4 @@
+# link xsession file to change the default terminal for i3-sensible-terminal
+- link:
+    $xsession/20-alacritty: xsession/20-alacritty
+

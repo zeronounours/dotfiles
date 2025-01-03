@@ -1,0 +1,6 @@
+"amixer set Master toggle"
+  XF86AudioMute
+"amixer set Master 5%+ unmute"
+  XF86AudioRaiseVolume
+"amixer set Master 5%- unmute"
+  XF86AudioLowerVolume
