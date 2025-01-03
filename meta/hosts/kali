@@ -14,7 +14,6 @@ ssh
 vim/vim
 vim/ide/python
 vim/ide/youcompleteme
-xterm
 colors/onehalf_dark
 w3m
 key-mapper
@@ -22,3 +21,6 @@ vim/ide/rust
 neovim/neovim
 neovim/ollama
 fonts/hack-nerd
+alacritty
+xterm
+xbindkeys
