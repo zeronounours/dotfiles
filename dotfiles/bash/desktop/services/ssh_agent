@@ -3,10 +3,8 @@
 # Start the agent with ssh support
 gpg-agent --daemon --enable-ssh-support --quiet &>/dev/null
 
-# GPG_TTY must be set on login shells
-if shopt -q login_shell; then
-  export GPG_TTY="$(tty)"
-fi
+# GPG_TTY should be set for pinentry to work correctly
+export GPG_TTY="$(tty)"
 
 #  If you enabled the Ssh Agent Support, you also need to tell ssh about it
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then

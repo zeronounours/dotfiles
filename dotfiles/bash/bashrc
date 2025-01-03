@@ -9,13 +9,13 @@
 #   - services: ensure some services are started (e.g. ssh agent)
 #   - local: allow local override of the bashrc
 for config in definitions aliases functions prompt services local; do
-  if [ -e "$HOME/.bash_$config" -a -r "$HOME/.bash_$config" ]; then
+  if [ -e "$HOME/.bash_$config" ] && [ -r "$HOME/.bash_$config" ]; then
     source "$HOME/.bash_$config"
   fi
 done
 
-# Display the logo for login shells
-if shopt -q login_shell && [ -e "$HOME/.logo" -a -r "$HOME/.logo" ] ; then
+# Display the logo for first levele shells
+if [ "$SHLVL" -eq 1 ] && [ -e "$HOME/.logo" ] && [ -r "$HOME/.logo" ] ; then
   cat "$HOME/.logo"
 fi
 
