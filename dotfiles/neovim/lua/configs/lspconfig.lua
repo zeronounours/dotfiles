@@ -13,6 +13,7 @@ local lspconfig = require "lspconfig"
 local servers = {
     ["ansible-language-server"] = "ansiblels",
     ["bash-language-server"] = "bashls",
+    ["clangd"] = "clangd",
     ["css-lsp"] = "cssls",
     ["docker-compose-language-service"] = "docker_compose_language_service",
     ["dockerfile-language-server"] = "dockerls",
