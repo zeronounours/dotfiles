@@ -409,8 +409,25 @@ function tree() {
 
 # generate a password
 function genpass() {
-  local defchars='[a-zA-Z0-9#$%&@^`~.,:;/\_|<>*+!?={}[\]()-]'
-  local length="${1:-32}" chars="${2:-$defchars}"
+  # usage
+  if [[ "$1" == "-h" ]]; then
+    echo 'usage: genpass [length] [chars | "high" | "medium" | "low" | "num"]'
+    return
+  fi
+
+  local length="${1:-32}" chars
+  if [[ "${2:-high}" == "high" ]]; then
+    chars='a-zA-Z0-9#$%&@^`~.,:;/\_|<>*+!?={}\[\]()-'
+  elif [[ "${2}" == "medium" ]]; then
+    chars='a-zA-Z0-9#$%&@^`~.,:;'
+  elif [[ "${2}" == "low" ]]; then
+    chars='a-zA-Z0-9'
+  elif [[ "${2}" == "num" ]]; then
+    chars='0-9'
+  else
+    chars="$2"
+  fi
+
   tr -dc "$chars" < /dev/urandom | head -c "$length"
   echo
 }
