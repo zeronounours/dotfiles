@@ -8,3 +8,4 @@ input
 screen
 xterm
 ssh
+alacritty/term-info

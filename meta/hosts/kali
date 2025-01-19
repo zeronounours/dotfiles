@@ -21,6 +21,6 @@ vim/ide/rust
 neovim/neovim
 neovim/ollama
 fonts/hack-nerd
-alacritty
+alacritty/alacritty
 xterm
 xbindkeys

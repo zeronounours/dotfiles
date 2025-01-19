@@ -1,0 +1,7 @@
+# Download term info and install it
+- download:
+    $dlddir/alacritty.info:
+      url: https://github.com/alacritty/alacritty/raw/refs/heads/master/extra/alacritty.info
+      force: true
+- shell:
+    - tic -xe alacritty,alacritty-direct "$dlddir/alacritty.info"
