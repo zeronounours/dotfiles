@@ -24,12 +24,22 @@ return {
         replace = true
       }
       gen.prompts['Fix_Code'] = {
-        prompt = "Fix the following code. Only output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```",
+        prompt = "Fix the following code. Only output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```. Output all the code, do not strip it if it remains the same.",
         replace = true,
         extract = "```$filetype\n(.-)```"
       }
       gen.prompts['Implement_Todo_Comment'] = {
-        prompt = "In the following code, implement all comments marked as TODO. Only output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```",
+        prompt = "In the following code, implement all comments marked as TODO. Only output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```. Output all the code, do not strip it if it remains the same.",
+        replace = true,
+        extract = "```$filetype\n(.-)```"
+      }
+      gen.prompts['Comment_code'] = {
+        prompt = "Understand the following code and add all necessary comments to make it clear. Only output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```. Output all the code, do not strip it if it remains the same.",
+        replace = true,
+        extract = "```$filetype\n(.-)```"
+      }
+      gen.prompts['Generate_doc_comment'] = {
+        prompt = "Understand the following code and add or update the documentation comment for each component which support it. Only output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```. Output all the code, do not strip it if it remains the same.",
         replace = true,
         extract = "```$filetype\n(.-)```"
       }
