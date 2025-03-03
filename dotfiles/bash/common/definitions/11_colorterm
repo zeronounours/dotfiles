@@ -1,0 +1,4 @@
+# fix alacritty over SSH: set truecolor when the terminal is alacritty
+if [[ "$TERM" = "alacritty" && -z "$COLORTERM" ]]; then
+  export COLORTERM=truecolor
+fi
