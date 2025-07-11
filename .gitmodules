@@ -122,3 +122,8 @@
 [submodule "dotfiles/vim/vim/pack/rust/start/rust.vim"]
 	path = dotfiles/vim/vim/pack/rust/start/rust.vim
 	url = https://github.com/rust-lang/rust.vim.git
+	ignore = dirty
+[submodule "dotfiles/tmux/tpm"]
+	path = dotfiles/tmux/tpm
+	url = https://github.com/tmux-plugins/tpm
+	ignore = dirty

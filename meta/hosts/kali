@@ -24,3 +24,4 @@ fonts/hack-nerd
 alacritty/alacritty
 xterm
 xbindkeys
+tmux
