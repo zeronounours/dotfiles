@@ -1,5 +1,5 @@
 # In case of screen, change the colors
-if [[ $TERMCAP =~ screen ]] || [[ $TERM == "screen" ]]; then
+if [[ $TERMCAP =~ screen ]] || [[ $TERM == "screen" ]] || [[ $TERM == "screen-256color" ]]; then
   pwd_color="\[$Yellow\]"
   end_color="$pwd_color"
 fi
