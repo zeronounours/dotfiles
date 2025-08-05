@@ -1,0 +1,53 @@
+# vim: ft=gitconfig
+[core]
+  editor = vim
+  excludesfile = ~/.config/git/ignore
+[color]
+  ui = auto
+[help]
+  autocorrect = 1
+[alias]
+  co = checkout
+  db = "!f() { [ -n \"$1\" ] && git branch -d $1 && git push origin :$1; }; f"
+  dbf = "!f() { [ -n \"$1\" ] && git branch -D $1 && git push origin :$1; }; f"
+  dc = diff --cached
+  lg = log --oneline --decorate --all --graph -30
+  st = status
+  tg = "!f() { [ -n \"$1\" ] && git tag -s -m $1 $1; }; f"
+  up = !git fetch origin && git rebase origin/master
+  recommit = "!f() { git commit --amend --no-edit; }; f"
+[push]
+  default = current
+[status]
+  branch = 1
+  short = 1
+[diff]
+  mnemonicprefix = true
+[user]
+	email = gitlab@zeronounours.eu
+  name = zeroNounours
+  signingKey = 54B23C858B225C127AE8DF78131BAE7E0927A4BF
+  ;signingKey = 01008C432E68E029!
+[fetch]
+  prune = true
+[format]
+  pretty = format:%C(auto,yellow)%h%C(auto,magenta)% G? %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(12,trunc)%aN %C(auto,reset)%s%C(auto,red)% gD% D
+[init]
+  templatedir = ~/.config/git/template
+	defaultBranch = main
+[rebase]
+  autoStash = true
+  stat = true
+
+[http "https://gopkg.in"]
+	followRedirects = true
+[commit]
+	gpgSign = true
+[log]
+  date = relative
+	showSignature = false
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
