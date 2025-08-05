@@ -1,0 +1,40 @@
+#command
+
+# enter + backspace
+\r        forw-line
+\n        forw-line
+\kb       back-line
+
+# arrow keys
+\kl       left-scroll
+\kd       forw-line
+\ku       back-line
+\kr       right-scroll
+\kD       forw-scroll
+\kU       back-scroll
+
+# bépo move with tsrn
+t         left-scroll
+s         forw-line
+r         back-line
+n         right-scroll
+
+T         left-scroll
+S         forw-scroll
+R         back-scroll
+N         right-scroll
+
+# Start / end of file
+g         goto-line
+G         goto-end
+
+# search
+/         forw-search
+?         back-search
+m         repeat-search
+\em       repeat-search-all
+M         reverse-search
+\eM       reverse-search-all
+
+#line-edit
+#env
