@@ -9,3 +9,5 @@ screen
 xterm
 ssh
 alacritty/term-info
+git
+less
