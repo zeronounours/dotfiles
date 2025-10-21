@@ -1,0 +1,34 @@
+if which kubectl &> /dev/null; then
+# Kubectl completion
+  source <(kubectl completion bash)
+
+  if [[ $(type -t compopt) = "builtin" ]]; then
+      complete -o default -F __start_kubectl k
+  else
+      complete -o default -o nospace -F __start_kubectl k
+  fi
+
+  # Utils kubectl functions
+  function list_not_ready() {
+    echo JOBS
+    kubectl get pod -l job-name -A -o wide | grep -Pv '\s+([1-9]+[\d]*)\/\1\s+' | grep -v Completed; echo
+    echo PODS
+    kubectl get pod -l '!job-name' -A -o wide | grep -Pv '\s+([1-9]+[\d]*)\/\1\s+'
+  }
+
+  function ss_restart() {
+    kubectl scale statefulsets --replicas 0 "$@" && kubectl scale statefulset --replicas 1 "$@"
+  }
+
+  function ss_all_restart() {
+    kubectl get statefulsets -A | grep 'prod-\|stag-' | while read ns name _; do
+      ss_restart -n "$ns" "$name"
+    done
+  }
+
+  function deploy_all_restart() {
+    kubectl get deployments -A | grep 'prod-\|stag-' | while read ns name _; do
+      kubectl rollout restart deployment -n "$ns" "$name"
+    done
+  }
+fi
