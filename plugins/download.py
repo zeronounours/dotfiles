@@ -18,7 +18,7 @@ class Download(Plugin):
             * create: if true, create all parent directories.
               Default: False
             * force: if true, the file will be downloaded everytime dotbot
-              is lauched. Default: False
+              is launched. Default: False
 
     Destination can be relative to the base directory.
 
@@ -66,7 +66,7 @@ class Download(Plugin):
             if create:
                 success &= self._create(destination)
             # download only if needed
-            if os.path.exists(destination):
+            if os.path.exists(destination) and not force:
                 self._log.info("Skip download: %s already exists" % destination)
             else:
                 self._log.info("Download %s" % url)
