@@ -1,0 +1,4 @@
+# link common files
+- link:
+    # neovim specific config
+    $nvim_lua/plugins/opencode.lua: neovim/lua/plugins/opencode.lua

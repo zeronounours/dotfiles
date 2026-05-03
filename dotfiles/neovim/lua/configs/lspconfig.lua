@@ -5,8 +5,6 @@ local on_attach = configs.on_attach
 local on_init = configs.on_init
 local capabilities = configs.capabilities
 
-local lspconfig = require "lspconfig"
-
 -- List of lsp servers to be installed
 --    key = Mason package to install
 --    value = lspconfig entry name
@@ -62,11 +60,11 @@ M.mason= {
 -- Configure language
 M.lspconfig = function()
   for _, lsp in pairs(lspconfig_pkg) do
-    lspconfig[lsp].setup {
+    vim.lsp.config(lsp, {
       on_init = on_init,
       on_attach = on_attach,
       capabilities = capabilities,
-    }
+    })
   end
 end
 

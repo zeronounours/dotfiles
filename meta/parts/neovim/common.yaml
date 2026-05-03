@@ -1,9 +1,14 @@
 # Download neovim AppImage and install it
-- download:
-    $dlddir/nvim.appimage:
-      url: https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-      force: true
 - shell:
+    - description: Download latest AppImage of neovim
+      command: |
+        python -c "
+        import urllib.request; import json
+        platform='$(uname -s)'.lower()
+        arch='$(uname -m)'.lower()
+        print(f'https://github.com/neovim/neovim/releases/latest/download/nvim-{platform}-{arch}.appimage')
+        urllib.request.urlretrieve(f'https://github.com/neovim/neovim/releases/latest/download/nvim-{platform}-{arch}.appimage', '$dlddir/nvim.appimage')
+        "
     - chmod u+x "$dlddir/nvim.appimage"
 - link:
     ~/.local/bin/nvim:
