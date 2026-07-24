@@ -58,6 +58,7 @@ return {
   -- Override tree-sitter parsers to be installed
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     opts = function(_, opts)
       return vim.tbl_deep_extend("force", opts, require "configs.treesitter")
     end
