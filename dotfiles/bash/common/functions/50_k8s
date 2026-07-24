@@ -16,13 +16,25 @@ if which kubectl &> /dev/null; then
     kubectl get pod -l '!job-name' -A -o wide | grep -Pv '\s+([1-9]+[\d]*)\/\1\s+'
   }
 
-  function ss_restart() {
-    kubectl scale statefulsets --replicas 0 "$@" && kubectl scale statefulset --replicas 1 "$@"
+  function sts_restart() {
+    sts_scale "$@" --replicas 0 && sts_scale "$@" --replicas 1
+    return $?
   }
 
-  function ss_all_restart() {
+  function sts_scale() {
+    kubectl scale statefulsets "$@"
+    return $?
+  }
+
+  function sts_all_scale() {
     kubectl get statefulsets -A | grep 'prod-\|stag-' | while read ns name _; do
-      ss_restart -n "$ns" "$name"
+      sts_scale -n "$ns" "$name" "$@"
+    done
+  }
+
+  function sts_all_restart() {
+    kubectl get statefulsets -A | grep 'prod-\|stag-' | while read ns name _; do
+      sts_restart -n "$ns" "$name"
     done
   }
 
